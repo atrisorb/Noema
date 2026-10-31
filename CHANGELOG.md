@@ -2,6 +2,18 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.20] - 2026-10-31 - Verified Tauri CLI Range & Icon Builder Fallback
+
+### Fixed
+- Platform Icon Generation (`tools/design/build-icons.mjs`):
+  - Changed npm package reference from non-existent `@tauri-apps/cli@2.12.5` to `@tauri-apps/cli@2` (resolving latest published stable `2.12.4` without ETARGET npm errors).
+  - Pinned `tauri-cli` to verified stable `2.12.4` in `.github/workflows/release.yml`.
+- Bumped version to `0.5.20` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.
+
+### Verified
+- `cargo check --workspace`: clean (0 errors, 0 warnings).
+- `node tools/design/build-icons.mjs`: clean (generated all platform icons in 4s).
+
 ## [0.5.19] - 2026-10-31 - Pure Native GitHub CLI Releases & AppImage AppRun Integration
 
 ### Fixed

@@ -1,6 +1,6 @@
 {
   "productName": "NOEMA",
-  "version": "0.5.19",
+  "version": "0.5.20",
   "identifier": "dev.noema.desktop",
   "build": {
     "frontendDist": "./frontend",

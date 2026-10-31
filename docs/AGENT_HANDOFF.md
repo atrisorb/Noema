@@ -4,6 +4,11 @@
 
 ## Current state
 
+- **Release v0.5.20: Verified Tauri CLI Range & Icon Builder Fallback (Axon / Cortex - 2026-10-31):**
+  - Resolved npm ETARGET error on `tools/design/build-icons.mjs`: shifted package specification from non-existent `@tauri-apps/cli@2.12.5` to `@tauri-apps/cli@2` (resolving latest published stable `2.12.4`).
+  - Aligned `tauri-cli` to `2.12.4` in `.github/workflows/release.yml`.
+  - Bumped release version to `0.5.20` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.
+
 - **Release v0.5.19: Native GitHub CLI Release Publisher & Linux AppRun Fix (Axon / Cortex - 2026-10-31):**
   - Resolved Linux AppImage build error: added `$APPDIR/AppRun` wrapper resolving paths and executing `noema-app`, allowing `appimagetool` to bundle cleanly without errors.
   - Replaced third-party `softprops/action-gh-release@v2` marketplace action with native GitHub CLI (`gh release` via pwsh and bash), completely eliminating Node.js 20 deprecation annotations on GitHub Actions.

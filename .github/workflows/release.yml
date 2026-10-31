@@ -63,7 +63,7 @@ jobs:
         run: bash packaging/build.sh
 
       - name: Tauri CLI
-        run: cargo install tauri-cli --version 2.12.5 --locked
+        run: cargo install tauri-cli --version 2.12.4 --locked
 
       - name: macOS Rust targets
         if: runner.os == 'macOS'
