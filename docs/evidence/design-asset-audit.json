@@ -1,0 +1,12 @@
+{
+  "schema": "noema.asset-audit/1",
+  "at": "2026-10-31T16:02:46.386Z",
+  "trackedFiles": 213,
+  "forbiddenFiles": [],
+  "productReferenceViolations": [],
+  "generatedIconReferences": [
+    "packaging/build.sh",
+    "src-tauri/tauri.conf.json"
+  ],
+  "ok": true
+}

@@ -1,121 +1,51 @@
 # NOEMA - AGENT HANDOFF
 
-> Rewrite this file at the end of every block. Keep it under ~120 lines. Newest state first.
+> Rewrite at the end of every block. Newest state first.
 
 ## Current state
 
-- **Block 10.7 complete (2026-10-31):** `.noema.html` artifact workspace with dashboard, chat, template, versions, verify and export. 10.8 anatomy realism is next. 28 rasters remain for 10.9.
-- **Block 10.3 complete (2026-10-31):** SVG logo suite, favicon, generated platform icons.
-- **Block 10.1 complete (2026-10-31):** design audit and freeze. `docs/design/AUDIT.md` is the baseline; UI source was read-only in that block.
-- **Block 9 complete (2026-10-31):** Tauri v2 desktop wrapper + bundle pipeline. Owner push pending.
-- **Design law:** `docs/design/NOEMA_DESIGN_SYSTEM.md` **v1.1** frozen. `ARTIFACT_WORKSPACE.md`, `ANATOMY_AND_ASSETS.md`, `DECISIONS.md`, `AUDIT.md` support it.
-- **Agent:** id `noema-aesthesis`, name `NOEMA - Aesthesis`, workspace `C:\Users\Adriano Sorbello\.openclaw\workspaces\noema-aesthesis`, cwd repo, model `deepseek/deepseek-flash` (fallback FrogNano), thinking `high`, tools coding. Charter installed in the workspace and local `agents/noema-aesthesis.md` (git-ignored).
-- **Block 10 scope:** tokens, SVG logo suite, eight mascots, glass shell, artifact workspace, dashboards/chat/templates, anatomy realism, asset migration, QA.
+- **Block 10.10 reached (2026-10-31):** 10.1-10.7, 10.9 and 10.10 complete. **10.8 is partial**: material calibration and pelvic audit shipped; the skin/fascia overlay was rejected because it read as boots/gloves. Lower-leg/foot/hand topology needs Soma.
+- **Block 10.9 complete:** 28 tracked PNG -> WebP (1.22 MB total), references updated, asset audit 0/0.
+- **Blocks 10.1-10.7 complete:** audit, tokens v1.1, SVG logo suite, eight mascots, Vitreous shell, artifact workspace, dashboard/chat/templates.
+- **Design law:** `NOEMA_DESIGN_SYSTEM.md` v1.1; `AUDIT.md`, `ARTIFACT_WORKSPACE.md`, `ANATOMY_AND_ASSETS.md`, `DECISIONS.md`.
+- **Agent:** `noema-aesthesis`, workspace `C:\Users\Adriano Sorbello\.openclaw\workspaces\noema-aesthesis`, model `deepseek/deepseek-flash`. Charter local and git-ignored.
 
-## Block 10.3 results
+## Verified this run
 
-1. **Seven SVG sources:** `assets/brand/noema-mark.svg`, `noema-monogram.svg`, `noema-wordmark.svg`, `noema-lockup.svg`, `noema-lockup-stacked.svg`, `noema-app-icon.svg`, `favicon.svg`.
-2. **Mark:** lens arc with a curved N filament and arterial dot. Rejected the earlier diagonal filament because it read as a prohibition sign. Tested at 16/24/32/48/96.
-3. **Wordmark:** Newsreader 500 with a lens O and 1px filament; tight lockup spacing.
-4. **Pipelines:** `sync-brand.mjs` (favicon, `--check`), `build-icons.mjs` (`cargo tauri icon` into `src-tauri/icons/`, git-ignored), `render-logo-suite.mjs` (WEBP sheet).
-5. **Icons:** generated 32/64/128/128@2x PNG, ICO, ICNS, Windows Store and mobile sets. Removed 5 committed PNG + 1 ICO + `src-tauri/app-icon.png` from git. Tracked rasters: **28 PNG, 0 ICO**.
-6. **Favicon:** `crates/app/ui/public/favicon.svg`, linked in `index.html`; generated from the canonical source.
-7. **Evidence:** `docs/evidence/design-logo-suite.webp` (Cavity + Bone, all seven assets, mark sizes).
-8. **Build:** `npm run build` green; favicon in `dist`.
+- `cargo check --workspace`: green.
+- `npm run build`: green; CSS 36.59 KB raw / 7.05 KB gzip; JS 747.51 KB raw / 192.73 KB gzip.
+- Tokens `--check`: 29 color pairs, 12 type scales; contrast 24/24 AA.
+- Brand `--check`: favicon parity.
+- Asset audit: 0 forbidden files, 0 product-reference violations.
+- Artifact verify: 8/8, 9 anchors, no network/raster; exports HTML 5,490 B / JSON 596 B / Markdown 2,620 B.
+- Evidence: `docs/evidence/design-*.webp`, `design-*.json`, `design-qa.json`.
+- No `git push`.
 
-## Block 10.4 results
+## Block 10.8 - partial, blocked
 
-1. **Eight SVGs:** `assets/mascots/{cortex,axon,thalamus,synapse,soma,hippocampus,retina,aesthesis}.svg`, 48x48, `body`/`trace`/`glow`, currentColor body, one accent.
-2. **Loader:** `crates/app/ui/src/mascots.ts` imports raw SVGs through Vite; unknown ids return empty.
-3. **Roster:** 24px mascot replaces the generic dot; accent stays per agent; hover raises the glow; reduced motion removes the transition.
-4. **Evidence:** `docs/evidence/design-mascots.webp` at 96 and 24 in Cavity + Bone. Distinct silhouettes, no emoji.
-5. **Aesthesis:** asset ships, roster stays at 7 until Cortex approves an eighth runtime agent.
+- Atlas: 826 meshes, 290,886 triangles. Materials calibrated: muscle roughness .44, bone .52, clearcoat .04/.12.
+- Pelvic audit: 1,872 nodes, 826 meshes, 12 flagged names, all pubic bones; 0 external-genitalia meshes. Close-up `design-pelvis.webp` shows no external protrusion.
+- Rejected: procedural skin/fascia shell for calves/feet/hands. It read as boots and detached gloves. Removed, not shipped.
+- Next: Soma must supply lower-leg/foot/hand topology and a skin/fascia mesh; Aesthesis verifies with front/side/close-up WebP and glTF-Validator.
 
-## Block 10.5 results
+## Open items
 
-1. **Shell:** command bar 56px, rail 72px, inspector 380px, status filament 28px; Layers moved out of the HUD into the inspector.
-2. **Theme:** `data-theme="cavity"|"bone"` on `<html>`, persisted in `noema:theme`; scene background flips; CSS 30.16 KB raw / 6.14 KB gzip.
-3. **A11y:** skip link, focus-visible ring, aria-expanded/hidden, Escape closes inspector and rail, reduced-motion override.
-4. **Responsive:** inspector/rail become bottom sheets at 1024; rail becomes a bottom scroller at 768.
-5. **Evidence:** `design-shell-cavity.webp`, `-bone.webp`, `-layers.webp`, `-mobile.webp`, `design-shell.json`; 7 agents, 60 fps.
+1. **10.8 geometry** is the only open Block 10 item.
+2. **Fonts:** 0 WOFF2. Tokens use Newsreader/Instrument Sans/Commit Mono family names with system fallbacks. Must land before shipping the shell.
+3. **QA gaps:** full Playwright suite, axe-core, WebView2 fps trace and glTF-Validator were not run in this pass. `design-qa.json` records this.
+4. **Tests still write PNG** in `crates/app/ui/tests/**` and `tools/perf/**`; these are test-time artifacts, excluded from the committed asset audit. Migrate the capture helper to WebP next.
+5. **Security S1:** remote IPC any loopback port, `withGlobalTauri`, CSP null. Axon owns it.
+6. **Agent roster:** 7 runtime agents; the eighth mascot (Aesthesis) ships as an asset only. Needs Cortex approval.
+7. **No push.** Owner reviews and pushes.
 
-## Block 10.6/10.7 results
-
-1. **Model:** `.noema.html` with manifest, template, token-only styles, optional logic and `data-noema-id` anchors; build/parse/verify in `artifacts.ts`.
-2. **Workspace:** gallery, chat, sandboxed live iframe, inspector (props/tokens/layers/code/comments), timeline and versions.
-3. **Artifacts:** real dashboard (agents, triangles, meshes, fps, token-share SVG), chat surface and template poster.
-4. **Verify:** 8/8 checks - parse, schema, title, 9 anchors, no network, no raster, tokens, license.
-5. **Export:** HTML 5,490 B, JSON 596 B, Markdown 2,620 B; versions restore full HTML.
-6. **Evidence:** `design-artifacts-gallery.webp`, `design-artifact-dashboard.webp`, `design-artifact-verify.json`; zero console errors.
-
-## Next block: 10.8 anatomy realism
-
-- Add a material library and a skin/fascia surface for lower legs, feet and hands; improve the silhouette without hiding the atlas.
-- Audit the pelvic region by mesh bounding box and names; produce `design-pelvis-audit.json` and close-up WebP. Do not claim removal without evidence.
-- Add contact shadow and materials; LOD and glTF-Validator only if the geometry pipeline allows.
-- Coordinate with Soma for topology; Aesthesis verifies. Do not destroy atlas meshes.
-
-## Token workflow
+## Key commands
 
 ```
-node tools/design/build-tokens.mjs           # regenerate tokens.css
-node tools/design/build-tokens.mjs --check   # fail on drift
-node tools/design/check-contrast.mjs         # 24 AA pairs -> design-tokens-contrast.json
+node tools/design/build-tokens.mjs --check
+node tools/design/check-contrast.mjs
+node tools/design/sync-brand.mjs --check
+node tools/design/build-icons.mjs
+node tools/design/asset-audit.mjs
+npm run build            # crates/app/ui
+cargo check --workspace
 ```
-
-Rules: edit only `tokens.json`; never hand-edit `tokens.css`; a token change bumps `designSystem` and needs a `DECISIONS.md` row if it changes a visual rule.
-
-## Tauri command surface (bind to this, do not invent commands)
-
-| Command | Signature (Rust) | Returns |
-|---|---|---|
-| `health` | `fn health() -> Result<Value, String>` | `{ "ok": true, "version": "<noema-core version>" }` from `GET /api/health` |
-| `bridge_info` | `fn bridge_info() -> Value` | `{ "port": <u16>, "url": "http://127.0.0.1:<port>" }` |
-| `session_resume` | `fn session_resume() -> Result<Value, String>` | last `session` object from `GET /api/studio` or `null` |
-
-```js
-const invoke = window.__TAURI__?.core?.invoke;
-if (invoke) {
-  await invoke("health");
-  await invoke("bridge_info");
-  await invoke("session_resume");
-}
-```
-
-- Window label `main`. Capability `src-tauri/capabilities/main.json` grants `core:default` and IPC from loopback only.
-- The same page runs in a plain browser; guard with `window.__TAURI__` and fall back to `fetch` on `bridge_info().url`.
-- New command? Propose it here first; Axon owns `src-tauri`.
-
-## Decisions still valid
-
-1. **Studio is a hash route.** `#studio` opens the overlay; `/` stays on the body.
-2. **No duplicated server.** The wrapper never serves HTTP; it reads the `noema-app` loopback bridge.
-3. **Bundle-only overrides.** Sidecar + UI/assets resources live in `packaging/tauri.bundle.conf.json`; plain `cargo check --workspace` needs no built UI.
-4. **Sidecar naming.** `bundle.externalBin: binaries/noema-app`; packaging stages `noema-app-<target-triple>[.exe]`.
-5. **Remote IPC is narrow.** Only `127.0.0.1` and `localhost`; do not widen.
-6. **No `git push`.** Owner reviews and pushes.
-7. **Tokens are generated.** JSON canonical, CSS generated, contrast gated (D12).
-8. **AA ink on fills.** Use `artery-ink` / `danger-ink`, never `ink`, on those fills (D11).
-
-## Open items / risks
-
-1. **Font binaries are missing.** Tokens name Newsreader, Instrument Sans and Commit Mono, but the repo has 0 WOFF2. Fonts must land, be subset and licensed (<160 KB) before 10.5 ships the shell. Fallbacks are system fonts for now.
-2. **Token adoption is zero in components.** 65 hex sites in `style.css` and 5 in `main.ts` remain. 10.5 migrates surfaces; new code must read `--noema-*` only.
-3. **macOS/Linux installer formats are CI-defined.** Windows NSIS + MSI built locally; dmg/AppImage/deb/rpm await the first CI tag. Signing deferred.
-4. **macOS resource lookup.** UI/assets land in `Contents/Resources`; check `docs/PLATFORMS.md` section 6 if Tauri changes layout.
-5. **Security surface (S1).** `src-tauri/capabilities/main.json` accepts remote IPC from any loopback port, `withGlobalTauri` is true and CSP is null. Narrow patterns and set a CSP before shipping.
-6. **Session diff / live usage writer** from Block 8 remain open (Thalamus + git probe).
-7. **Full-viewport Brain route** remains Retina's navigation follow-up.
-8. **Placeholder app icon.** 10.3 replaces it with SVG source + generation script; no raster committed.
-9. **Raster migration** is 10.9. The repo still has 34 rasters; the 10.1 capture script writes WebP only.
-10. **Pelvis claim is open.** Do not describe the central mass as genitalia or as removed until the 10.8 mesh audit and close-up WebP.
-11. **Agent roster 7 vs 8.** Needs an Aesthesis mascot and rail entry; propose plan change to Cortex, do not edit the plan.
-12. **Design docs vs local charter.** `docs/design/**` is tracked. `AGENTS.md` and `agents/**` are git-ignored.
-
-## Evidence
-
-- Block 10.2: `crates/app/ui/src/design/tokens.json`, `tokens.css`; `tools/design/build-tokens.mjs`, `check-contrast.mjs`; `docs/evidence/design-tokens-contrast.json` (24/24).
-- Block 10.1: `docs/design/AUDIT.md`; `docs/evidence/design-baseline-*.webp`; `design-baseline.json`; `crates/app/ui/scripts/capture-audit.mjs`.
-- `cargo check --workspace` and `npm run build`: green after 10.2.
-- Block 9 evidence remains `docs/evidence/block9-desktop.png`, `block9-desktop-autostart.png`, `block9-webview2.json`; those PNGs migrate to WebP in 10.9.
-- No `git push` performed.

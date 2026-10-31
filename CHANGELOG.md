@@ -2,6 +2,24 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.12] - 2026-10-31 - Block 10.8-10.10: Anatomy audit, asset migration, QA
+
+### Added
+- `tools/anatomy/audit_pelvis.mjs` + `docs/evidence/design-pelvis-audit.json`: 1,872 nodes / 826 meshes; 12 flagged names, all pubic bones; 0 external-genitalia meshes. Pelvis close-up `design-pelvis.webp`.
+- `tools/design/asset-audit.mjs` + `design-asset-audit.json`: 0 forbidden files, 0 product-reference violations.
+- `crates/app/ui/scripts/capture-anatomy.mjs`; `design-body-surface.webp`, `design-body-legs.webp`, `design-anatomy.json`.
+
+### Changed
+- Atlas material calibration: muscle roughness .44, bone .52, clearcoat .04/.12; env intensity unchanged.
+- All 28 tracked PNG converted to WebP (1.22 MB total) and deleted; 14 text files and packaging references updated.
+- Generated Tauri icons remain git-ignored; no raster source committed.
+
+### Verified
+- `node tools/design/asset-audit.mjs`: 0/0.
+- `cargo check --workspace` and `npm run build` green; tokens/brand checks green.
+- Artifact verify 8/8; shell and artifact WebP captures; 0 console errors.
+- 10.8 is **partial**: the skin/fascia overlay was rejected (read as boots/gloves); lower-leg/foot/hand geometry needs Soma. No false completion.
+- No `git push`.
 ## [0.5.11] - 2026-10-31 - Block 10.6/10.7: Artifact workspace
 
 ### Added
@@ -172,8 +190,8 @@ All notable changes. Newest first. One entry per completed block/commit.
 - `cargo test --workspace` green: 58 tests (7 app, 2 cli, 8 core, 1 daemon, 11 ecosystem, 8 hippocampus, 21 inference).
 - Driftwatch digest 2026-10-31: 8 platform updates; `check` clean; no Rust or Node dependency affected.
 - `cargo tauri build --config packaging/tauri.bundle.conf.json --no-bundle`: `target/release/noema-desktop.exe` built in 3m23s.
-- Runtime: release shell launched against `noema-app serve --demo --port 4199`; window title `NOEMA`, 1136x739, full 3D body and 60 fps counter. Evidence `docs/evidence/block9-desktop.png`.
-- Cold autostart: `target/debug/noema-desktop.exe` with no `noema-app` running and port 4173 free spawned the sidecar itself (pid 20080), served the Studio at `http://127.0.0.1:4173/`, rendered the full 3D body at 60 fps, and terminated the child when the window closed. Evidence `docs/evidence/block9-desktop-autostart.png`.
+- Runtime: release shell launched against `noema-app serve --demo --port 4199`; window title `NOEMA`, 1136x739, full 3D body and 60 fps counter. Evidence `docs/evidence/block9-desktop.webp`.
+- Cold autostart: `target/debug/noema-desktop.exe` with no `noema-app` running and port 4173 free spawned the sidecar itself (pid 20080), served the Studio at `http://127.0.0.1:4173/`, rendered the full 3D body at 60 fps, and terminated the child when the window closed. Evidence `docs/evidence/block9-desktop-autostart.webp`.
 - Packaged layout: the WiX source places `noema-app.exe` next to the shell and installs `ui/` + `assets/` in the install dir, which is the resource dir the shell resolves; the debug run used the same layout.
 - Windows installers built locally by `packaging/tauri.ps1 -SkipBuild`: `NOEMA_0.1.0_x64-setup.exe` (5,431,825 bytes) and `NOEMA_0.1.0_x64_en-US.msi` (8,298,496 bytes) in `dist/tauri/` (git-ignored). The generated WiX source lists `noema-app.exe` plus the full `ui/` and `assets/` trees.
 
@@ -190,7 +208,7 @@ All notable changes. Newest first. One entry per completed block/commit.
 - Full CLI over the Studio bridge: `health`, `anatomy`, `anima`, `brain` (`telemetry`, `drag`, `dream`), `system`, `studio` (`session`, `role`, `widget`, `widget-remove`, `layout`), `session` (`list`, `open`, `resume`), `methods` and `rpc`. App calls target `NOEMA_APP_PORT` (default 4173); daemon calls reuse `daemon.json`.
 - `noema_core::rpc::METHODS` catalog plus `rpc.methods`, so clients can enumerate the daemon surface.
 - Parity tests: `every_rpc_method_has_a_cli_path` and `every_gui_route_has_a_cli_command` in `crates/cli`; `every_method_reaches_the_dispatch_table` in `crates/core`.
-- `crates/app/ui/tests/block8-qa.spec.ts`: DPR-backed canvas, live frame counter, brain zoom/wake/dream and persisted widget grid; evidence `block8-render.png`, `block8-neural-resolution.png`, `block8-dream.png`, `block8-widgets.png`.
+- `crates/app/ui/tests/block8-qa.spec.ts`: DPR-backed canvas, live frame counter, brain zoom/wake/dream and persisted widget grid; evidence `block8-render.webp`, `block8-neural-resolution.webp`, `block8-dream.webp`, `block8-widgets.webp`.
 - `packaging/build.ps1`: Windows zip with `noema.exe`, `noemad.exe`, `noema-app.exe`, `ui/`, `assets/`, README and LICENSE; NSIS setup when `makensis` exists.
 - `packaging/build.sh`: macOS `.dmg`; Linux AppImage, `.deb`, `.rpm` (when `rpmbuild` exists) and `.tar.gz`.
 - `.github/workflows/release.yml`: `windows-latest`, `macos-14`, `ubuntu-24.04`; Rust tests, platform packaging, artifact upload.
@@ -229,7 +247,7 @@ All notable changes. Newest first. One entry per completed block/commit.
 ### Verified
 - `cargo check --workspace --all-targets` green; `cargo test -p noema-app -p noema-core` 7 + 7 + daemon 1 green.
 - `npm run build` in `crates/app/ui` green; Playwright block7 1/1, block6 brain 1/1, block6 system 1/1 green.
-- Evidence: `docs/evidence/block7-studio.png`, `docs/evidence/block7-widget-filter.png`.
+- Evidence: `docs/evidence/block7-studio.webp`, `docs/evidence/block7-widget-filter.webp`.
 - Driftwatch digest 2026-10-31: 8 upstream page changes; Node 26.13.0 LTS matches the host, no Rust dependency affected.
 
 ### Notes
@@ -263,7 +281,7 @@ All notable changes. Newest first. One entry per completed block/commit.
 
 ### Verified
 - `cargo test -p noema-hippocampus` 6/6; `cargo test -p noema-app` 4/4; `cargo check --workspace --all-targets` green.
-- Playwright `tests/block6-brain.spec.ts` green; evidence `docs/evidence/block6-brain-zoom.png`, `block6-brain-far.png`, `block6-brain-dream.png`, `block6-brain-thought.png`.
+- Playwright `tests/block6-brain.spec.ts` green; evidence `docs/evidence/block6-brain-zoom.webp`, `block6-brain-far.webp`, `block6-brain-dream.webp`, `block6-brain-thought.webp`.
 - Driftwatch digest 2026-10-31: 8 upstream page changes, none on a Rust dependency.
 
 ### Notes
@@ -289,7 +307,7 @@ All notable changes. Newest first. One entry per completed block/commit.
 - `cargo check --workspace --all-targets` green; `cargo test -p noema-core` 7/7 (quality tiers, override merge/delete, typo rejection, settings round-trip, plus existing store/vector/daemon tests).
 - Live probe on `hp-atr`: i5-9400F (6/6), 24,456 MB, GTX 1650 (4095 MB) → quality `high`, pixel cap 1.75, 2500 particles, context 8192, runtime `ollama`.
 - `GET /api/system` and `POST /api/system` verified against `noema-app serve`; `noema system profile` verified with the daemon offline.
-- Playwright `tests/block6-system.spec.ts` green; screenshot `docs/evidence/block6-hardware.png`.
+- Playwright `tests/block6-system.spec.ts` green; screenshot `docs/evidence/block6-hardware.webp`.
 - Driftwatch digest read: 8 upstream page changes (Gemini, DeepSeek, Mistral, Graph, Gmail, CircleCI, Buildkite, Asana); no Rust dependency affected.
 
 ### Notes

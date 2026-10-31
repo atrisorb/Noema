@@ -65,7 +65,7 @@ Live path: `POST /api/brain/telemetry` accepts `{ events: StreamEvent[], cosine_
 
 ## Evidence
 
-`docs/evidence/block6-brain-zoom.png`, `block6-brain-far.png`, `block6-brain-dream.png`, `block6-brain-thought.png`; `crates/app/ui/tests/block6-brain.spec.ts`.
+`docs/evidence/block6-brain-zoom.webp`, `block6-brain-far.webp`, `block6-brain-dream.webp`, `block6-brain-thought.webp`; `crates/app/ui/tests/block6-brain.spec.ts`.
 
 ## Limits
 

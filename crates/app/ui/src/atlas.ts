@@ -112,8 +112,8 @@ export class Atlas {
       const cloned = originals.map((original) => {
         const m = (original as THREE.MeshStandardMaterial).clone() as THREE.MeshStandardMaterial;
         if ('metalness' in m) m.metalness = 0;
-        if ('roughness' in m) m.roughness = layer === 'vessels' || layer === 'organs' ? 0.42 : 0.6;
-        if ('clearcoat' in m) (m as THREE.MeshPhysicalMaterial).clearcoat = layer === 'vessels' ? 0.35 : 0.12;
+        if ('roughness' in m) m.roughness = layer === 'muscles' ? 0.44 : layer === 'skeleton' ? 0.52 : layer === 'vessels' || layer === 'organs' ? 0.42 : 0.5;
+        if ('clearcoat' in m) (m as THREE.MeshPhysicalMaterial).clearcoat = layer === 'skeleton' ? 0.04 : layer === 'vessels' ? 0.35 : 0.12;
         if ('envMapIntensity' in m) m.envMapIntensity = 0.9;
         m.side = THREE.DoubleSide;
         m.color.setHex(tint(m, name));

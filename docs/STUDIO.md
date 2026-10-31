@@ -75,7 +75,7 @@ The migration runner applies it once; `migrations_apply_once` asserts the count 
 
 - `cargo test -p noema-app`: `studio_restores_session_and_round_trips_roles_widgets_layout` covers snapshot, global and project role writes, widget upsert, layout clamp, session restore and removal.
 - Playwright `tests/block7-studio.spec.ts`: opens `/#studio`, asserts session repo/branch, changes a role, creates a filtered widget, drags it, reloads and asserts role + widget + layout, then removes it.
-- Evidence: `docs/evidence/block7-studio.png`, `docs/evidence/block7-widget-filter.png`.
+- Evidence: `docs/evidence/block7-studio.webp`, `docs/evidence/block7-widget-filter.webp`.
 
 ## 7. Decisions and limits
 

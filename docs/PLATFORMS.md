@@ -146,7 +146,7 @@ NOEMA_DATA_DIR=target/cli-profile cargo run -p noema-cli -- system profile
 cd crates/app/ui && npm run build && npx playwright test
 ~~~
 
-Windows evidence is recorded in docs/evidence/block6-hardware.png. Linux/macOS evidence
+Windows evidence is recorded in docs/evidence/block6-hardware.webp. Linux/macOS evidence
 is added by their CI jobs in Block 8.
 
 

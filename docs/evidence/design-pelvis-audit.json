@@ -1,0 +1,30 @@
+{
+  "schema": "noema.pelvis-audit/1",
+  "at": "2026-10-31T15:59:51.940Z",
+  "file": "assets/anatomy/atlas/body_full.glb",
+  "method": "GLB JSON chunk; local-space POSITION accessor min/max; names flagged by anatomy keywords.",
+  "totals": {
+    "nodes": 1872,
+    "meshes": 826,
+    "flaggedNames": 12,
+    "pelvicMeshes": 0,
+    "bboxHits": 0
+  },
+  "flaggedNames": [
+    "Iliopubic eminence.001",
+    "Inferior pubic ramus.001",
+    "Ischiopubic ramus.001",
+    "Pubic crest",
+    "Pubic tubercle",
+    "Superior pubic ramus.001",
+    "Iliopubic eminence",
+    "Inferior pubic ramus",
+    "Ischiopubic ramus",
+    "Pubic crest.001",
+    "Pubic tubercle.001",
+    "Superior pubic ramus"
+  ],
+  "pelvicMeshes": [],
+  "bboxHits": [],
+  "note": "No external genitalia node name is present. The central pelvic mass still requires visual close-up review; this audit does not authorise removal."
+}

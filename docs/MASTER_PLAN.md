@@ -318,7 +318,7 @@ Open risks: C: disk pressure (mitigated by target dir), high-fidelity anatomy as
 - [x] **5.3** Sistema di movimento fluido ad alta velocità degli agenti nel corpo, intercettazione al clic (3D + scheda laterale destra) e saluto deterministico istantaneo con menu di ispezione.
 - [x] **5.3a** Cinque tab: attività, token, costi, skill/plugin/MCP, workspace.
 - [x] **5.3b** Zero chiamate LLM per il saluto.
-- [x] **5.4** Aggiornamento Docs/Changelog + Verifica Piano + Git Commit (NO Push). Evidence: `docs/evidence/block5-world.png`, `block5-anima.png`, `block5-agent-rail.png`, `block5-cellular.png`, `block5-60fps.png`; 5/5 Playwright green; 60.1 fps.
+- [x] **5.4** Aggiornamento Docs/Changelog + Verifica Piano + Git Commit (NO Push). Evidence: `docs/evidence/block5-world.webp`, `block5-anima.webp`, `block5-agent-rail.webp`, `block5-cellular.webp`, `block5-60fps.webp`; 5/5 Playwright green; 60.1 fps.
 
 ### Blocco 5.5: Consapevolezza Hardware & Supporto Windows/macOS/Linux
 - [x] **5.5.1** `crates/core/src/hardware.rs`: profilo macchina (CPU, core, RAM, GPU/VRAM, disco dati, host, OS/arch) con probe nativo Windows CIM, macOS sysctl+system_profiler, Linux /proc+nvidia-smi/lspci/sysfs; nessuna dipendenza nuova.
@@ -327,7 +327,7 @@ Open risks: C: disk pressure (mitigated by target dir), high-fidelity anatomy as
 - [x] **5.5.4** Override profondi con validazione (`null` cancella, chiavi ignote rifiutate) esposti da CLI (`noema system profile|override|reset`), RPC (`system.profile|override|reset`) e HTTP (`GET/POST /api/system`).
 - [x] **5.5.5** Studio “Machine” panel: profilo live, preset qualità, pixel cap, particle budget, apply/re-detect; il renderer applica pixel ratio e circulation ricostruisce i flussi al salvataggio.
 - [x] **5.5.6** Supporto Linux allineato: percorsi XDG, permessi 0600, Secret Service, probe Linux, target AppImage/deb/rpm e CI matrix aggiornata; documentato in `docs/PLATFORMS.md`.
-- [x] **5.5.7** Docs/Changelog + test: 7 unit test core verdi, Playwright `block6-system.spec.ts` verde, evidence `docs/evidence/block6-hardware.png`; `docs/HARDWARE.md` + `docs/PLATFORMS.md` completi.
+- [x] **5.5.7** Docs/Changelog + test: 7 unit test core verdi, Playwright `block6-system.spec.ts` verde, evidence `docs/evidence/block6-hardware.webp`; `docs/HARDWARE.md` + `docs/PLATFORMS.md` completi.
 
 ### Blocco 6: Il Cervello (Rete Neurale Semantica, Fisica Vincolata & Dream Mode)
 - [x] **6.1** Motore di rendering ibrido 3D/SVG/SDF a risoluzione infinita (zero degrado visivo a qualsiasi zoom).
@@ -338,7 +338,7 @@ Open risks: C: disk pressure (mitigated by target dir), high-fidelity anatomy as
 - [x] **6.3b** Feed live da Thalamus: `ActivationWindow` su `StreamEvent` normalizzati, `POST/GET /api/brain/telemetry`, campione live 30 s applicato ai pulse; UI poll 1.5 s.
 - [x] **6.3c** Spatial hashing oltre 200 nodi (griglia uniforme, 27 celle, lato `cbrt(4.2/n)`), Rust + worker; test 240 e 500 nodi.
 - [x] **6.3d** Persistenza drag: `POST /api/brain/drag` scrive `thoughts.pos_x/y/z`; le coordinate salvate vincono sulla proiezione.
-- [x] **6.4** Aggiornamento Docs/Changelog + Verifica Piano + Git Commit (NO Push). Evidence: `docs/evidence/block6-brain-zoom.png`, `block6-brain-far.png`, `block6-brain-dream.png`, `block6-brain-thought.png`; Playwright `tests/block6-brain.spec.ts` green; 8/8 hippocampus + 6/6 app + 21/21 inference tests; HTTP smoke on `:4199` for live telemetry and drag readback.
+- [x] **6.4** Aggiornamento Docs/Changelog + Verifica Piano + Git Commit (NO Push). Evidence: `docs/evidence/block6-brain-zoom.webp`, `block6-brain-far.webp`, `block6-brain-dream.webp`, `block6-brain-thought.webp`; Playwright `tests/block6-brain.spec.ts` green; 8/8 hippocampus + 6/6 app + 21/21 inference tests; HTTP smoke on `:4199` for live telemetry and drag readback.
 
 ### Blocco 7: Lo Studio, Configuratore Totale & Motore Widget BI
 - [x] **7.1** Interfaccia completa dello Studio: gestione progetti, sessioni, assegnazione modelli (Embedding, Decisionale, Chat, Coding, Dreaming) e parametri predefiniti. — `crates/app/ui/src/studio.ts`, `GET/POST /api/studio`; global + per-project role keys in `settings` (schema v2).
@@ -355,7 +355,7 @@ Open risks: C: disk pressure (mitigated by target dir), high-fidelity anatomy as
 - [x] **8.4** Revisione finale di tutta la documentazione (`/docs`, `README.md`, `CHANGELOG.md`), spunta finale di tutti i task `[x]` e Git Commit conclusivo (NO Push). — README, ARCHITECTURE §8, PLATFORMS §6, STUDIO §8, packaging README, CHANGELOG 0.5.3, final commit.
 
 ### Blocco 9: Tauri v2 Desktop Wrapper, Bundle Configuration & Installer Pipeline
-- [x] **9.1** Crates wrapper `src-tauri` (`noema-desktop`) con Tauri 2.12.5 / tauri-build 2.7.4. Finestra creata a runtime su `http://127.0.0.1:NOEMA_APP_PORT` (default 4173); nessun server HTTP duplicato, nessuna build frontend aggiuntiva. Se il bridge non risponde, avvia il sidecar `noema-app` accanto all'eseguibile e ripiega su `src-tauri/frontend/index.html`. Autostart provato a freddo (nessun `noema-app`, 4173 libera): il sidecar parte su 4173, la finestra carica lo Studio a 60 fps ed esce alla chiusura; evidence `docs/evidence/block9-desktop-autostart.png`.
+- [x] **9.1** Crates wrapper `src-tauri` (`noema-desktop`) con Tauri 2.12.5 / tauri-build 2.7.4. Finestra creata a runtime su `http://127.0.0.1:NOEMA_APP_PORT` (default 4173); nessun server HTTP duplicato, nessuna build frontend aggiuntiva. Se il bridge non risponde, avvia il sidecar `noema-app` accanto all'eseguibile e ripiega su `src-tauri/frontend/index.html`. Autostart provato a freddo (nessun `noema-app`, 4173 libera): il sidecar parte su 4173, la finestra carica lo Studio a 60 fps ed esce alla chiusura; evidence `docs/evidence/block9-desktop-autostart.webp`.
 - [x] **9.2** Command surface minimale: `health`, `bridge_info`, `session_resume` (passthrough di `GET /api/studio` → `session`). Capability `main` con `core:default` e `remote.urls` su `http://127.0.0.1:*` / `http://localhost:*`.
 - [x] **9.3** Bundle: `bundle.targets = all` (NSIS + MSI su Windows, DMG su macOS, AppImage/deb/rpm su Linux), icone generate in `src-tauri/icons`, risorse `ui/` + `assets/` e sidecar `noema-app` passati da `packaging/tauri.bundle.conf.json` al momento del bundle. Installer Windows verificati localmente: `NOEMA_0.1.0_x64-setup.exe` 5.18 MiB, `NOEMA_0.1.0_x64_en-US.msi` 7.91 MiB.
 - [x] **9.4** Pipeline: `packaging/tauri.ps1` (Windows), `packaging/tauri.sh` (macOS universal, Linux), `.github/workflows/release.yml` con dipendenze WebKitGTK, Tauri CLI 2.12.4 e upload `dist/**`; zip/`.dmg`/tar standalone di Block 8 invariati.
@@ -370,6 +370,6 @@ Open risks: C: disk pressure (mitigated by target dir), high-fidelity anatomy as
 - [x] **10.5** Glass + shell: Lens/Membrane/Cavity primitives, Spine layout, HUD, agent rail, inspector, Studio, Brain, Anima, Machine; dark/light; responsive.
 - [x] **10.6** Artifact workspace: chat + canvas + inspector + timeline + assets + export; `.noema.html` parse/edit/props/comments/versions/verify.
 - [x] **10.7** Dashboards, chat and templates: one real dashboard, one chat surface, one template gallery; every artifact editable, downloadable, exportable, forkable, versioned.
-- [ ] **10.8** Anatomy realism: material library, skin/fascia surface, lower-leg/foot geometry, neutral pelvis, external genitalia removed, lighting, LOD, glTF-Validator clean. Coordinate with Soma; Aesthesis verifies.
-- [ ] **10.9** Asset migration: all PNG/JPEG/ICO sources -> SVG/WEBP/generated; update references; `tools/design/asset-audit.mjs` green; CI gate.
-- [ ] **10.10** QA + docs: Playwright, axe, contrast, 60fps trace, WEBP evidence, `cargo check --workspace` green, CHANGELOG + AGENT_HANDOFF updated, atomic commit (no push).
+- [~] **10.8** Anatomy realism: material library, skin/fascia surface, lower-leg/foot geometry, neutral pelvis, external genitalia removed, lighting, LOD, glTF-Validator clean. Coordinate with Soma; Aesthesis verifies.
+- [x] **10.9** Asset migration: all PNG/JPEG/ICO sources -> SVG/WEBP/generated; update references; `tools/design/asset-audit.mjs` green; CI gate.
+- [x] **10.10** QA + docs: Playwright, axe, contrast, 60fps trace, WEBP evidence, `cargo check --workspace` green, CHANGELOG + AGENT_HANDOFF updated, atomic commit (no push).

@@ -22,7 +22,7 @@
 
 | File | Source | Author | License |
 |---|---|---|---|
-| `cad/vertebra.json`, `cad/vertebra.eval.json`, `cad/vertebra.step`, `cad/vertebra.png` | parametric part, this repo, SolidCraft CLI 0.28.0 | NOEMA contributors | CC0-1.0 |
+| `cad/vertebra.json`, `cad/vertebra.eval.json`, `cad/vertebra.step`, `cad/vertebra.webp` | parametric part, this repo, SolidCraft CLI 0.28.0 | NOEMA contributors | CC0-1.0 |
 | `cad/vertebra-section.dxf`, `cad/vertebra-section.pdf`, `cad/vertebra-section.svg` | drawing, this repo, CADCraft CLI 0.15.1 | NOEMA contributors | CC0-1.0 |
 
 No third-party texture, scan or paid asset is committed. Code in `crates/app/ui/src/body.ts` is MIT.

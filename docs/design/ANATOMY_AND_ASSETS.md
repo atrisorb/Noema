@@ -9,7 +9,7 @@ Sources inspected on 2026-10-31:
 
 - <code>crates/app/ui/src/body.ts</code> - procedural body.
 - <code>assets/anatomy/atlas/body_full.glb</code> - GLB JSON chunk parsed directly.
-- <code>docs/evidence/block5-atlas.png</code>, <code>block5-world.png</code>, <code>block9-desktop.png</code> - visual inspection.
+- <code>docs/evidence/block5-atlas.webp</code>, <code>block5-world.webp</code>, <code>block9-desktop.webp</code> - visual inspection.
 - <code>assets/anatomy/LICENSES.md</code> - asset provenance.
 
 ## 2. Current body facts
@@ -133,7 +133,7 @@ Exceptions:
 | <code>docs/evidence/*.png</code> | 20+ | Convert to WEBP, update links, delete PNG |
 | <code>src-tauri/icons/*.png</code> | 3 | Generate from <code>assets/brand/noema-app-icon.svg</code>, git-ignore |
 | <code>src-tauri/app-icon.png</code> | 1 | Replace with SVG source, generate, git-ignore |
-| <code>assets/anatomy/cad/vertebra.png</code> | 1 | Use <code>vertebra-section.svg</code>, delete PNG |
+| <code>assets/anatomy/cad/vertebra.webp</code> | 1 | Use <code>vertebra-section.svg</code>, delete PNG |
 | <code>src-tauri/icons/icon.ico</code> | 1 | Generated build artifact, git-ignore |
 | Any JPEG | 0 | None found; keep it zero |
 

@@ -44,12 +44,12 @@ Tracked rasters: **34 files, 8,628,345 bytes (8.23 MiB)**.
 | `docs/evidence/*.png` | 26 | 8,193,139 | Block 5-9 screenshots and baselines | Convert to WebP q82, update links and JSON shot paths, delete PNG |
 | `src-tauri/icons/{32x32,128x128,128x128@2x,icon}.png` + `icon.ico` | 5 | 133,745 | Tauri placeholder icon set | Generate from `assets/brand/noema-app-icon.svg` into a git-ignored output dir; remove committed copies |
 | `src-tauri/app-icon.png` | 1 | 40,853 | Source used by `cargo tauri icon` | Replace with SVG source; generation only |
-| `crates/app/ui/evidence/block9-wrapper-studio.png` | 1 | 170,181 | Wrapper evidence | Convert to WebP |
-| `assets/anatomy/cad/vertebra.png` | 1 | 90,427 | Raster duplicate of `vertebra-section.svg` / `.pdf` / `.dxf` | Delete; SVG is the source |
+| `crates/app/ui/evidence/block9-wrapper-studio.webp` | 1 | 170,181 | Wrapper evidence | Convert to WebP |
+| `assets/anatomy/cad/vertebra.webp` | 1 | 90,427 | Raster duplicate of `vertebra-section.svg` / `.pdf` / `.dxf` | Delete; SVG is the source |
 
 Counts by extension: 33 PNG, 1 ICO, **0 JPEG, 0 GIF, 0 BMP, 0 TIFF**. No new raster was added in this block.
 
-Largest rasters: `block9-baseline-cellular.png` 614,701 B, `block5-heart-close.png` 611,923 B, `block9-baseline-dpr2.png` 590,866 B. Twenty-six evidence PNGs alone are 95% of raster bytes; migrating them is the single largest asset win.
+Largest rasters: `block9-baseline-cellular.webp` 614,701 B, `block5-heart-close.webp` 611,923 B, `block9-baseline-dpr2.webp` 590,866 B. Twenty-six evidence PNGs alone are 95% of raster bytes; migrating them is the single largest asset win.
 
 Reference inventory: **70 references in 27 tracked text files** (excluding `package-lock.json`).
 
@@ -57,7 +57,7 @@ Reference inventory: **70 references in 27 tracked text files** (excluding `pack
 |---|---|---|
 | Playwright specs (`tests/*.spec.ts`, `*.perf.ts`) | 22 in 7 files | Tests write PNG evidence directly; 10.9/10.10 must switch them to WebP |
 | `src-tauri/tauri.conf.json` | 5 | Bundled icon paths |
-| `packaging/build.sh` | 2 | Reuses `docs/evidence/block8-render.png` as a Linux icon; must generate from SVG |
+| `packaging/build.sh` | 2 | Reuses `docs/evidence/block8-render.webp` as a Linux icon; must generate from SVG |
 | Docs (`CHANGELOG`, `MASTER_PLAN`, `BRAIN`, `HARDWARE`, `PLATFORMS`, `STUDIO`, `REVIEW-block9`, `AGENT_HANDOFF`, `design/ANATOMY`, `LICENSES`) | 29 | Link-only; update during migration |
 | Evidence JSON (`block9-*.json`) | 6 | `shot` fields point at PNG |
 | `marketplace/system-visual-qa` | 4 | Skill and script default to PNG output; update contract to WebP |

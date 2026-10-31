@@ -40,7 +40,7 @@ Icon=noema
 Categories=Development;Science;
 EOF
     cp "$APPDIR/noema.desktop" "$APPDIR/usr/share/applications/"
-    cp "$ROOT/docs/evidence/block8-render.png" "$APPDIR/usr/share/icons/hicolor/256x256/apps/noema.png" 2>/dev/null || true
+    cp "$ROOT/src-tauri/icons/128x128.png" "$APPDIR/usr/share/icons/hicolor/256x256/apps/noema.png" 2>/dev/null || true
     cp "$APPDIR/usr/share/icons/hicolor/256x256/apps/noema.png" "$APPDIR/noema.png" 2>/dev/null || true
     if command -v appimagetool >/dev/null; then
       appimagetool "$APPDIR" "$OUT/noema-$VERSION-linux-$ARCH.AppImage"

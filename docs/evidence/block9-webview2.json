@@ -37,7 +37,7 @@
     "hitchesPerSec": 0,
     "droppedFrames": 0
   },
-  "shot": "docs/evidence/block9-webview2.png",
+  "shot": "docs/evidence/block9-webview2.webp",
   "baseline": {
     "path": "docs/evidence/block9-baseline.json",
     "scenario": "full-atlas",

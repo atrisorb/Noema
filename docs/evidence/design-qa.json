@@ -1,0 +1,57 @@
+{
+  "schema": "noema.design-qa/1",
+  "at": "2026-10-31T16:02:46.823Z",
+  "checks": {
+    "cargoCheck": {
+      "ok": true,
+      "detail": "Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.25s"
+    },
+    "uiBuild": {
+      "ok": true,
+      "detail": "vite build green"
+    },
+    "tokens": {
+      "ok": true,
+      "detail": "build-tokens --check"
+    },
+    "brand": {
+      "ok": true,
+      "detail": "sync-brand --check"
+    },
+    "assetAudit": {
+      "ok": true,
+      "detail": "0 forbidden files, 0 product-reference violations"
+    },
+    "artifactVerify": {
+      "ok": true,
+      "detail": "8/8 checks, 9 anchors, no network/raster"
+    },
+    "captures": {
+      "shell": [
+        "cavity",
+        "bone",
+        "layers",
+        "mobile"
+      ],
+      "artifacts": [
+        "gallery",
+        "dashboard"
+      ],
+      "anatomy": [
+        "surface",
+        "legs",
+        "pelvis"
+      ]
+    },
+    "notRun": [
+      "full Playwright suite",
+      "axe-core (dependency not installed)",
+      "WebView2 fps trace",
+      "glTF-Validator"
+    ]
+  },
+  "blocked": {
+    "item": "10.8 anatomy geometry",
+    "reason": "skin/fascia overlay rejected; lower-leg/foot/hand topology requires Soma"
+  }
+}

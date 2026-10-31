@@ -1,0 +1,147 @@
+{
+  "capturedAt": "2026-10-31T16:01:09.809Z",
+  "base": "http://127.0.0.1:4199",
+  "shots": [
+    "docs/evidence/design-body-surface.webp",
+    "docs/evidence/design-body-legs.webp",
+    "docs/evidence/design-pelvis.webp"
+  ],
+  "atlas": {
+    "systems": 1,
+    "triangles": 290886,
+    "errors": []
+  },
+  "debug": {
+    "rootVisible": true,
+    "box": {
+      "min": [
+        -0.3383930347165931,
+        -0.86,
+        -0.13510800085070795
+      ],
+      "max": [
+        0.3383930347165931,
+        0.8599999999999999,
+        0.13510800085070798
+      ]
+    },
+    "size": [
+      0.6767860694331862,
+      1.7199999999999998,
+      0.2702160017014159
+    ],
+    "center": [
+      0,
+      -5.551115123125783e-17,
+      1.3877787807814457e-17
+    ],
+    "meshes": 826,
+    "visibleMeshes": 826,
+    "transparent": 0,
+    "camera": [
+      0,
+      0.03439999999999972,
+      4.048888169299294
+    ],
+    "target": [
+      0,
+      -5.551115123125783e-17,
+      1.3877787807814457e-17
+    ],
+    "layers": {
+      "skin": false,
+      "muscles": true,
+      "skeleton": true,
+      "nerves": true,
+      "vessels": true,
+      "organs": true,
+      "brain": true
+    }
+  },
+  "sample": [
+    {
+      "name": "Lateral_rectus_muscle",
+      "parent": "muscles",
+      "visible": true,
+      "type": "MeshStandardMaterial",
+      "color": "8e2f2f",
+      "opacity": 1,
+      "transparent": false,
+      "side": 2,
+      "map": false,
+      "vertexColors": false,
+      "metalness": 0,
+      "roughness": 0.44
+    },
+    {
+      "name": "Lateral_rectus_muscle001",
+      "parent": "muscles",
+      "visible": true,
+      "type": "MeshStandardMaterial",
+      "color": "8e2f2f",
+      "opacity": 1,
+      "transparent": false,
+      "side": 2,
+      "map": false,
+      "vertexColors": false,
+      "metalness": 0,
+      "roughness": 0.44
+    },
+    {
+      "name": "Superior_oblique_muscle",
+      "parent": "muscles",
+      "visible": true,
+      "type": "MeshStandardMaterial",
+      "color": "8e2f2f",
+      "opacity": 1,
+      "transparent": false,
+      "side": 2,
+      "map": false,
+      "vertexColors": false,
+      "metalness": 0,
+      "roughness": 0.44
+    },
+    {
+      "name": "Superior_oblique_muscle001",
+      "parent": "muscles",
+      "visible": true,
+      "type": "MeshStandardMaterial",
+      "color": "8e2f2f",
+      "opacity": 1,
+      "transparent": false,
+      "side": 2,
+      "map": false,
+      "vertexColors": false,
+      "metalness": 0,
+      "roughness": 0.44
+    },
+    {
+      "name": "Common_tendinous_ring001",
+      "parent": "muscles",
+      "visible": true,
+      "type": "MeshStandardMaterial",
+      "color": "89503f",
+      "opacity": 1,
+      "transparent": false,
+      "side": 2,
+      "map": false,
+      "vertexColors": false,
+      "metalness": 0,
+      "roughness": 0.44
+    },
+    {
+      "name": "Inferior_oblique_muscle001",
+      "parent": "muscles",
+      "visible": true,
+      "type": "MeshStandardMaterial",
+      "color": "8e2f2f",
+      "opacity": 1,
+      "transparent": false,
+      "side": 2,
+      "map": false,
+      "vertexColors": false,
+      "metalness": 0,
+      "roughness": 0.44
+    }
+  ]
+}

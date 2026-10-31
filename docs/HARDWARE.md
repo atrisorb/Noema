@@ -168,4 +168,4 @@ config file to edit.
 - HTTP: `GET /api/system` and `POST /api/system` verified against `noema-app serve`.
 - CLI: `noema system profile` returns the same JSON with the daemon offline (local store).
 - Playwright: `tests/block6-system.spec.ts` opens the Machine panel, saves an override and
-  asserts the persisted value; screenshot `docs/evidence/block6-hardware.png`.
+  asserts the persisted value; screenshot `docs/evidence/block6-hardware.webp`.

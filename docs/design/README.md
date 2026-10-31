@@ -50,8 +50,8 @@ Aesthesis is registered but not auto-started. The owner dispatches it from OpenC
 ## Current state
 
 - Design law: written and frozen (v1.1, 2026-10-31).
-- Agent: Aesthesis running; Block 10.7 complete.
-- Block 10: 10.1-10.7 complete; 10.8 anatomy realism next.
+- Agent: Aesthesis run; Block 10.10 reached. 10.8 is partial.
+- Block 10: 10.1-10.7, 10.9 and 10.10 complete; 10.8 partial (audit + materials, geometry blocked on Soma).
 - Tokens: 29 color pairs, 12 type scales, 9 space steps, radius/z/motion/motion curves; Cavity + Bone; 24/24 contrast pairs pass AA.
 - Brand: seven SVG sources in `assets/brand/`; logo sheet `docs/evidence/design-logo-suite.webp`; platform icons generated and git-ignored.
 - Mascots: eight SVG sources in `assets/mascots/`, loaded into the roster at 24px; sheet `docs/evidence/design-mascots.webp`.

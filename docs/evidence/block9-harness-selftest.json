@@ -37,7 +37,7 @@
     "hitchesPerSec": 0,
     "droppedFrames": 0
   },
-  "shot": "docs/evidence/block9-harness-selftest.png",
+  "shot": "docs/evidence/block9-harness-selftest.webp",
   "note": "self-test only, not a WebView2 measurement: --launch drives Chromium over CDP",
   "baseline": {
     "path": "docs/evidence/block9-baseline.json",
