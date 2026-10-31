@@ -2,6 +2,25 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.11] - 2026-10-31 - Block 10.6/10.7: Artifact workspace
+
+### Added
+- `crates/app/ui/src/artifacts.ts`: `.noema.html` model - manifest, template, token styles, `data-noema-id` anchors, parse/build/verify.
+- Artifact overlay: gallery, chat transcript, live iframe canvas, inspector (props/tokens/layers/code/comments), timeline and versions.
+- One real dashboard (runtime agents, triangles, meshes, fps and token-share SVG), one chat artifact and one template poster.
+- Verify gate: parse, schema, title, anchors, no network, no raster, tokens, license. Report in the UI and `window.__noemaArtifacts`.
+- Export HTML/JSON/Markdown from the manifest; versions store full HTML and restore.
+- `scripts/capture-artifacts.mjs`, `design-artifacts-gallery.webp`, `design-artifact-dashboard.webp`, `design-artifact-verify.json`.
+
+### Changed
+- Command bar gains `artifacts`; Escape closes the workspace.
+- Artifact styles are token-only and iframe-sandboxed.
+
+### Verified
+- Verify 8/8 pass, 9 anchors, no network, no raster; export lengths HTML 5,490 / JSON 596 / Markdown 2,620.
+- 3 gallery cards; one comment added and resolved; zero console errors.
+- `npm run build` green. No raster added, no `git push`.
+
 ## [0.5.10] - 2026-10-31 - Block 10.5: Vitreous shell
 
 ### Added

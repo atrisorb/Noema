@@ -368,8 +368,8 @@ Open risks: C: disk pressure (mitigated by target dir), high-fidelity anatomy as
 - [x] **10.3** Logo suite: mark, monogram, wordmark, lockup, stacked lockup, favicon and app-icon source as SVG; icon generation script; no raster committed.
 - [x] **10.4** Mascots: eight agent SVG mascots with shared rig, 16/24/96/512 sizes, trace/breathe motion, reduced-motion fallback, sprite loader.
 - [x] **10.5** Glass + shell: Lens/Membrane/Cavity primitives, Spine layout, HUD, agent rail, inspector, Studio, Brain, Anima, Machine; dark/light; responsive.
-- [ ] **10.6** Artifact workspace: chat + canvas + inspector + timeline + assets + export; `.noema.html` parse/edit/props/comments/versions/verify.
-- [ ] **10.7** Dashboards, chat and templates: one real dashboard, one chat surface, one template gallery; every artifact editable, downloadable, exportable, forkable, versioned.
+- [x] **10.6** Artifact workspace: chat + canvas + inspector + timeline + assets + export; `.noema.html` parse/edit/props/comments/versions/verify.
+- [x] **10.7** Dashboards, chat and templates: one real dashboard, one chat surface, one template gallery; every artifact editable, downloadable, exportable, forkable, versioned.
 - [ ] **10.8** Anatomy realism: material library, skin/fascia surface, lower-leg/foot geometry, neutral pelvis, external genitalia removed, lighting, LOD, glTF-Validator clean. Coordinate with Soma; Aesthesis verifies.
 - [ ] **10.9** Asset migration: all PNG/JPEG/ICO sources -> SVG/WEBP/generated; update references; `tools/design/asset-audit.mjs` green; CI gate.
 - [ ] **10.10** QA + docs: Playwright, axe, contrast, 60fps trace, WEBP evidence, `cargo check --workspace` green, CHANGELOG + AGENT_HANDOFF updated, atomic commit (no push).

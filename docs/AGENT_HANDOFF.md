@@ -4,7 +4,7 @@
 
 ## Current state
 
-- **Block 10.5 complete (2026-10-31):** Vitreous Spine shell, Cavity/Bone toggle, Layers inspector, status filament. 10.6 artifact workspace is next. 28 rasters remain for 10.9.
+- **Block 10.7 complete (2026-10-31):** `.noema.html` artifact workspace with dashboard, chat, template, versions, verify and export. 10.8 anatomy realism is next. 28 rasters remain for 10.9.
 - **Block 10.3 complete (2026-10-31):** SVG logo suite, favicon, generated platform icons.
 - **Block 10.1 complete (2026-10-31):** design audit and freeze. `docs/design/AUDIT.md` is the baseline; UI source was read-only in that block.
 - **Block 9 complete (2026-10-31):** Tauri v2 desktop wrapper + bundle pipeline. Owner push pending.
@@ -39,12 +39,21 @@
 4. **Responsive:** inspector/rail become bottom sheets at 1024; rail becomes a bottom scroller at 768.
 5. **Evidence:** `design-shell-cavity.webp`, `-bone.webp`, `-layers.webp`, `-mobile.webp`, `design-shell.json`; 7 agents, 60 fps.
 
-## Next block: 10.6 artifact workspace
+## Block 10.6/10.7 results
 
-- Add the `.noema.html` model: manifest, template, token-only styles, optional logic, `data-noema-id` anchors.
-- Build chat + canvas + inspector + timeline + assets + export in one overlay; parse, edit, props, comments, versions, verify.
-- One real artifact must pass the verification gate and export HTML, JSON and Markdown; no raster preview.
-- Evidence: artifact WEBP capture + verify JSON; Playwright smoke.
+1. **Model:** `.noema.html` with manifest, template, token-only styles, optional logic and `data-noema-id` anchors; build/parse/verify in `artifacts.ts`.
+2. **Workspace:** gallery, chat, sandboxed live iframe, inspector (props/tokens/layers/code/comments), timeline and versions.
+3. **Artifacts:** real dashboard (agents, triangles, meshes, fps, token-share SVG), chat surface and template poster.
+4. **Verify:** 8/8 checks - parse, schema, title, 9 anchors, no network, no raster, tokens, license.
+5. **Export:** HTML 5,490 B, JSON 596 B, Markdown 2,620 B; versions restore full HTML.
+6. **Evidence:** `design-artifacts-gallery.webp`, `design-artifact-dashboard.webp`, `design-artifact-verify.json`; zero console errors.
+
+## Next block: 10.8 anatomy realism
+
+- Add a material library and a skin/fascia surface for lower legs, feet and hands; improve the silhouette without hiding the atlas.
+- Audit the pelvic region by mesh bounding box and names; produce `design-pelvis-audit.json` and close-up WebP. Do not claim removal without evidence.
+- Add contact shadow and materials; LOD and glTF-Validator only if the geometry pipeline allows.
+- Coordinate with Soma for topology; Aesthesis verifies. Do not destroy atlas meshes.
 
 ## Token workflow
 

@@ -8,6 +8,7 @@ import { Swarm } from './agents';
 import { BrainGraph, type BrainNode } from './brain';
 import { mascot } from './mascots';
 import { mountStudio } from './studio';
+import { mountArtifacts } from './artifacts';
 import type { Anatomy, Agent, LayerName } from './types';
 import { apiBase, apiUrl, assetBase, getJson, isTauri } from './platform';
 
@@ -439,6 +440,9 @@ $('#rail-close').addEventListener('click', closeRail);
 $('#anima-close').addEventListener('click', () => { animaPanel.classList.remove('open'); animaPanel.setAttribute('aria-hidden', 'true'); });
 $('#anima-save').addEventListener('click', saveAnima);
 const studio = mountStudio(toast);
+const artifacts = mountArtifacts(toast);
+$('#artifacts-btn').addEventListener('click', () => artifacts.open());
+addEventListener('keydown', (event) => { if (event.key === 'Escape') artifacts.close(); });
 $('#studio-btn').addEventListener('click', () => void studio.setOpen(!studio.isOpen()));
 function applyHash() {
   const want = location.hash.replace(/^#\/?/, '') === 'studio';

@@ -50,11 +50,12 @@ Aesthesis is registered but not auto-started. The owner dispatches it from OpenC
 ## Current state
 
 - Design law: written and frozen (v1.1, 2026-10-31).
-- Agent: Aesthesis running; Block 10.5 complete.
-- Block 10: 10.1-10.5 complete; 10.6 artifact workspace next.
+- Agent: Aesthesis running; Block 10.7 complete.
+- Block 10: 10.1-10.7 complete; 10.8 anatomy realism next.
 - Tokens: 29 color pairs, 12 type scales, 9 space steps, radius/z/motion/motion curves; Cavity + Bone; 24/24 contrast pairs pass AA.
 - Brand: seven SVG sources in `assets/brand/`; logo sheet `docs/evidence/design-logo-suite.webp`; platform icons generated and git-ignored.
 - Mascots: eight SVG sources in `assets/mascots/`, loaded into the roster at 24px; sheet `docs/evidence/design-mascots.webp`.
 - Shell: command bar 56px, rail 72px, inspector 380px, status filament 28px; Cavity/Bone toggle persists; layer panel; responsive at 1024/768.
+- Artifacts: `.noema.html` workspace with gallery, dashboard, chat and template; props/tokens/layers/code/comments inspector; versions, verify and HTML/JSON/Markdown export.
 - Raster debt: 34 files / 8.23 MiB (33 PNG + 1 ICO), 70 references. See [AUDIT.md](AUDIT.md).
 - Body: muscle/bone atlas + capsule skin. Baseline confirms skeletal lower legs, feet and hands; the pelvic mass is unresolved pending the 10.8 mesh audit.

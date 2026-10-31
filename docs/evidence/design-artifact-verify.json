@@ -1,0 +1,82 @@
+{
+  "capturedAt": "2026-10-31T15:58:29.572Z",
+  "base": "http://127.0.0.1:4199",
+  "shots": [
+    "docs/evidence/design-artifacts-gallery.webp",
+    "docs/evidence/design-artifact-dashboard.webp"
+  ],
+  "errors": [],
+  "galleryCards": 3,
+  "current": {
+    "schema": "noema.artifact/1",
+    "id": "art_runtime",
+    "type": "dashboard",
+    "title": "Anatomy runtime",
+    "version": "1.0.0",
+    "created_at": "2026-10-31T15:58:31.565Z",
+    "author": "atr",
+    "model": "deepseek/deepseek-flash",
+    "design_system": "noema-vitreous@1.1.0",
+    "theme": "cavity",
+    "props": {},
+    "exports": [
+      "html",
+      "json",
+      "md"
+    ],
+    "lineage": [],
+    "license": "MIT"
+  },
+  "verify": {
+    "ok": true,
+    "at": "2026-10-31T15:58:34.910Z",
+    "checks": [
+      {
+        "id": "parse",
+        "pass": true,
+        "detail": "manifest and template parse"
+      },
+      {
+        "id": "schema",
+        "pass": true,
+        "detail": "noema.artifact/1"
+      },
+      {
+        "id": "title",
+        "pass": true,
+        "detail": "Anatomy runtime"
+      },
+      {
+        "id": "anchors",
+        "pass": true,
+        "detail": "9 anchors"
+      },
+      {
+        "id": "no-network",
+        "pass": true,
+        "detail": "no absolute URL"
+      },
+      {
+        "id": "no-raster",
+        "pass": true,
+        "detail": "no raster reference"
+      },
+      {
+        "id": "tokens",
+        "pass": true,
+        "detail": "token variables present"
+      },
+      {
+        "id": "license",
+        "pass": true,
+        "detail": "MIT"
+      }
+    ]
+  },
+  "exportLengths": {
+    "html": 5490,
+    "json": 596,
+    "md": 2620
+  },
+  "comments": 1
+}
