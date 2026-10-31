@@ -365,7 +365,7 @@ Open risks: C: disk pressure (mitigated by target dir), high-fidelity anatomy as
 ### Blocco 10: Vitreous Design System, Brand, Artifact Workspace & Anatomy Realism
 - [x] **10.1** Audit + freeze: read `docs/design/*`, driftwatch digest, full asset/reference inventory, current-state WEBP captures, `docs/design/AUDIT.md`.
 - [x] **10.2** Decisions + tokens v1: `docs/design/DECISIONS.md`, `crates/app/ui/src/design/tokens.css`, `tokens.json`; Cavity + Bone; no hard-coded hex in touched surfaces.
-- [ ] **10.3** Logo suite: mark, monogram, wordmark, lockup, stacked lockup, favicon and app-icon source as SVG; icon generation script; no raster committed.
+- [x] **10.3** Logo suite: mark, monogram, wordmark, lockup, stacked lockup, favicon and app-icon source as SVG; icon generation script; no raster committed.
 - [ ] **10.4** Mascots: eight agent SVG mascots with shared rig, 16/24/96/512 sizes, trace/breathe motion, reduced-motion fallback, sprite loader.
 - [ ] **10.5** Glass + shell: Lens/Membrane/Cavity primitives, Spine layout, HUD, agent rail, inspector, Studio, Brain, Anima, Machine; dark/light; responsive.
 - [ ] **10.6** Artifact workspace: chat + canvas + inspector + timeline + assets + export; `.noema.html` parse/edit/props/comments/versions/verify.

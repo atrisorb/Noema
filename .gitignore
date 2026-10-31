@@ -18,6 +18,8 @@ crates/app/gen/schemas/
 crates/app/icons/*.png
 src-tauri/gen/
 src-tauri/binaries/
+src-tauri/icons/
+src-tauri/app-icon.png
 dist/
 *.msi
 *.dmg

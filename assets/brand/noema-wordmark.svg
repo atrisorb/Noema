@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 48" fill="none" role="img" aria-labelledby="word-title">
+  <title id="word-title">NOEMA wordmark</title>
+  <g fill="currentColor" font-family="Newsreader, Georgia, serif" font-weight="500" font-size="34" letter-spacing="1.2">
+    <text x="0" y="36">N</text>
+    <text x="62" y="36">EMA</text>
+  </g>
+  <g transform="translate(42 24)">
+    <circle r="14" stroke="currentColor" stroke-width="2.5"/>
+    <path d="M-7 7C-4 3-2 0 2-6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+    <circle r="1.2" fill="#FF5A5F"/>
+  </g>
+</svg>

@@ -2,6 +2,27 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.8] - 2026-10-31 - Block 10.3: SVG logo suite
+
+### Added
+- Seven SVG sources in `assets/brand/`: mark (lens + N filament), monogram, wordmark, lockup, stacked lockup, 1024 app icon and favicon.
+- `tools/design/sync-brand.mjs`: favicon source -> `crates/app/ui/public/favicon.svg`; `--check` fails on drift.
+- `tools/design/build-icons.mjs`: `cargo tauri icon` from the SVG source into git-ignored `src-tauri/icons/`.
+- `tools/design/render-logo-suite.mjs` and `docs/evidence/design-logo-suite.webp`: Cavity + Bone sheet, mark at 16/24/32/48/96.
+- Favicon link in `index.html`.
+
+### Changed
+- Removed committed Tauri PNG/ICO/ICNS icons and `src-tauri/app-icon.png`; `src-tauri/icons/` and `src-tauri/app-icon.png` are git-ignored generated outputs.
+- `package.json`: `brand`, `brand:check`, `icons`.
+- `docs/MASTER_PLAN.md`: 10.3 ticked; design README state.
+
+### Verified
+- `node tools/design/sync-brand.mjs --check`: favicon ok.
+- `node tools/design/build-icons.mjs`: generated 32/64/128/128@2x, ICO, ICNS, Windows Store and mobile sets.
+- `npm run build`: green; favicon in `dist`.
+- Logo sheet: no prohibition-slash reading; wordmark and lockups use the lens O.
+- No raster committed, no `git push`.
+
 ## [0.5.7] - 2026-10-31 - Block 10.2: Vitreous tokens v1
 
 ### Added

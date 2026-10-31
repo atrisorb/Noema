@@ -2,7 +2,7 @@
 
 Source of truth. All files here are SVG, currentColor or token-driven. No PNG, JPEG, GIF or BMP.
 
-## Files to create (Aesthesis, Block 10.3)
+## Files (Block 10.3)
 
 | File | Use |
 |---|---|
@@ -13,6 +13,12 @@ Source of truth. All files here are SVG, currentColor or token-driven. No PNG, J
 | <code>noema-lockup-stacked.svg</code> | Square/stacked lockup |
 | <code>noema-app-icon.svg</code> | 1024 square app icon source |
 | <code>favicon.svg</code> | Browser favicon |
+
+## Build
+
+- `node tools/design/sync-brand.mjs` copies `favicon.svg` to `crates/app/ui/public/favicon.svg`; `--check` fails on drift.
+- `node tools/design/build-icons.mjs` renders platform icons from `noema-app-icon.svg` into `src-tauri/icons/`, which is git-ignored.
+- `node tools/design/render-logo-suite.mjs` writes `docs/evidence/design-logo-suite.webp`.
 
 ## Rules
 
