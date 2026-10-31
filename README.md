@@ -48,6 +48,8 @@ Details: [`docs/HARDWARE.md`](docs/HARDWARE.md) and [`docs/PLATFORMS.md`](docs/P
 The Studio lives at `#studio`: restored session, projects, five role-model slots and a
 drag/resize BI grid with filter-to-widget. Contract: [`docs/STUDIO.md`](docs/STUDIO.md).
 
+Design law: [`docs/design/`](docs/design/) - Vitreous glass, SVG-only assets, artifact workspace and anatomy standards.
+
 ## Repo map
 
 ```
@@ -62,7 +64,7 @@ docs/               MASTER_PLAN.md, ARCHITECTURE.md, STUDIO.md, HARDWARE.md, PLA
 agents/             per-agent charters (also installed to OpenClaw workspaces)
 ```
 
-## Agent team (7)
+## Agent team (8)
 
 | Agent | id | Role |
 |-------|----|------|
@@ -73,6 +75,7 @@ agents/             per-agent charters (also installed to OpenClaw workspaces)
 | **Soma** | `noema-soma` | 3D Bio-Anatomical & Shader Engine |
 | **Hippocampus** | `noema-hippocampus` | Neuro-Semantic Graph & Physics |
 | **Retina** | `noema-retina` | Studio UI, Session Continuity & BI Widgets |
+| **Aesthesis** | `noema-aesthesis` | Design System, Brand & Artifact Workspace |
 
 ## Governance
 

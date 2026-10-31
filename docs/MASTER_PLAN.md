@@ -204,8 +204,9 @@ Full DDL: `docs/ARCHITECTURE.md` §4.
 | 5 | **Soma** | `noema-soma` | 3D body/heart/agents, shaders, camera, `app/ui` 3D layer | `crates/core` |
 | 6 | **Hippocampus** | `noema-hippocampus` | brain graph, SDF/SVG rendering, physics, UMAP, Dream Mode | `crates/cli` |
 | 7 | **Retina** | `noema-retina` | Studio UI, session UX, configurator, widgets, Playwright QA | `crates/inference` |
+| 8 | **Aesthesis** | `noema-aesthesis` | Design system, brand, SVG/mascots, artifact workspace UX, anatomy visual QA | `crates/core`, `crates/inference`, `crates/ecosystem` |
 
-Cortex may spawn the other six (`subagents.allowAgents`). Everyone else works alone, no self-expansion.
+Cortex may spawn the other seven (`subagents.allowAgents`). Everyone else works alone, no self-expansion.
 
 ## 5. Governance protocol (iron)
 
@@ -237,6 +238,7 @@ Cortex may spawn the other six (`subagents.allowAgents`). Everyone else works al
 | 5.5 ✅ | Hardware awareness + Windows/macOS/Linux target | **Cortex** | profile+tuning persisted, overrideable via CLI/RPC/HTTP/Studio, 7 core tests + Playwright green, docs `HARDWARE.md` + `PLATFORMS.md` |
 | 8 ✅ | CLI parity, visual QA, packaging | **Axon** (QA: **Retina**, review: **Cortex**) | `noema` covers every UI action, Playwright suite green, `.exe` + `.dmg` + AppImage/deb/rpm produced; Windows artifact verified, macOS/Linux via CI |
 | 9 ✅ | Tauri v2 desktop wrapper, bundles, installer pipeline | **Axon** | window loads the loopback Studio, three commands, NSIS/MSI/dmg/AppImage/deb/rpm configured, standalone zip path intact |
+| 10 | Vitreous design system, brand, artifact workspace, anatomy realism | **Aesthesis** | tokens + SVG brand + 8 mascots, artifact workspace edit/export, lower legs/feet fixed, no external genitalia, zero PNG/JPEG, 60fps + a11y evidence |
 
 ## 7. Risks and recorded decisions
 
@@ -358,3 +360,16 @@ Open risks: C: disk pressure (mitigated by target dir), high-fidelity anatomy as
 - [x] **9.3** Bundle: `bundle.targets = all` (NSIS + MSI su Windows, DMG su macOS, AppImage/deb/rpm su Linux), icone generate in `src-tauri/icons`, risorse `ui/` + `assets/` e sidecar `noema-app` passati da `packaging/tauri.bundle.conf.json` al momento del bundle. Installer Windows verificati localmente: `NOEMA_0.1.0_x64-setup.exe` 5.18 MiB, `NOEMA_0.1.0_x64_en-US.msi` 7.91 MiB.
 - [x] **9.4** Pipeline: `packaging/tauri.ps1` (Windows), `packaging/tauri.sh` (macOS universal, Linux), `.github/workflows/release.yml` con dipendenze WebKitGTK, Tauri CLI 2.12.4 e upload `dist/**`; zip/`.dmg`/tar standalone di Block 8 invariati.
 - [x] **9.5** Docs/Changelog + Verifica Piano + Git Commit (NO Push). — `docs/AGENT_HANDOFF.md` (command surface per Retina + autostart proof), `packaging/README.md`, `docs/PLATFORMS.md` §6, CHANGELOG 0.5.4; `cargo check --workspace` verde, `cargo test --workspace` verde, configurazione bundle validata da cargo-tauri; layout installer verificato (sidecar accanto all'exe, `ui/`+`assets/` nella resource dir).
+
+
+### Blocco 10: Vitreous Design System, Brand, Artifact Workspace & Anatomy Realism
+- [ ] **10.1** Audit + freeze: read `docs/design/*`, driftwatch digest, full asset/reference inventory, current-state WEBP captures, `docs/design/AUDIT.md`.
+- [ ] **10.2** Decisions + tokens v1: `docs/design/DECISIONS.md`, `crates/app/ui/src/design/tokens.css`, `tokens.json`; Cavity + Bone; no hard-coded hex in touched surfaces.
+- [ ] **10.3** Logo suite: mark, monogram, wordmark, lockup, stacked lockup, favicon and app-icon source as SVG; icon generation script; no raster committed.
+- [ ] **10.4** Mascots: eight agent SVG mascots with shared rig, 16/24/96/512 sizes, trace/breathe motion, reduced-motion fallback, sprite loader.
+- [ ] **10.5** Glass + shell: Lens/Membrane/Cavity primitives, Spine layout, HUD, agent rail, inspector, Studio, Brain, Anima, Machine; dark/light; responsive.
+- [ ] **10.6** Artifact workspace: chat + canvas + inspector + timeline + assets + export; `.noema.html` parse/edit/props/comments/versions/verify.
+- [ ] **10.7** Dashboards, chat and templates: one real dashboard, one chat surface, one template gallery; every artifact editable, downloadable, exportable, forkable, versioned.
+- [ ] **10.8** Anatomy realism: material library, skin/fascia surface, lower-leg/foot geometry, neutral pelvis, external genitalia removed, lighting, LOD, glTF-Validator clean. Coordinate with Soma; Aesthesis verifies.
+- [ ] **10.9** Asset migration: all PNG/JPEG/ICO sources -> SVG/WEBP/generated; update references; `tools/design/asset-audit.mjs` green; CI gate.
+- [ ] **10.10** QA + docs: Playwright, axe, contrast, 60fps trace, WEBP evidence, `cargo check --workspace` green, CHANGELOG + AGENT_HANDOFF updated, atomic commit (no push).

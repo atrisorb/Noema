@@ -2,6 +2,36 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.5] - 2026-10-31 - Design charter: Aesthesis and Vitreous standards
+
+### Added
+- New agent **Aesthesis** (`noema-aesthesis`): design system architect, brand custodian, artifact workspace lead and anatomy visual QA. Registered in `agents.entries` with workspace `~/.openclaw/workspaces/noema-aesthesis` and the charter installed. **Not started.**
+- `docs/design/NOEMA_DESIGN_SYSTEM.md`: Vitreous v1.0 - Cavity/Bone themes, Newsreader/Instrument Sans/Commit Mono, glass tiers, motion, Spine layout, components, eight mascots, logo suite, voice, accessibility, performance budgets, anti-patterns and the new-component gate.
+- `docs/design/ARTIFACT_WORKSPACE.md`: Claude Design structural parity matrix, `.noema.html` artifact format, chat/canvas/inspector/timeline shell, direct edit, props, comments, versions, dashboards, templates, export matrix, verification gate and backend contract.
+- `docs/design/ANATOMY_AND_ASSETS.md`: current body audit, lower-leg/foot diagnosis, genitalia audit and removal rules, PBR material library, lighting, geometry fixes, SVG-first asset law and raster migration table.
+- `docs/design/DECISIONS.md`: ten accepted design decisions with rejected alternatives.
+- `docs/design/README.md`: design-law index and status.
+- `assets/brand/README.md`: SVG-only brand source contract and icon generation rules.
+- `docs/research/CLAUDE_DESIGN_2026.md`: verified Claude Design product facts, leaked/reverse-engineered structure, adopt/improve/reject analysis and sources.
+- `docs/MASTER_PLAN.md` Block 10 checklist for Aesthesis (10.1-10.10).
+
+### Changed
+- `README.md`: agent team 7 -> 8; Aesthesis row; design-law link.
+- `docs/MASTER_PLAN.md`: Aesthesis team row, spawn count 6 -> 7, Block 10 row and checklist.
+- Local-only `AGENTS.md` on this host: rule 17 Design law, Aesthesis team row, design ownership note. The file is git-ignored by design ("Local agent instructions - never push"), so it is not part of this commit.
+
+### Verified
+- `cargo check --workspace` green (1.19s, cached).
+- `agents.entries.noema-aesthesis` exists with the requested model, workspace, cwd, thinking level and tool profile; the workspace `AGENTS.md` is installed; the agent was not run.
+- No new dependency, no code change, no gateway restart.
+- Raster inventory unchanged: 34 PNG + 1 ICO, zero JPEG/WEBP. Migration to SVG/WEBP is Block 10.9, not this doc block.
+- No `git push`.
+
+### Notes
+- The design docs are the durable, tracked standard. The agent charter lives in the git-ignored `agents/` directory, consistent with the repo's local-agent-instruction policy.
+- The body audit found no node names matching penis/genitalia in `body_full.glb`; the visible pelvic protrusion still needs a mesh-level audit and removal if external. The lower legs/feet are a geometry + material problem, not a tint bug.
+- Claude Design structure was studied; no prompt text, code, assets or visual identity was copied.
+
 ## [0.5.4] - 2026-10-31 - Block 9: Tauri v2 desktop wrapper and installer bundles
 
 ### Added
