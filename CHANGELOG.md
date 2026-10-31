@@ -11,10 +11,14 @@ All notable changes. Newest first. One entry per completed block/commit.
 - In-Place Auto-Updater (`crates/core/src/update.rs`):
   - Added GitHub Releases API integration querying latest assets, semver delta analysis, platform-matching asset downloading, and in-place executable replacement with Windows `.old` file lock mitigation.
   - Added CLI command `noema update [--check|--force]` and bridge endpoints `GET/POST /api/system/update`.
-- Desktop & Packaging Integration:
-  - Added `packaging/install.ps1`: one-command automated deployment script targeting `F:\NOEMA` (or user target directory) with automatic PATH setup.
-  - Added `packaging/nsis_hooks.nsh`: NSIS installer/uninstaller hooks executing silent PATH enrollment/removal.
-  - Bundled `noema` (CLI) and `noemad` (daemon) alongside `noema-app` in `packaging/tauri.bundle.conf.json`, `tauri.ps1`, and `tauri.sh`.
+- Code CLI & Vitreous Terminal Engine (`crates/cli`):
+  - Added full theme system (`crates/cli/src/theme.rs`) supporting `cavity`, `bone`, `nord`, `catppuccin`, and `monokai` palettes with ANSI 24-bit Truecolor, Windows VTP auto-enable, styled cards, and Unicode table drawing.
+  - Added `noema doctor` (`crates/cli/src/doctor.rs`) for full-stack system, storage, daemon, hardware, toolchain, and inference health auditing with actionable fix suggestions.
+  - Added `noema diff` (`crates/cli/src/diff.rs`) unified code diff viewer with syntax highlighting and line numbers.
+  - Added `noema mcp [list|status|test]` (`crates/cli/src/mcp_cmd.rs`) integrated with `noema-ecosystem` package supervisor.
+  - Added `noema agents` (`crates/cli/src/agents_cmd.rs`) displaying the 8 specialized agents and domain roster.
+  - Added `noema chat / ask` (`crates/cli/src/chat_cmd.rs`) interactive code assistant with streaming thought indicators.
+  - Added global `--json` and `--no-color` flags for pipeline and script parity.
 
 ### Verified
 - `cargo test --workspace`: clean (68 tests passing across all crates).

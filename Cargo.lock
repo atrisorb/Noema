@@ -2060,6 +2060,9 @@ name = "noema-cli"
 version = "0.5.22"
 dependencies = [
  "noema-core",
+ "noema-ecosystem",
+ "noema-inference",
+ "serde",
  "serde_json",
  "tokio",
 ]

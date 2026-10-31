@@ -4,11 +4,11 @@
 
 ## Current state
 
-- **Release v0.5.22: Automatic PATH Management & GitHub Releases Auto-Updater (Axon / Cortex - 2026-10-31):**
+- **Release v0.5.22: Code CLI, Vitreous Terminal Engine, PATH Management & In-Place Auto-Updater (Axon / Cortex - 2026-10-31):**
+  - Built comprehensive Code CLI surface outperforming 2026 competitors: `noema doctor` (full health audit with actionable suggestions), `noema theme [list|set]` (5 themes with 24-bit ANSI Truecolor), `noema diff` (syntax-colored unified code diffs), `noema mcp [list|status|test]` (MCP package supervisor), `noema agents` (8-agent roster inspection), `noema chat` (interactive coding prompt with streaming thoughts).
   - Added automated PATH engine (`crates/core/src/path_env.rs`) managing permanent Windows User PATH (`HKCU\Environment`), duplicate removal, broken path pruning, and companion toolchain discovery (`SolidCraft`, `CADCraft`, `Driftwatch`, `Cargo`).
   - Added in-place auto-updater (`crates/core/src/update.rs`) integrating GitHub Releases API, matching platform assets, streaming downloads, and safely replacing binaries with Windows locked-file mitigation.
-  - Added CLI commands `noema path [status|add|remove|clean|setup]` and `noema update [--check|--force]`.
-  - Added bridge HTTP endpoints `/api/system/path` and `/api/system/update`.
+  - Added global `--json` and `--no-color` flags ensuring deterministic machine-readable output.
   - Added `packaging/install.ps1` for 1-click Windows deployment and `packaging/nsis_hooks.nsh` for Tauri NSIS automatic PATH registration.
   - Bundled `noema` (CLI) and `noemad` (daemon) into desktop sidecars (`packaging/tauri.bundle.conf.json`, `tauri.ps1`, `tauri.sh`).
   - Verified with 68 workspace tests passing and live deployment to `F:\NOEMA`.

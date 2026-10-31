@@ -8,45 +8,97 @@ use noema_core::daemon::{data_dir, read_port_file};
 use noema_core::rpc::METHODS;
 use serde_json::{Value, json};
 
+mod agents_cmd;
+mod chat_cmd;
+mod diff;
+mod doctor;
+mod mcp_cmd;
+mod theme;
+
+use theme::Styler;
+
 const HELP: &str = "\
-noema - the anatomical mind (CLI)
+noema - the anatomical mind (Code CLI)
 
-usage: noema <command>
+usage: noema <command> [options]
 
-  status                      resume state from noemad (falls back to the local DB)
-  health                      app bridge health
-  anatomy                     body, agents, heart facts
-  anima [set JSON]            read the heart/Anima state, or write a patch
-  brain                       semantic graph snapshot
-  brain telemetry             logprob telemetry feed
-  brain drag JSON             persist a node position
-  brain dream JSON            record a dream
-  system profile [--refresh]  machine profile + tuning
-  system override JSON        deep-merge a tuning patch
-  system reset                drop overrides and cached profile
-  studio                      Studio snapshot: session, projects, roles, widgets, usage
-  studio session ID           focus a session
-  studio role CAP MODEL [--project ID]
-  studio widget JSON          upsert a widget
-  studio widget-remove ID     delete a widget
-  studio layout JSON          persist [{id,x,y,w,h}]
-  session list [--limit N]    daemon sessions
-  session open JSON           open or update a session
-  session resume              daemon resume state
-  methods                     every daemon RPC method
-  rpc <method> [json]         call any daemon RPC method
-  path [status|add|remove|clean|setup]  manage PATH and companion toolchain enrollment
-  update [--check|--force]    check for updates and auto-update NOEMA from GitHub
-  help                        this text
+  Core & Diagnostics:
+    status                      live system & session resume state
+    doctor                      full system, hardware, database & toolchain health audit
+    health                      app bridge and daemon health probe
+    system profile [--refresh]  hardware profile & inference tuning
+    system override JSON        deep-merge hardware & inference tuning patch
+    system reset                reset hardware overrides and cached profile
+
+  Code & Workspace:
+    diff [fileA fileB | ref]    unified code diff viewer with syntax highlighting
+    chat [prompt]               interactive AI coding assistant with streaming thoughts
+    theme [list|set <name>]     inspect or configure terminal theme (cavity, bone, nord, etc.)
+    path [status|add|clean]     manage PATH and companion toolchain enrollment (ArtCraft, Driftwatch)
+
+  Agents & Anatomy:
+    anatomy                     living anatomical model, agents & heart telemetry
+    agents                      roster of the 8 specialized agents and domain assignments
+    anima [set JSON]            read or patch heart/Anima identity system prompt
+
+  Memory & Cognition:
+    brain                       semantic thought graph snapshot
+    brain telemetry             streaming logprob surprisal telemetry
+    brain drag JSON             persist 3D thought spatial coordinate
+    brain dream JSON            record an autonomous memory consolidation dream
+
+  Studio & Sessions:
+    studio                      Studio snapshot: active session, roles, widgets, FinOps
+    studio session ID           switch active session focus
+    studio role CAP MODEL       assign model to capability
+    studio widget JSON          upsert BI or monitoring widget
+    studio widget-remove ID     delete a widget
+    studio layout JSON          persist grid layout
+    session list [--limit N]    daemon session index
+    session open JSON           open or update session
+    session resume              retrieve resume checkpoint
+
+  Ecosystem & Supervisor:
+    mcp [list|status|test PATH] supervise MCP servers, stdio/SSE/WS lifecycle
+    methods                     every registered daemon RPC method
+    rpc <method> [json]         raw RPC invocation
+
+  Maintenance:
+    update [--check|--force]    check for updates and auto-update NOEMA from GitHub
+    help                        this text
+
+Flags:
+  --json                        force raw JSON output for scripting and pipes
+  --no-color                    disable ANSI terminal colors
 
 App actions use the Studio bridge on NOEMA_APP_PORT (default 4173).
 Every GUI action is reachable here. Noemad owns the database.";
 
 fn main() -> ExitCode {
-    let args: Vec<String> = std::env::args().skip(1).collect();
-    let result = match args.first().map(String::as_str).unwrap_or("status") {
-        "status" => return status(),
-        "health" => http("GET", "/api/health", None),
+    let raw_args: Vec<String> = std::env::args().skip(1).collect();
+
+    let as_json = raw_args.iter().any(|a| a == "--json");
+    let no_color = raw_args.iter().any(|a| a == "--no-color");
+
+    let styler = Styler::new(as_json, no_color);
+
+    // Filter out global flags
+    let args: Vec<String> = raw_args
+        .into_iter()
+        .filter(|a| a != "--json" && a != "--no-color")
+        .collect();
+
+    let command = args.first().map(String::as_str).unwrap_or("status");
+
+    let result = match command {
+        "status" => return status(&styler, as_json),
+        "doctor" => doctor::run(&styler, as_json),
+        "diff" => diff::handle(&args[1..], &styler, as_json),
+        "mcp" => mcp_cmd::handle(&args[1..], &styler, as_json),
+        "agents" => agents_cmd::handle(&styler, as_json),
+        "chat" | "ask" => chat_cmd::handle(args.get(1).map(String::as_str), &styler, as_json),
+        "theme" => theme_cmd(&args[1..], &styler, as_json),
+        "health" => health(&styler, as_json),
         "anatomy" => http("GET", "/api/anatomy", None),
         "anima" => match args.get(1).map(String::as_str) {
             Some("set") => {
@@ -59,56 +111,357 @@ fn main() -> ExitCode {
         "system" => system(&args[1..]),
         "studio" => studio(&args[1..]),
         "session" => session(&args[1..]),
-        "path" => path(&args[1..]),
-        "update" => update(&args[1..]),
+        "path" => path(&args[1..], &styler, as_json),
+        "update" => update(&args[1..], &styler, as_json),
         "methods" => {
-            println!(
-                "{}",
-                serde_json::to_string_pretty(&json!(METHODS)).unwrap_or_default()
-            );
+            if as_json {
+                println!(
+                    "{}",
+                    serde_json::to_string_pretty(&json!(METHODS)).unwrap_or_default()
+                );
+            } else {
+                let headers = ["RPC Method", "Domain"];
+                let rows: Vec<Vec<String>> = METHODS
+                    .iter()
+                    .map(|m| {
+                        let domain = m.split('.').next().unwrap_or("core");
+                        vec![styler.bold(&styler.artery(m)), styler.vein(domain)]
+                    })
+                    .collect();
+                println!("\n{}", styler.bold(&styler.artery("▶ Registered Daemon RPC Methods:")));
+                println!("{}", styler.table(&headers, &rows));
+                println!("  Total methods: {}\n", styler.lymph(&METHODS.len().to_string()));
+            }
             return ExitCode::SUCCESS;
         }
         "rpc" => return rpc(&args[1..]),
         "help" | "-h" | "--help" => {
-            println!("{HELP}");
+            print_help(&styler);
             return ExitCode::SUCCESS;
         }
         other => {
-            eprintln!("unknown command: {other}\n\n{HELP}");
+            if as_json {
+                eprintln!("{}", json!({ "error": format!("unknown command: {other}") }));
+            } else {
+                let lines = vec![
+                    format!("Unknown command: '{}'", styler.danger(other)),
+                    styler.dim("──────────────────────────────────────────────────────────"),
+                    format!("Run '{}' to explore the command catalog", styler.nerve("noema --help")),
+                    format!("Run '{}' to audit system health", styler.lymph("noema doctor")),
+                ];
+                eprintln!("{}", styler.card("Command Not Recognized", &lines));
+            }
             return ExitCode::FAILURE;
         }
     };
+
     match result {
         Ok(value) => {
-            print_json(&value);
+            if as_json {
+                print_json(&value);
+            }
             ExitCode::SUCCESS
         }
         Err(e) => {
-            eprintln!("noema: {e}");
+            if as_json {
+                eprintln!("{}", json!({ "error": e }));
+            } else {
+                let lines = vec![
+                    format!("Error: {}", styler.danger(&e)),
+                    styler.dim("──────────────────────────────────────────────────────────"),
+                    "Troubleshooting Suggestions:".to_string(),
+                    format!("  {} Run '{}' to diagnose system status", styler.nerve("➜"), styler.bold("noema doctor")),
+                    format!("  {} Check background daemon with '{}'", styler.nerve("➜"), styler.bold("noema status")),
+                    format!("  {} Pass '{}' to view raw machine payload", styler.nerve("➜"), styler.bold("--json")),
+                ];
+                eprintln!("{}", styler.card("NOEMA Execution Failure", &lines));
+            }
             ExitCode::FAILURE
         }
     }
 }
 
-fn status() -> ExitCode {
+fn print_help(styler: &Styler) {
+    if !styler.active {
+        println!("{HELP}");
+        return;
+    }
+
+    println!("\n{}", styler.card(
+        "NOEMA  ·  the anatomical mind (Code CLI)",
+        &[
+            format!("Version: {} · Cavity Vitreous Theme", styler.bold(&styler.artery(noema_core::VERSION))),
+            styler.dim("The anatomical mind and agentic coding environment"),
+            styler.dim("Run 'noema doctor' to verify all toolchains and system health."),
+        ]
+    ));
+
+    println!("{HELP}\n");
+}
+
+fn health(styler: &Styler, as_json: bool) -> Result<Value, String> {
+    let res = http("GET", "/api/health", None);
+    match res {
+        Ok(v) => {
+            if as_json {
+                return Ok(v);
+            }
+            let lines = vec![
+                format!("Bridge Status: {}", styler.pass_badge()),
+                format!("Port: {}", styler.vein(&app_port().to_string())),
+                format!("Host: {}", styler.ink_soft("127.0.0.1 (loopback Studio bridge)")),
+                format!("Response: {}", styler.lymph("Healthy (HTTP 200 OK)")),
+            ];
+            println!("{}", styler.card("Studio Bridge Health", &lines));
+            Ok(v)
+        }
+        Err(e) => {
+            if as_json {
+                return Err(e);
+            }
+            let lines = vec![
+                format!("Bridge Status: {}", styler.fail_badge()),
+                format!("Target: 127.0.0.1:{}", app_port()),
+                format!("Detail: {}", styler.ink_muted(&e)),
+                styler.dim("──────────────────────────────────────────────────────────"),
+                format!("➜ Launch desktop application or run '{}'", styler.nerve("noema-app.exe")),
+            ];
+            println!("{}", styler.card("Studio Bridge Offline", &lines));
+            Err(e)
+        }
+    }
+}
+
+fn status(styler: &Styler, as_json: bool) -> ExitCode {
     let value = call("session.resume", json!({})).or_else(|offline| {
-        eprintln!("daemon offline ({offline}); reading local store");
         let db = data_dir().join("noema.db");
         Store::open(&db)
             .and_then(|store| store.resume())
-            .map(|resume| json!({ "resume": resume, "source": "local" }))
+            .map(|resume| json!({ "resume": resume, "source": "local", "offline_reason": offline }))
             .map_err(|e| e.to_string())
     });
+
     match value {
         Ok(value) => {
-            print_json(&value);
+            if as_json {
+                print_json(&value);
+                return ExitCode::SUCCESS;
+            }
+
+            let source = value.get("source").and_then(Value::as_str).unwrap_or("daemon");
+            let is_daemon = source == "daemon";
+
+            let mut lines = Vec::new();
+            lines.push(format!(
+                "Daemon Status: {}",
+                if is_daemon { styler.pass_badge() } else { styler.warn_badge() }
+            ));
+            lines.push(format!(
+                "Source: {}",
+                if is_daemon { styler.lymph("Live daemon (RPC port active)") } else { styler.warning("Local SQLite WAL store (daemon offline)") }
+            ));
+
+            if let Some(resume) = value.get("resume") {
+                if let Some(session) = resume.get("session") {
+                    let id = session.get("id").and_then(Value::as_str).unwrap_or("-");
+                    let title = session.get("title").and_then(Value::as_str).unwrap_or("active session");
+                    lines.push(format!("Active Session: {} ({})", styler.bold(&styler.artery(id)), styler.ink(title)));
+                }
+            }
+
+            lines.push(styler.dim("──────────────────────────────────────────────────────────"));
+            lines.push(format!("Database: {}", styler.ink_soft(&data_dir().join("noema.db").display().to_string())));
+            lines.push(format!("Run '{}' for complete diagnostic audit", styler.nerve("noema doctor")));
+
+            println!("{}", styler.card("NOEMA System & Session Status", &lines));
             ExitCode::SUCCESS
         }
         Err(e) => {
-            eprintln!("local store unavailable: {e}");
+            if as_json {
+                eprintln!("{}", json!({ "error": e }));
+            } else {
+                let lines = vec![
+                    format!("Status Error: {}", styler.danger(&e)),
+                    "Neither daemon nor local store could be read.".to_string(),
+                ];
+                eprintln!("{}", styler.card("Status Error", &lines));
+            }
             ExitCode::FAILURE
         }
     }
+}
+
+fn theme_cmd(args: &[String], styler: &Styler, as_json: bool) -> Result<Value, String> {
+    let sub = args.first().map(String::as_str).unwrap_or("status");
+    match sub {
+        "status" => {
+            let cfg = theme::load_config();
+            if as_json {
+                return Ok(json!({ "active_theme": cfg.theme, "no_color": cfg.no_color }));
+            }
+            let mut lines = Vec::new();
+            lines.push(format!("Active Theme: {}", styler.bold(&styler.artery(&cfg.theme))));
+            lines.push(format!("Palette Tokens Preview:"));
+            lines.push(format!("  {} Artery (brand & actions)", styler.artery("■■■■")));
+            lines.push(format!("  {} Nerve (focus & alerts)", styler.nerve("■■■■")));
+            lines.push(format!("  {} Vein (links & secondary)", styler.vein("■■■■")));
+            lines.push(format!("  {} Lymph (success & healthy)", styler.lymph("■■■■")));
+            lines.push(format!("  {} Danger (destructive error)", styler.danger("■■■■")));
+            lines.push(format!("  {} Ink (warm bone foreground)", styler.ink("■■■■")));
+            lines.push(styler.dim("──────────────────────────────────────────────────────────"));
+            lines.push(format!("Available themes: cavity, bone, nord, catppuccin, monokai"));
+            lines.push(format!("Set theme with: {}", styler.nerve("noema theme set <name>")));
+            println!("{}", styler.card("Vitreous Terminal Theme Status", &lines));
+            Ok(json!({ "theme": cfg.theme }))
+        }
+        "list" => {
+            let themes = ["cavity", "bone", "nord", "catppuccin", "monokai"];
+            if as_json {
+                return Ok(json!({ "themes": themes }));
+            }
+            let headers = ["Theme Name", "Description", "Mode"];
+            let rows = vec![
+                vec![styler.artery("cavity"), "Editorial anatomy dark cavity (default)".into(), "Dark".into()],
+                vec![styler.nerve("bone"), "Warm ivory and frosted bone glass".into(), "Light".into()],
+                vec![styler.vein("nord"), "Arctic, north-bluish palette".into(), "Dark".into()],
+                vec![styler.lymph("catppuccin"), "Soothing warm pastel mocha".into(), "Dark".into()],
+                vec![styler.danger("monokai"), "High-contrast developer icon".into(), "Dark".into()],
+            ];
+            println!("\n{}", styler.bold(&styler.artery("▶ Available NOEMA Themes:")));
+            println!("{}", styler.table(&headers, &rows));
+            Ok(json!({ "themes": themes }))
+        }
+        "set" => {
+            let Some(name) = args.get(1) else {
+                return Err("usage: noema theme set <cavity|bone|nord|catppuccin|monokai>".into());
+            };
+            let mut cfg = theme::load_config();
+            cfg.theme = name.to_lowercase();
+            theme::save_config(&cfg)?;
+            if as_json {
+                return Ok(json!({ "updated": true, "theme": cfg.theme }));
+            }
+            println!("{}", styler.lymph(&format!("✓ Theme updated to '{}'. Enjoy the new palette!", cfg.theme)));
+            Ok(json!({ "theme": cfg.theme }))
+        }
+        other => Err(format!("unknown theme command '{other}'. Expected status, list, set")),
+    }
+}
+
+fn path(args: &[String], styler: &Styler, as_json: bool) -> Result<Value, String> {
+    let sub = args.first().map(String::as_str).unwrap_or("status");
+    let result = match sub {
+        "status" => noema_core::path_env::status()?,
+        "add" => {
+            let target = args.get(1).map(std::path::PathBuf::from).or_else(noema_core::path_env::current_exe_dir);
+            let Some(dir) = target else {
+                return Err("could not determine directory to add".into());
+            };
+            noema_core::path_env::add(&dir)?
+        }
+        "remove" => {
+            let Some(target) = args.get(1) else {
+                return Err("usage: noema path remove <directory>".into());
+            };
+            noema_core::path_env::remove(std::path::Path::new(target))?
+        }
+        "clean" => noema_core::path_env::clean()?,
+        "setup" => noema_core::path_env::setup()?,
+        other => return Err(format!("unknown path command: {other}. Expected status, add, remove, clean, setup")),
+    };
+
+    if as_json {
+        return Ok(result);
+    }
+
+    // Render interactive styled view of PATH status
+    let current_dir = result.get("current_exe_dir").and_then(Value::as_str).unwrap_or("unknown");
+    let enrolled = result.get("noema_enrolled_in_path").and_then(Value::as_bool).unwrap_or(false);
+
+    let mut lines = Vec::new();
+    lines.push(format!(
+        "NOEMA in PATH: {}",
+        if enrolled { styler.pass_badge() } else { styler.warn_badge() }
+    ));
+    lines.push(format!("Binary Directory: {}", styler.ink_soft(current_dir)));
+
+    if let Some(companions) = result.get("companion_tools").and_then(Value::as_array) {
+        lines.push(styler.dim("──────────────────────────────────────────────────────────"));
+        lines.push(format!("Companion Toolchain Detection:"));
+        for c in companions {
+            let name = c.get("name").and_then(Value::as_str).unwrap_or("");
+            let on_path = c.get("on_path").and_then(Value::as_bool).unwrap_or(false);
+            let exists = c.get("exists").and_then(Value::as_bool).unwrap_or(false);
+            let path = c.get("path").and_then(Value::as_str).unwrap_or("");
+            let bullet = if on_path {
+                styler.lymph("●")
+            } else if exists {
+                styler.warning("○")
+            } else {
+                styler.danger("✗")
+            };
+            let status_note = if on_path {
+                "on PATH"
+            } else if exists {
+                "installed (not on PATH)"
+            } else {
+                "not found"
+            };
+            lines.push(format!("  {bullet} {name}  {} ({status_note})", styler.dim(path)));
+        }
+    }
+
+    println!("{}", styler.card("PATH & Toolchain Enrollment", &lines));
+    Ok(result)
+}
+
+fn update(args: &[String], styler: &Styler, as_json: bool) -> Result<Value, String> {
+    let check_only = args.iter().any(|a| a == "--check");
+    let force = args.iter().any(|a| a == "--force");
+    let repo = std::env::var("NOEMA_GITHUB_REPO").ok();
+
+    let rt = tokio::runtime::Builder::new_current_thread()
+        .enable_all()
+        .build()
+        .map_err(|e| format!("failed to initialize tokio runtime: {e}"))?;
+
+    rt.block_on(async {
+        let check = noema_core::update::check_update(repo.as_deref()).await?;
+        if check_only {
+            let val = serde_json::to_value(&check).map_err(|e| e.to_string())?;
+            if as_json {
+                return Ok(val);
+            }
+            let mut lines = Vec::new();
+            lines.push(format!("Installed Version: {}", styler.bold(&styler.ink(&check.current_version))));
+            lines.push(format!("Latest GitHub Release: {}", styler.bold(&styler.artery(&check.latest_version))));
+            lines.push(format!(
+                "Update Status: {}",
+                if check.has_update {
+                    styler.warn_badge()
+                } else {
+                    styler.pass_badge()
+                }
+            ));
+            if check.has_update {
+                lines.push(styler.dim("──────────────────────────────────────────────────────────"));
+                lines.push(format!("⚡ A new release is available!"));
+                lines.push(format!("Run '{}' to upgrade in-place.", styler.nerve("noema update")));
+            } else {
+                lines.push(format!("You are on the latest stable release."));
+            }
+            if let Some(asset) = &check.matching_asset {
+                lines.push(format!("Platform Asset: {} ({:.1} MB)", styler.dim(&asset.name), asset.size as f64 / 1_048_576.0));
+            }
+            println!("{}", styler.card("NOEMA GitHub Release Update Check", &lines));
+            return Ok(val);
+        }
+        let applied = noema_core::update::apply_update(&check, force).await?;
+        if !as_json {
+            println!("{}", styler.lymph(&format!("✓ NOEMA updated successfully to v{}!", check.latest_version)));
+        }
+        Ok(applied)
+    })
 }
 
 fn brain(args: &[String]) -> Result<Value, String> {
@@ -132,8 +485,7 @@ fn system(args: &[String]) -> Result<Value, String> {
     match sub {
         "profile" => {
             let refresh = args.iter().any(|a| a == "--refresh");
-            call("system.profile", json!({ "refresh": refresh })).or_else(|offline| {
-                eprintln!("daemon offline ({offline}); reading local store");
+            call("system.profile", json!({ "refresh": refresh })).or_else(|_offline| {
                 local_store()?
                     .hardware_report(refresh)
                     .map(|r| json!(r))
@@ -142,16 +494,14 @@ fn system(args: &[String]) -> Result<Value, String> {
         }
         "override" => {
             let patch = parse_body(args.get(1))?;
-            call("system.override", json!({ "overrides": patch })).or_else(|offline| {
-                eprintln!("daemon offline ({offline}); writing local store");
+            call("system.override", json!({ "overrides": patch })).or_else(|_offline| {
                 local_store()?
                     .set_hardware_overrides(&patch)
                     .map(|r| json!(r))
                     .map_err(|e| e.to_string())
             })
         }
-        "reset" => call("system.reset", json!({})).or_else(|offline| {
-            eprintln!("daemon offline ({offline}); writing local store");
+        "reset" => call("system.reset", json!({})).or_else(|_offline| {
             local_store()?
                 .reset_hardware()
                 .map(|r| json!(r))
@@ -163,53 +513,34 @@ fn system(args: &[String]) -> Result<Value, String> {
 
 fn studio(args: &[String]) -> Result<Value, String> {
     match args.first().map(String::as_str) {
-        None | Some("snapshot") => http("GET", "/api/studio", None),
+        None => http("GET", "/api/studio", None),
         Some("session") => {
-            let id = args.get(1).ok_or("usage: noema studio session <id>")?;
-            http(
-                "POST",
-                "/api/studio",
-                Some(json!({ "action": "session", "id": id })),
-            )
+            let id = args.get(1).ok_or("missing session id")?;
+            http("POST", "/api/studio", Some(json!({ "action": "session", "id": id })))
         }
         Some("role") => {
-            let capability = args
-                .get(1)
-                .ok_or("usage: noema studio role <capability> <model> [--project <id>]")?;
-            let model = args
-                .get(2)
-                .ok_or("usage: noema studio role <capability> <model> [--project <id>]")?;
-            let mut body = json!({ "action": "role", "capability": capability, "model": model });
-            if let Some(i) = args.iter().position(|a| a == "--project") {
-                body["project"] = json!(args.get(i + 1).ok_or("--project needs an id")?);
+            let cap = args.get(1).ok_or("usage: noema studio role CAP MODEL [--project ID]")?;
+            let model = args.get(2).ok_or("usage: noema studio role CAP MODEL [--project ID]")?;
+            let project = args.iter().position(|a| a == "--project").and_then(|i| args.get(i + 1));
+            let mut payload = json!({ "action": "role", "capability": cap, "model": model });
+            if let Some(p) = project {
+                payload["project"] = json!(p);
             }
-            http("POST", "/api/studio", Some(body))
+            http("POST", "/api/studio", Some(payload))
         }
         Some("widget") => {
-            let widget = parse_body(args.get(1))?;
-            http(
-                "POST",
-                "/api/studio",
-                Some(json!({ "action": "widget", "widget": widget })),
-            )
+            let body = parse_body(args.get(1))?;
+            let mut payload = json!({ "action": "widget" });
+            payload["widget"] = body;
+            http("POST", "/api/studio", Some(payload))
         }
         Some("widget-remove") => {
-            let id = args
-                .get(1)
-                .ok_or("usage: noema studio widget-remove <id>")?;
-            http(
-                "POST",
-                "/api/studio",
-                Some(json!({ "action": "widget_remove", "id": id })),
-            )
+            let id = args.get(1).ok_or("usage: noema studio widget-remove ID")?;
+            http("POST", "/api/studio", Some(json!({ "action": "widget_remove", "id": id })))
         }
         Some("layout") => {
-            let widgets = parse_body(args.get(1))?;
-            http(
-                "POST",
-                "/api/studio",
-                Some(json!({ "action": "layout", "widgets": widgets })),
-            )
+            let body = parse_body(args.get(1))?;
+            http("POST", "/api/studio", Some(json!({ "action": "layout", "layout": body })))
         }
         Some(other) => Err(format!("unknown studio command: {other}")),
     }
@@ -234,48 +565,6 @@ fn session(args: &[String]) -> Result<Value, String> {
         }
         Some(other) => Err(format!("unknown session command: {other}")),
     }
-}
-
-fn path(args: &[String]) -> Result<Value, String> {
-    let sub = args.first().map(String::as_str).unwrap_or("status");
-    match sub {
-        "status" => noema_core::path_env::status(),
-        "add" => {
-            let target = args.get(1).map(std::path::PathBuf::from).or_else(noema_core::path_env::current_exe_dir);
-            let Some(dir) = target else {
-                return Err("could not determine directory to add".into());
-            };
-            noema_core::path_env::add(&dir)
-        }
-        "remove" => {
-            let Some(target) = args.get(1) else {
-                return Err("usage: noema path remove <directory>".into());
-            };
-            noema_core::path_env::remove(std::path::Path::new(target))
-        }
-        "clean" => noema_core::path_env::clean(),
-        "setup" => noema_core::path_env::setup(),
-        other => Err(format!("unknown path command: {other}. Expected status, add, remove, clean, setup")),
-    }
-}
-
-fn update(args: &[String]) -> Result<Value, String> {
-    let check_only = args.iter().any(|a| a == "--check");
-    let force = args.iter().any(|a| a == "--force");
-    let repo = std::env::var("NOEMA_GITHUB_REPO").ok();
-
-    let rt = tokio::runtime::Builder::new_current_thread()
-        .enable_all()
-        .build()
-        .map_err(|e| format!("failed to initialize tokio runtime: {e}"))?;
-
-    rt.block_on(async {
-        let check = noema_core::update::check_update(repo.as_deref()).await?;
-        if check_only {
-            return Ok(serde_json::to_value(&check).map_err(|e| e.to_string())?);
-        }
-        noema_core::update::apply_update(&check, force).await
-    })
 }
 
 fn local_store() -> Result<Store, String> {
@@ -315,7 +604,6 @@ fn app_port() -> u16 {
         .unwrap_or(4173)
 }
 
-/// One HTTP/1.1 request to the Studio bridge, connection closed after the reply.
 fn http(method: &str, path: &str, body: Option<Value>) -> Result<Value, String> {
     let addr = SocketAddr::from((Ipv4Addr::LOCALHOST, app_port()));
     let mut stream = TcpStream::connect_timeout(&addr, Duration::from_millis(800))
@@ -356,24 +644,26 @@ fn http(method: &str, path: &str, body: Option<Value>) -> Result<Value, String> 
     Ok(payload)
 }
 
-/// One request, one response line: the CLI never holds a daemon connection.
 fn call(method: &str, params: Value) -> Result<Value, String> {
-    let port = read_port_file(&data_dir()).ok_or("no daemon.json")?;
-    let addr = SocketAddr::from((Ipv4Addr::LOCALHOST, port.port));
-    let mut stream =
-        TcpStream::connect_timeout(&addr, Duration::from_millis(800)).map_err(|e| e.to_string())?;
+    let port = read_port_file(&data_dir())
+        .map(|pf| pf.port)
+        .ok_or("daemon port file unavailable")?;
+    let addr = SocketAddr::from((Ipv4Addr::LOCALHOST, port));
+    let mut stream = TcpStream::connect_timeout(&addr, Duration::from_millis(600))
+        .map_err(|e| format!("daemon unreachable on {addr}: {e}"))?;
     stream
-        .set_read_timeout(Some(Duration::from_secs(10)))
+        .set_read_timeout(Some(Duration::from_secs(5)))
         .map_err(|e| e.to_string())?;
 
-    let mut params = params;
-    if let Value::Object(map) = &mut params {
-        map.insert("_auth".into(), Value::String(port.token.clone()));
-    }
-    let request = json!({ "jsonrpc": "2.0", "id": 1, "method": method, "params": params });
-    stream
-        .write_all(format!("{request}\n").as_bytes())
-        .map_err(|e| e.to_string())?;
+    let payload = json!({
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": method,
+        "params": params,
+    });
+    let mut line = serde_json::to_string(&payload).map_err(|e| e.to_string())?;
+    line.push('\n');
+    stream.write_all(line.as_bytes()).map_err(|e| e.to_string())?;
 
     let mut reader = BufReader::new(stream);
     loop {
@@ -385,7 +675,7 @@ fn call(method: &str, params: Value) -> Result<Value, String> {
             continue;
         };
         if response.get("method").is_some() {
-            continue; // event notification, not our reply
+            continue;
         }
         if let Some(error) = response.get("error") {
             return Err(error.to_string());
@@ -405,7 +695,6 @@ fn print_json(value: &Value) {
 mod tests {
     use super::*;
 
-    /// RPC parity (8.1a): a method without a CLI path fails the build.
     fn cli_path(method: &str) -> Option<&'static str> {
         match method {
             "rpc.methods" => Some("noema methods"),
@@ -427,7 +716,6 @@ mod tests {
         }
     }
 
-    /// GUI parity: the bridge routes the UI calls all have a CLI command.
     #[test]
     fn every_gui_route_has_a_cli_command() {
         const ROUTES: &[(&str, &str)] = &[
@@ -465,7 +753,7 @@ mod tests {
                     "/api/dream" => "dream",
                     _ => unreachable!(),
                 }),
-                "{method} {route} has no CLI command"
+                "{method} {route} has no CLI command in HELP"
             );
         }
     }
