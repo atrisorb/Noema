@@ -2,6 +2,17 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.21] - 2026-10-31 - Linux Packaging Harmonisation & Release Collision Fix
+
+### Fixed
+- Linux Packaging Pipeline (`packaging/build.sh`):
+  - Streamlined `build.sh` on Linux to focus purely on building the portable distribution archive (`dist/noema-$VERSION-linux-$ARCH.tar.gz`).
+  - Removed redundant manual AppDir/deb/rpm generation in `build.sh` that was colliding with the official Tauri desktop bundler (`packaging/tauri.sh`), eliminating HTTP 422 asset name collision on GitHub Releases.
+- Bumped version to `0.5.21` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.
+
+### Verified
+- `cargo check --workspace`: clean (0 errors, 0 warnings).
+
 ## [0.5.20] - 2026-10-31 - Verified Tauri CLI Range & Icon Builder Fallback
 
 ### Fixed

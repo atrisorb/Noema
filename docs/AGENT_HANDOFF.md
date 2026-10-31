@@ -4,6 +4,11 @@
 
 ## Current state
 
+- **Release v0.5.21: Linux Packaging Harmonisation & Release Collision Fix (Axon / Cortex - 2026-10-31):**
+  - Streamlined `packaging/build.sh` on Linux to build the portable archive `dist/noema-$VERSION-linux-$ARCH.tar.gz`.
+  - Removed duplicate manual AppDir/deb/rpm generation in `build.sh` that caused HTTP 422 asset name collision on GitHub Releases with official Tauri bundles from `packaging/tauri.sh`.
+  - Bumped release version to `0.5.21` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.
+
 - **Release v0.5.20: Verified Tauri CLI Range & Icon Builder Fallback (Axon / Cortex - 2026-10-31):**
   - Resolved npm ETARGET error on `tools/design/build-icons.mjs`: shifted package specification from non-existent `@tauri-apps/cli@2.12.5` to `@tauri-apps/cli@2` (resolving latest published stable `2.12.4`).
   - Aligned `tauri-cli` to `2.12.4` in `.github/workflows/release.yml`.
