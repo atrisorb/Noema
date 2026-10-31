@@ -4,7 +4,7 @@
 
 ## Current state
 
-- **Block 10.4 complete (2026-10-31):** eight SVG mascots, 24px roster integration, WebP sheet. 10.5 shell is next. 28 rasters remain for 10.9.
+- **Block 10.5 complete (2026-10-31):** Vitreous Spine shell, Cavity/Bone toggle, Layers inspector, status filament. 10.6 artifact workspace is next. 28 rasters remain for 10.9.
 - **Block 10.3 complete (2026-10-31):** SVG logo suite, favicon, generated platform icons.
 - **Block 10.1 complete (2026-10-31):** design audit and freeze. `docs/design/AUDIT.md` is the baseline; UI source was read-only in that block.
 - **Block 9 complete (2026-10-31):** Tauri v2 desktop wrapper + bundle pipeline. Owner push pending.
@@ -31,12 +31,20 @@
 4. **Evidence:** `docs/evidence/design-mascots.webp` at 96 and 24 in Cavity + Bone. Distinct silhouettes, no emoji.
 5. **Aesthesis:** asset ships, roster stays at 7 until Cortex approves an eighth runtime agent.
 
-## Next block: 10.5 glass + shell
+## Block 10.5 results
 
-- Lens/Membrane/Cavity primitives; Spine command bar 56px, rail 72px, inspector 380px, status filament 28px.
-- Move layer controls into the inspector; add a theme toggle and persist `noema:theme`; add focus-visible and reduced-motion global rules.
-- Restyle Studio, Brain, Anima and Machine with tokens; responsive at 1280/1024/768/480.
-- Evidence: `docs/evidence/design-shell-{cavity,bone}.webp` plus a mobile capture; Playwright smoke.
+1. **Shell:** command bar 56px, rail 72px, inspector 380px, status filament 28px; Layers moved out of the HUD into the inspector.
+2. **Theme:** `data-theme="cavity"|"bone"` on `<html>`, persisted in `noema:theme`; scene background flips; CSS 30.16 KB raw / 6.14 KB gzip.
+3. **A11y:** skip link, focus-visible ring, aria-expanded/hidden, Escape closes inspector and rail, reduced-motion override.
+4. **Responsive:** inspector/rail become bottom sheets at 1024; rail becomes a bottom scroller at 768.
+5. **Evidence:** `design-shell-cavity.webp`, `-bone.webp`, `-layers.webp`, `-mobile.webp`, `design-shell.json`; 7 agents, 60 fps.
+
+## Next block: 10.6 artifact workspace
+
+- Add the `.noema.html` model: manifest, template, token-only styles, optional logic, `data-noema-id` anchors.
+- Build chat + canvas + inspector + timeline + assets + export in one overlay; parse, edit, props, comments, versions, verify.
+- One real artifact must pass the verification gate and export HTML, JSON and Markdown; no raster preview.
+- Evidence: artifact WEBP capture + verify JSON; Playwright smoke.
 
 ## Token workflow
 

@@ -8,12 +8,17 @@
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
+  <a class="skip-link" href="#roster">Skip to agents</a>
   <canvas id="scene"></canvas>
   <svg id="brain-labels" aria-hidden="true"></svg>
 
   <header id="hud">
-    <div class="brand">NOEMA <span>· the body</span></div>
-    <div id="layers">
+    <div class="brand"><img class="brand-mark" src="/favicon.svg" alt="" width="24" height="24" /> NOEMA <span>· the body</span></div>
+    <span id="agent-count" class="hud-meta">— agents</span>
+    <div id="layers" aria-hidden="true">
+      <button id="layers-close" aria-label="Close layers">×</button>
+      <h2>Layers</h2>
+      <p class="muted">Visibility and opacity of the anatomy systems.</p>
       <label><input type="checkbox" data-layer="skin" /><span>skin</span>
         <input type="range" data-opacity="skin" min="0" max="100" value="12" aria-label="skin opacity" /></label>
       <label><input type="checkbox" data-layer="muscles" checked /><span>muscles</span>
@@ -31,13 +36,15 @@
       <label><input type="checkbox" data-layer="agents" checked /><span>agents</span>
         <input type="range" data-opacity="agents" min="0" max="100" value="100" aria-label="agents opacity" /></label>
     </div>
-    <div id="fps">-- fps</div>
-    <div id="session-pill">no session yet</div>
+    <button id="layers-btn" aria-controls="layers" aria-expanded="false">layers</button>
+    <button id="theme-btn" aria-label="Switch theme" aria-pressed="false">bone</button>
     <button id="studio-btn" title="Studio: sessions, role models, BI widgets">studio</button>
     <button id="brain-btn" title="Thought graph">brain</button>
     <button id="dream-btn" class="hidden" title="Dream Mode">dream</button>
     <button id="machine-btn" title="Hardware profile and tuning">machine</button>
   </header>
+
+  <div id="status-filament"><span id="fps">-- fps</span><span id="session-pill">no session yet</span><span id="status-meta">cavity · 60 fps target</span></div>
 
   <div id="hint">loading anatomy…</div>
 

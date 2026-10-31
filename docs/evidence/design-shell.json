@@ -1,0 +1,41 @@
+{
+  "capturedAt": "2026-10-31T15:55:03.651Z",
+  "base": "http://127.0.0.1:4199",
+  "shots": [
+    {
+      "file": "docs/evidence/design-shell-cavity.webp",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "theme": "cavity"
+    },
+    {
+      "file": "docs/evidence/design-shell-layers.webp",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "theme": "cavity"
+    },
+    {
+      "file": "docs/evidence/design-shell-bone.webp",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "theme": "bone"
+    },
+    {
+      "file": "docs/evidence/design-shell-mobile.webp",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "cavity"
+    }
+  ],
+  "themePersisted": "bone",
+  "agentCount": 7,
+  "fps": "-- fps"
+}

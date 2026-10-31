@@ -2,6 +2,25 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.10] - 2026-10-31 - Block 10.5: Vitreous shell
+
+### Added
+- Spine shell: 56px command bar, 72px mascot rail (48px buttons), 380px Layers inspector, 28px status filament with fps/session/theme.
+- Persistent Cavity/Bone toggle (`data-theme` on `<html>`, `noema:theme` in localStorage); scene background follows the theme.
+- Layers moved into the inspector with `aria-expanded`/`aria-hidden`; Escape closes inspector and rail.
+- Skip link, global `:focus-visible` ring, reduced-motion override.
+- Shell evidence: `design-shell-cavity.webp`, `design-shell-bone.webp`, `design-shell-layers.webp`, `design-shell-mobile.webp`, `design-shell.json`.
+
+### Changed
+- `style.css`: Vitreous token overrides for shell, panels, Studio, Brain card, inputs, buttons, status. CSS 30.16 KB raw / 6.14 KB gzip.
+- `main.ts`: theme controller, inspector controller, roster aria-labels and live agent count.
+- `index.html`: command bar actions, brand mark, inspector, status filament, skip link.
+
+### Verified
+- `npm run build` green.
+- Captures at 1600x900 and 390x844; theme survives reload; 7 agents; 60 fps.
+- No raster added, no `git push`.
+
 ## [0.5.9] - 2026-10-31 - Block 10.4: Eight mascots
 
 ### Added

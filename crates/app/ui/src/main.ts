@@ -403,6 +403,38 @@ canvas.addEventListener('pointerup', (e) => {
   if (raycaster.intersectObject(body.heart, true).length) openAnima();
 });
 
+const themeBtn = $('#theme-btn');
+const sceneBg: Record<string, THREE.Color> = { cavity: new THREE.Color('#05070B'), bone: new THREE.Color('#F4EFE6') };
+function applyTheme(theme: 'cavity' | 'bone') {
+  document.documentElement.dataset.theme = theme;
+  themeBtn.textContent = theme === 'cavity' ? 'bone' : 'cavity';
+  themeBtn.setAttribute('aria-pressed', String(theme === 'bone'));
+  const meta = document.querySelector('#status-meta');
+  if (meta) meta.textContent = `${theme} · 60 fps target`;
+  scene.background = sceneBg[theme];
+  renderer.render(scene, camera);
+  try { localStorage.setItem('noema:theme', theme); } catch { /* private mode */ }
+}
+let savedTheme: string = 'cavity';
+try { savedTheme = localStorage.getItem('noema:theme') ?? 'cavity'; } catch { /* private mode */ }
+applyTheme(savedTheme === 'bone' ? 'bone' : 'cavity');
+themeBtn.addEventListener('click', () => applyTheme(document.documentElement.dataset.theme === 'bone' ? 'cavity' : 'bone'));
+
+const layersPanel = $('#layers');
+const layersBtn = $('#layers-btn');
+function setLayers(open: boolean) {
+  layersPanel.classList.toggle('open', open);
+  layersPanel.setAttribute('aria-hidden', String(!open));
+  layersBtn.setAttribute('aria-expanded', String(open));
+}
+layersBtn.addEventListener('click', () => setLayers(!layersPanel.classList.contains('open')));
+$('#layers-close').addEventListener('click', () => setLayers(false));
+addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  setLayers(false);
+  closeRail();
+});
+
 $('#rail-close').addEventListener('click', closeRail);
 $('#anima-close').addEventListener('click', () => { animaPanel.classList.remove('open'); animaPanel.setAttribute('aria-hidden', 'true'); });
 $('#anima-save').addEventListener('click', saveAnima);
@@ -550,6 +582,8 @@ function addRoster(agents: Agent[]) {
   agents.forEach((agent) => {
     const button = el('button') as HTMLButtonElement;
     button.style.setProperty('--dot', agent.accent);
+    button.setAttribute('aria-label', agent.name);
+    button.title = agent.name;
     const icon = el('span') as HTMLSpanElement;
     icon.className = 'agent-mascot';
     icon.innerHTML = mascot(agent.id, 24);
@@ -557,6 +591,8 @@ function addRoster(agents: Agent[]) {
     button.addEventListener('click', () => openAgent(agent.id));
     roster.append(button);
   });
+  const count = document.querySelector('#agent-count');
+  if (count) count.textContent = `${agents.length} agents`;
 }
 
 let last = performance.now();
