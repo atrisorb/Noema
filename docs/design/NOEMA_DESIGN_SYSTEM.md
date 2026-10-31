@@ -1,6 +1,6 @@
 # NOEMA - Vitreous Design System
 
-Status: v1.0, frozen 2026-10-31. Owner: **Aesthesis** (`noema-aesthesis`).
+Status: v1.1, frozen 2026-10-31. v1.1 records the D11 AA contrast corrections found by the 10.2 token gate. Owner: **Aesthesis** (`noema-aesthesis`).
 This document is the single source of truth for brand, color, type, glass, motion, layout, iconography, mascots, accessibility, performance and asset law. Code follows it. When code and this document diverge, this document wins for intent; code wins for current implementation only until the gap is closed.
 
 Flow Relay's design system was used as a governance model: hard rules at the top, tokens before components, a component map, an accessibility contract, anti-patterns and a new-component checklist. The visual language below is original to NOEMA.
@@ -78,7 +78,7 @@ Every token has a Cavity and a Bone value. Token names never change between them
 | `--noema-ink` | `#F4EFE6` | `#0B0D12` | Primary text, headings |
 | `--noema-ink-soft` | `#D8D2C6` | `#2A2F3A` | Body copy, secondary |
 | `--noema-ink-muted` | `#98A2B3` | `#5C6472` | Supporting copy, labels |
-| `--noema-ink-faint` | `#7C8798` | `#7A8494` | Metadata only, never body |
+| `--noema-ink-faint` | `#7C8798` | `#697383` | Metadata only; AA on Bone surface |
 | `--noema-border` | `rgba(244,239,230,.12)` | `rgba(11,13,18,.12)` | Card, input, divider |
 | `--noema-border-soft` | `rgba(244,239,230,.06)` | `rgba(11,13,18,.06)` | Internal hairline |
 
@@ -89,16 +89,20 @@ Every token has a Cavity and a Bone value. Token names never change between them
 | `--noema-artery` | `#FF5A5F` | `#C7353F` | Primary action, brand, active nav |
 | `--noema-artery-deep` | `#D93A44` | `#9E2732` | Hover, pressed |
 | `--noema-artery-soft` | `rgba(255,90,95,.14)` | `rgba(199,53,63,.10)` | Tint, selected row |
+| `--noema-artery-ink` | `#05070B` | `#FBF8F2` | Text and icons on artery fills |
 | `--noema-nerve` | `#FFC857` | `#9A6A00` | Focus ring, live, warning-of-good-kind |
 | `--noema-nerve-soft` | `rgba(255,200,87,.14)` | `rgba(154,106,0,.10)` | Focus halo, live tint |
 | `--noema-vein` | `#6C8CFF` | `#3F5BD6` | Information, links, secondary data |
 | `--noema-vein-soft` | `rgba(108,140,255,.14)` | `rgba(63,91,214,.10)` | Info tint |
 | `--noema-lymph` | `#7DFFC4` | `#1F7A55` | Success, healthy |
 | `--noema-danger` | `#FF6B6B` | `#B3261E` | Destructive, error |
+| `--noema-danger-ink` | `#05070B` | `#FBF8F2` | Text and icons on danger fills |
 | `--noema-warning` | `#FFB86B` | `#8A5A00` | Warning |
 | `--noema-info` | `#6C8CFF` | `#3F5BD6` | Info |
 
 Accents are never used as large background fills except the primary button and selected row. Status is never color-only: add icon, label or shape.
+
+Text on a filled accent uses the matching ink token, never `--noema-ink`. Measured: `--noema-ink` on Cavity artery is 2.67:1 and on Cavity danger 2.42:1; both fail AA. `--noema-artery-ink` and `--noema-danger-ink` are 6.60:1 and 7.26:1.
 
 ### 2.3 Glass tokens
 
@@ -246,10 +250,10 @@ Density: comfortable default, compact for tables. Row heights 32/40/48; touch ta
 
 | Variant | Background | Text | Border | Use |
 |---|---|---|---|---|
-| Primary | artery | bone | none | One per view |
+| Primary | artery | artery-ink | none | One per view |
 | Secondary | glass membrane | ink | glass line | Common action |
 | Ghost | transparent | ink-soft | none | Toolbar, inline |
-| Danger | danger | bone | none | Destructive, confirm |
+| Danger | danger | danger-ink | none | Destructive, confirm |
 
 Heights 28/34/40; radius 10; icon 16/20; gap 8; focus ring 2px nerve offset 2; disabled opacity .45 but still readable; loading uses a breathing dot, not a spinner. No icon-only button without `aria-label` and tooltip.
 

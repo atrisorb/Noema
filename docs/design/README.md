@@ -1,6 +1,6 @@
 # NOEMA Design
 
-Status: v1.0 frozen 2026-10-31. Owner: **Aesthesis** (`noema-aesthesis`).
+Status: v1.1 frozen 2026-10-31. Owner: **Aesthesis** (`noema-aesthesis`).
 This directory is the design law of NOEMA. Code follows it.
 
 ## Documents
@@ -13,6 +13,15 @@ This directory is the design law of NOEMA. Code follows it.
 | [DECISIONS.md](DECISIONS.md) | Accepted design decisions with rationale and rejected alternatives |
 | [AUDIT.md](AUDIT.md) | Block 10.1 measured baseline, asset/reference inventory, gap register |
 | [../research/CLAUDE_DESIGN_2026.md](../research/CLAUDE_DESIGN_2026.md) | Claude Design product research and structural findings |
+
+## Tokens
+
+- `crates/app/ui/src/design/tokens.json` is canonical. Both themes live in one file.
+- `crates/app/ui/src/design/tokens.css` is generated. Never edit it by hand.
+- `node tools/design/build-tokens.mjs` regenerates; add `--check` to fail on drift.
+- `node tools/design/check-contrast.mjs` gates 24 opaque pairs and writes `docs/evidence/design-tokens-contrast.json`.
+- Theme contract: `data-theme="cavity"` or `"bone"` on `<html>`; Cavity is the default; `color-scheme` follows.
+- `style.css` imports the token layer. Components read `--noema-*` only.
 
 ## Reading order
 
@@ -40,8 +49,9 @@ Aesthesis is registered but not auto-started. The owner dispatches it from OpenC
 
 ## Current state
 
-- Design law: written and frozen (v1.0, 2026-10-31).
-- Agent: Aesthesis running; Block 10.1 complete.
-- Block 10: 10.1 (audit + freeze) complete; 10.2 tokens next.
+- Design law: written and frozen (v1.1, 2026-10-31).
+- Agent: Aesthesis running; Block 10.2 complete.
+- Block 10: 10.1 audit and 10.2 tokens complete; 10.3 logo suite next.
+- Tokens: 29 color pairs, 12 type scales, 9 space steps, radius/z/motion/motion curves; Cavity + Bone; 24/24 contrast pairs pass AA.
 - Raster debt: 34 files / 8.23 MiB (33 PNG + 1 ICO), 70 references. See [AUDIT.md](AUDIT.md).
 - Body: muscle/bone atlas + capsule skin. Baseline confirms skeletal lower legs, feet and hands; the pelvic mass is unresolved pending the 10.8 mesh audit.

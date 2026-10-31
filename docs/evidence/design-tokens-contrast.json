@@ -1,0 +1,280 @@
+{
+  "schema": "noema.contrast-report/1",
+  "generatedAt": "2026-10-31T15:43:07.296Z",
+  "standard": "WCAG 2.2 AA",
+  "tokens": {
+    "name": "noema-vitreous",
+    "designSystem": "1.1.0"
+  },
+  "summary": {
+    "total": 24,
+    "passed": 24,
+    "failed": 0
+  },
+  "pairs": [
+    {
+      "theme": "cavity",
+      "fg": "ink",
+      "bg": "bg",
+      "fgValue": "#F4EFE6",
+      "bgValue": "#05070B",
+      "use": "body text",
+      "min": 4.5,
+      "ratio": 17.6,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "ink-soft",
+      "bg": "bg",
+      "fgValue": "#D8D2C6",
+      "bgValue": "#05070B",
+      "use": "body copy",
+      "min": 4.5,
+      "ratio": 13.4,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "ink-muted",
+      "bg": "surface",
+      "fgValue": "#98A2B3",
+      "bgValue": "#0B111B",
+      "use": "supporting copy",
+      "min": 4.5,
+      "ratio": 7.34,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "ink-faint",
+      "bg": "surface",
+      "fgValue": "#7C8798",
+      "bgValue": "#0B111B",
+      "use": "metadata",
+      "min": 4.5,
+      "ratio": 5.2,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "artery",
+      "bg": "bg",
+      "fgValue": "#FF5A5F",
+      "bgValue": "#05070B",
+      "use": "brand text",
+      "min": 4.5,
+      "ratio": 6.6,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "artery-ink",
+      "bg": "artery",
+      "fgValue": "#05070B",
+      "bgValue": "#FF5A5F",
+      "use": "primary button",
+      "min": 4.5,
+      "ratio": 6.6,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "nerve",
+      "bg": "bg",
+      "fgValue": "#FFC857",
+      "bgValue": "#05070B",
+      "use": "focus ring and live",
+      "min": 3,
+      "ratio": 13.11,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "vein",
+      "bg": "surface",
+      "fgValue": "#6C8CFF",
+      "bgValue": "#0B111B",
+      "use": "link and secondary data",
+      "min": 4.5,
+      "ratio": 6.15,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "lymph",
+      "bg": "surface",
+      "fgValue": "#7DFFC4",
+      "bgValue": "#0B111B",
+      "use": "success",
+      "min": 4.5,
+      "ratio": 15.29,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "danger",
+      "bg": "surface",
+      "fgValue": "#FF6B6B",
+      "bgValue": "#0B111B",
+      "use": "error",
+      "min": 4.5,
+      "ratio": 6.82,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "danger-ink",
+      "bg": "danger",
+      "fgValue": "#05070B",
+      "bgValue": "#FF6B6B",
+      "use": "danger button",
+      "min": 4.5,
+      "ratio": 7.26,
+      "pass": true
+    },
+    {
+      "theme": "cavity",
+      "fg": "warning",
+      "bg": "surface",
+      "fgValue": "#FFB86B",
+      "bgValue": "#0B111B",
+      "use": "warning",
+      "min": 4.5,
+      "ratio": 11.1,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "ink",
+      "bg": "bg",
+      "fgValue": "#0B0D12",
+      "bgValue": "#F4EFE6",
+      "use": "body text",
+      "min": 4.5,
+      "ratio": 16.97,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "ink-soft",
+      "bg": "bg",
+      "fgValue": "#2A2F3A",
+      "bgValue": "#F4EFE6",
+      "use": "body copy",
+      "min": 4.5,
+      "ratio": 11.71,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "ink-muted",
+      "bg": "surface",
+      "fgValue": "#5C6472",
+      "bgValue": "#FBF8F2",
+      "use": "supporting copy",
+      "min": 4.5,
+      "ratio": 5.63,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "ink-faint",
+      "bg": "surface",
+      "fgValue": "#697383",
+      "bgValue": "#FBF8F2",
+      "use": "metadata",
+      "min": 4.5,
+      "ratio": 4.52,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "artery",
+      "bg": "bg",
+      "fgValue": "#C7353F",
+      "bgValue": "#F4EFE6",
+      "use": "brand text",
+      "min": 4.5,
+      "ratio": 4.57,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "artery-ink",
+      "bg": "artery",
+      "fgValue": "#FBF8F2",
+      "bgValue": "#C7353F",
+      "use": "primary button",
+      "min": 4.5,
+      "ratio": 4.94,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "nerve",
+      "bg": "bg",
+      "fgValue": "#9A6A00",
+      "bgValue": "#F4EFE6",
+      "use": "focus ring and live",
+      "min": 3,
+      "ratio": 4.13,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "vein",
+      "bg": "surface",
+      "fgValue": "#3F5BD6",
+      "bgValue": "#FBF8F2",
+      "use": "link and secondary data",
+      "min": 4.5,
+      "ratio": 5.39,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "lymph",
+      "bg": "surface",
+      "fgValue": "#1F7A55",
+      "bgValue": "#FBF8F2",
+      "use": "success",
+      "min": 4.5,
+      "ratio": 4.99,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "danger",
+      "bg": "surface",
+      "fgValue": "#B3261E",
+      "bgValue": "#FBF8F2",
+      "use": "error",
+      "min": 4.5,
+      "ratio": 6.17,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "danger-ink",
+      "bg": "danger",
+      "fgValue": "#FBF8F2",
+      "bgValue": "#B3261E",
+      "use": "danger button",
+      "min": 4.5,
+      "ratio": 6.17,
+      "pass": true
+    },
+    {
+      "theme": "bone",
+      "fg": "warning",
+      "bg": "surface",
+      "fgValue": "#8A5A00",
+      "bgValue": "#FBF8F2",
+      "use": "warning",
+      "min": 4.5,
+      "ratio": 5.59,
+      "pass": true
+    }
+  ]
+}

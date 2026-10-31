@@ -1,3 +1,5 @@
+@import './design/tokens.css';
+
 :root { color-scheme: dark; --ink: #dfe9ff; --dim: #7f8ea6; --glass: rgba(10, 16, 28, 0.72); --line: rgba(126, 231, 255, 0.18); }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; overflow: hidden; background: radial-gradient(120% 90% at 50% 10%, #0b1a2a 0%, #05070d 62%, #020306 100%); color: var(--ink); font: 13px/1.45 "Segoe UI", system-ui, sans-serif; }

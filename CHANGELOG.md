@@ -2,6 +2,28 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.7] - 2026-10-31 - Block 10.2: Vitreous tokens v1
+
+### Added
+- `crates/app/ui/src/design/tokens.json`: canonical Cavity + Bone tokens - 29 color pairs, elevation, 12 type scales, space, radius, z-index, motion, easing, blur and focus.
+- `crates/app/ui/src/design/tokens.css`: generated token layer, imported by `style.css`; 154 lines, 5.2 KB raw, +4.2 KB CSS gzip.
+- `tools/design/build-tokens.mjs`: deterministic generator; `--check` fails on drift.
+- `tools/design/check-contrast.mjs`: WCAG 2.2 AA gate for 24 opaque pairs; writes `docs/evidence/design-tokens-contrast.json`.
+- npm scripts `tokens`, `tokens:check`, `contrast`.
+
+### Changed
+- `docs/design/NOEMA_DESIGN_SYSTEM.md` v1.1: `--noema-artery-ink` and `--noema-danger-ink` for text on accent fills; Bone `ink-faint` corrected to `#697383`; primary and danger buttons use the new ink tokens.
+- `docs/design/DECISIONS.md`: D11 AA corrections, D12 JSON-to-CSS token pipeline, D13 theme contract.
+- `docs/design/README.md`: token workflow and current state.
+- `docs/MASTER_PLAN.md`: 10.2 ticked.
+
+### Verified
+- Contrast: 24/24 pass. Cavity artery-ink 6.60:1, danger-ink 7.26:1, Bone ink-faint 4.52:1.
+- `npm run build`: green; CSS 16.38 KB raw / 4.24 KB gzip; token layer loaded.
+- `node tools/design/build-tokens.mjs --check`: green.
+- Driftwatch: 8 updates, zero design impact.
+- No raster added, no `git push`.
+
 ## [0.5.6] - 2026-10-31 - Block 10.1: Design audit and freeze
 
 ### Added

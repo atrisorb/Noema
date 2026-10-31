@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview --port 4173",
-    "test": "playwright test"
+    "test": "playwright test",
+    "tokens": "node ../../../tools/design/build-tokens.mjs",
+    "tokens:check": "node ../../../tools/design/build-tokens.mjs --check",
+    "contrast": "node ../../../tools/design/check-contrast.mjs"
   },
   "dependencies": {
     "three": "^0.187.0"
