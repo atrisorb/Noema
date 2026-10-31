@@ -10,8 +10,8 @@ const LAYER_RULES: Array<[AtlasLayer, RegExp]> = [
   ['vessels', /artery|arteries|arterial|vein|venous|aorta|carotid|femoral|pulmonary trunk|vena cava|capillar/i],
   ['nerves', /nerve|plexus|ganglion|spinal cord|neuraxis/i],
   ['organs', /heart|lung|liver|kidney|stomach|intestin|colon|bowel|pancreas|spleen|bladder|trachea|esophagus|thyroid|testis|ovary|uterus|eyeball|eye|tongue|gland|lymph|thymus|pericard|pleura|omentum|mesentery/i],
-  ['skeleton', /bone|skeleton|cartilage|teeth|tooth|skull|cranium|vertebra|rib|femur|tibia|humerus|mandible|maxilla|scapula|clavicle|pelvis|sternum|patella|fibula|radius|ulna|metacarp|metatars|phalan|incus|malleus|stapes/i],
-  ['muscles', /muscle|tendon|ligament|fascia|aponeurosis|diaphragm/i],
+  ['skeleton', /bone|skeleton|cartilage|teeth|tooth|skull|cranium|vertebra|rib|femur|tibia|humerus|mandible|maxilla|scapula|clavicle|pelvis|sternum|patella|fibula|radius|ulna|metacarp|metatars|phalan|incus|malleus|stapes|calcane|talus|tarsal|tarsus|navicular|cuboid|cuneiform|sacrum|coccyx|atlas|axis|vomer|ethmoid|sphenoid|hyoid|incisor|canine|premolar|molar|ilium|ischium|pubis|xiphoid/i],
+  ['muscles', /muscle|tendon|ligament|fascia|aponeurosis|diaphragm|biceps|triceps|brachii|brachialis|brachioradialis|coracobrachialis|pronator|supinator|flexor|extensor|abductor|adductor|palmaris|lumbrical|interossei|gastrocnem|soleus|plantaris|popliteus|tibialis|fibularis|perone|quadriceps|rectus|vastus|sartorius|gracilis|pectineus|gluteus|piriformis|obturator|gemellus|quadratus|semitendinosus|semimembranosus|trapezius|latissimus|rhomboid|levator|serratus|pectoralis|subclavius|deltoid|supraspinatus|infraspinatus|teres|subscapularis|splenius|scalenus|sternocleidomastoid|platysma|masseter|temporalis|pterygoid|buccinator|bucinator|orbicularis|frontalis|occipitalis|mentalis|zygomaticus|risorius|depressor|corrugator|nasalis|constrictor|rotatores|multifidus|interspinales|intertransversarii|spinalis|longissimus|iliocostalis|linea alba|sheath|bursa|tendinous|psoas/i],
 ];
 
 const COLORS: Array<[RegExp, number]> = [
@@ -28,8 +28,8 @@ const COLORS: Array<[RegExp, number]> = [
   [/artery|arteries|aorta|carotid|femoral/i, 0xc0392b],
   [/vein|vena/i, 0x3f6fb5],
   [/nerve|plexus|ganglion|spinal cord/i, 0xe8c96a],
-  [/bone|skeleton|cartilage|teeth|tooth|skull|cranium|vertebra|rib|femur|tibia|humerus/i, 0xe4dcc4],
-  [/muscle|tendon|ligament|fascia|aponeurosis|diaphragm/i, 0x8e2f2f],
+  [/bone|skeleton|cartilage|teeth|tooth|skull|cranium|vertebra|rib|femur|tibia|humerus|calcane|talus|tars|sacrum|coccyx|incisor|canine|premolar|molar|patella|fibula|radius|ulna/i, 0xe4dcc4],
+  [/muscle|tendon|ligament|fascia|aponeurosis|diaphragm|biceps|triceps|gastrocnem|soleus|tibial|fibul|flexor|extensor|abductor|adductor|gluteus|deltoid|pectoral|platysma|masseter|perone|quadriceps|hamstring|psoas/i, 0x8e2f2f],
 ];
 
 const HEART = /heart|ventricle|atrium|myocard/i;

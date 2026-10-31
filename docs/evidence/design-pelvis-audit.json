@@ -1,6 +1,6 @@
 {
   "schema": "noema.pelvis-audit/1",
-  "at": "2026-10-31T15:59:51.940Z",
+  "at": "2026-10-31T16:50:37.423Z",
   "file": "assets/anatomy/atlas/body_full.glb",
   "method": "GLB JSON chunk; local-space POSITION accessor min/max; names flagged by anatomy keywords.",
   "totals": {

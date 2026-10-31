@@ -9,6 +9,8 @@ import { BrainGraph, type BrainNode } from './brain';
 import { mascot } from './mascots';
 import { mountStudio } from './studio';
 import { mountArtifacts } from './artifacts';
+import { createContactShadow } from './surface';
+import { mountBrainRoute } from './brain-route';
 import type { Anatomy, Agent, LayerName } from './types';
 import { apiBase, apiUrl, assetBase, getJson, isTauri } from './platform';
 
@@ -90,6 +92,9 @@ Object.values(body.layers).forEach((layer) => scene.add(layer));
 const atlas = new Atlas();
 atlas.root.visible = false;
 scene.add(atlas.root);
+
+const contactShadow = createContactShadow();
+scene.add(contactShadow);
 
 const circulation = new Circulation(machine?.tuning.render.particle_budget ?? 980);
 circulation.group.visible = false;
@@ -545,6 +550,7 @@ function setBrainMode(on: boolean) {
 }
 
 brainBtn.addEventListener('click', () => setBrainMode(!brainMode));
+mountBrainRoute(setBrainMode, () => brainMode);
 dreamBtn.addEventListener('click', () => { void setDream(brain.mode !== 'dream'); });
 $('#brain-card-close').addEventListener('click', closeBrainCard);
 
