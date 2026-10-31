@@ -6,6 +6,7 @@ use std::path::Path;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use rusqlite::{Connection, OptionalExtension, params};
+use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
 use crate::ids::{AgentId, ModelId, ProjectId, SessionId};
@@ -15,6 +16,23 @@ const MIGRATIONS: &[(i64, &str)] = &[
     (1, include_str!("../migrations/0001_init.sql")),
     (2, include_str!("../migrations/0002_studio.sql")),
 ];
+
+/// A recorded token usage and inference cost event.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct UsageRecord {
+    pub id: String,
+    pub session_id: Option<String>,
+    pub agent_id: Option<String>,
+    pub model_id: String,
+    pub kind: String,
+    pub tokens: u64,
+    pub cost_usd: f64,
+    pub peak: bool,
+    pub latency_ms: Option<u64>,
+    pub project_id: Option<String>,
+    pub thinking: Option<String>,
+    pub created_at: i64,
+}
 
 #[derive(Debug, Error)]
 pub enum StoreError {
@@ -283,6 +301,60 @@ impl Store {
         rows.collect::<Result<_, _>>().map_err(Into::into)
     }
 
+    /// Record a token usage event directly to the database.
+    pub fn record_usage(&self, record: &UsageRecord) -> Result<(), StoreError> {
+        let created_at = if record.created_at == 0 {
+            now_ms()
+        } else {
+            record.created_at
+        };
+        self.conn.execute(
+            "INSERT INTO usage_events
+               (id, session_id, agent_id, model_id, kind, tokens, cost_usd, peak, latency_ms, project_id, thinking, created_at)
+             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)",
+            params![
+                record.id,
+                record.session_id,
+                record.agent_id,
+                record.model_id,
+                record.kind,
+                record.tokens as i64,
+                record.cost_usd,
+                if record.peak { 1 } else { 0 },
+                record.latency_ms.map(|l| l as i64),
+                record.project_id,
+                record.thinking,
+                created_at,
+            ],
+        )?;
+        Ok(())
+    }
+
+    /// Read recent token usage events newest first.
+    pub fn recent_usage(&self, limit: u32) -> Result<Vec<UsageRecord>, StoreError> {
+        let mut stmt = self.conn.prepare(
+            "SELECT id, session_id, agent_id, model_id, kind, tokens, cost_usd, peak, latency_ms, project_id, thinking, created_at
+             FROM usage_events ORDER BY created_at DESC LIMIT ?1",
+        )?;
+        let rows = stmt.query_map([limit], |r| {
+            Ok(UsageRecord {
+                id: r.get(0)?,
+                session_id: r.get(1)?,
+                agent_id: r.get(2)?,
+                model_id: r.get(3)?,
+                kind: r.get(4)?,
+                tokens: r.get::<_, i64>(5)? as u64,
+                cost_usd: r.get(6)?,
+                peak: r.get::<_, i64>(7)? != 0,
+                latency_ms: r.get::<_, Option<i64>>(8)?.map(|l| l as u64),
+                project_id: r.get(9)?,
+                thinking: r.get(10)?,
+                created_at: r.get(11)?,
+            })
+        })?;
+        rows.collect::<Result<_, _>>().map_err(Into::into)
+    }
+
     /// Brute-force cosine over `thoughts.embedding`; used until the vector
     /// table is populated in Block 3.
     pub fn nearest(&self, query: &[f32], limit: usize) -> Result<Vec<(String, f32)>, StoreError> {
@@ -382,5 +454,30 @@ mod tests {
             store.load(&s.id).unwrap().unwrap().branch.as_deref(),
             Some("main")
         );
+    }
+
+    #[test]
+    fn record_and_query_usage_events() {
+        let store = Store::open_memory().unwrap();
+        let record = UsageRecord {
+            id: "u-1".into(),
+            session_id: Some("s-1".into()),
+            agent_id: Some("agent:noema-thalamus".into()),
+            model_id: "deepseek/deepseek-flash".into(),
+            kind: "chat".into(),
+            tokens: 1500,
+            cost_usd: 0.0003,
+            peak: false,
+            latency_ms: Some(240),
+            project_id: None,
+            thinking: Some("high".into()),
+            created_at: now_ms(),
+        };
+        store.record_usage(&record).unwrap();
+        let list = store.recent_usage(10).unwrap();
+        assert_eq!(list.len(), 1);
+        assert_eq!(list[0].id, "u-1");
+        assert_eq!(list[0].tokens, 1500);
+        assert_eq!(list[0].latency_ms, Some(240));
     }
 }

@@ -15,6 +15,6 @@ pub use hardware::{HardwareProfile, HardwareReport, Tuning};
 pub use ids::{AgentId, ModelId, ProjectId, SessionId, ThoughtId};
 pub use platform::Platform;
 pub use session::{ResumeState, Session, SessionStore};
-pub use store::{Store, StoreError, VectorBackend};
+pub use store::{Store, StoreError, UsageRecord, VectorBackend};
 
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
