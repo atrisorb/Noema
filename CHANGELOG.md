@@ -2,6 +2,23 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.19] - 2026-10-31 - Pure Native GitHub CLI Releases & AppImage AppRun Integration
+
+### Fixed
+- Linux AppImage Packaging (`packaging/build.sh`):
+  - Created executable `$APPDIR/AppRun` wrapper script resolving `$HERE` path, `PATH`, and `LD_LIBRARY_PATH` prior to launching `noema-app`, fixing AppImage generation failure (`Problem: AppRun does not exist`).
+  - Standardized `.desktop` categories to `Categories=Science;`.
+- GitHub Actions Release Publishing (`.github/workflows/release.yml`):
+  - Completely replaced legacy third-party `softprops/action-gh-release@v2` (which targeted deprecated Node 20) with official native GitHub CLI (`gh release`).
+  - Releases and asset uploads across Windows, macOS, and Linux runners now run via native Go binaries, eliminating all Node 20 deprecation warnings.
+- Dependency & Tool Upgrades:
+  - Updated `tauri-cli` to `2.12.5` in `.github/workflows/release.yml` and `tools/design/build-icons.mjs` to match `tauri = 2.12.5`.
+  - Bumped version to `0.5.19` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.
+
+### Verified
+- `cargo check --workspace`: clean (0 errors, 0 warnings).
+- `node tools/design/build-icons.mjs`: clean.
+
 ## [0.5.18] - 2026-10-31 - Universal Cross-Platform Packaging & CI Warning Cleanup
 
 ### Fixed

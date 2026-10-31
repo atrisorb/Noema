@@ -63,7 +63,7 @@ jobs:
         run: bash packaging/build.sh
 
       - name: Tauri CLI
-        run: cargo install tauri-cli --version 2.12.4 --locked
+        run: cargo install tauri-cli --version 2.12.5 --locked
 
       - name: macOS Rust targets
         if: runner.os == 'macOS'
@@ -84,10 +84,27 @@ jobs:
           path: dist/**
           if-no-files-found: error
 
-      - name: Publish to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dist/*.*
-            dist/tauri/*.*
+      - name: Publish to GitHub Release (Windows)
+        if: startsWith(github.ref, 'refs/tags/v') && runner.os == 'Windows'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view ${{ github.ref_name }} 2>$null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create ${{ github.ref_name }} --title ${{ github.ref_name }} --generate-notes
+          }
+          Get-ChildItem dist -File | ForEach-Object { gh release upload ${{ github.ref_name }} $_.FullName --clobber }
+          if (Test-Path dist/tauri) {
+            Get-ChildItem dist/tauri -File | ForEach-Object { gh release upload ${{ github.ref_name }} $_.FullName --clobber }
+          }
+
+      - name: Publish to GitHub Release (macOS / Linux)
+        if: startsWith(github.ref, 'refs/tags/v') && runner.os != 'Windows'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view ${{ github.ref_name }} >/dev/null 2>&1 || gh release create ${{ github.ref_name }} --title "${{ github.ref_name }}" --generate-notes || true
+          for f in dist/*.* dist/tauri/*.*; do
+            [ -f "$f" ] && gh release upload ${{ github.ref_name }} "$f" --clobber
+          done

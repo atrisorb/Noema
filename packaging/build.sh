@@ -37,9 +37,18 @@ Name=NOEMA
 Comment=The anatomical mind
 Exec=noema-app
 Icon=noema
-Categories=Development;Science;
+Categories=Science;
 EOF
     cp "$APPDIR/noema.desktop" "$APPDIR/usr/share/applications/"
+    cat > "$APPDIR/AppRun" <<'EOF'
+#!/bin/sh
+SELF=$(readlink -f "$0")
+HERE=${SELF%/*}
+export PATH="${HERE}/usr/bin:${PATH}"
+export LD_LIBRARY_PATH="${HERE}/usr/lib:${LD_LIBRARY_PATH:-}"
+exec "${HERE}/usr/bin/noema-app" "$@"
+EOF
+    chmod +x "$APPDIR/AppRun"
     if [ ! -f "$ROOT/src-tauri/icons/128x128@2x.png" ]; then
       (cd "$ROOT" && node tools/design/build-icons.mjs) || true
     fi

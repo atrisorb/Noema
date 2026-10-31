@@ -4,6 +4,12 @@
 
 ## Current state
 
+- **Release v0.5.19: Native GitHub CLI Release Publisher & Linux AppRun Fix (Axon / Cortex - 2026-10-31):**
+  - Resolved Linux AppImage build error: added `$APPDIR/AppRun` wrapper resolving paths and executing `noema-app`, allowing `appimagetool` to bundle cleanly without errors.
+  - Replaced third-party `softprops/action-gh-release@v2` marketplace action with native GitHub CLI (`gh release` via pwsh and bash), completely eliminating Node.js 20 deprecation annotations on GitHub Actions.
+  - Bumped `tauri-cli` to `2.12.5` to match `tauri = 2.12.5` in `src-tauri`.
+  - Bumped release version to `0.5.19` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.
+
 - **Release v0.5.18: Universal Cross-Platform Packaging & CI Warning Cleanup (Axon / Cortex - 2026-10-31):**
   - Resolved macOS packaging failure: staged architecture-specific slices (`aarch64` and `x86_64`) alongside universal binary in `packaging/tauri.sh`, satisfying Tauri v2 universal bundle resource validation.
   - Resolved Linux packaging failure: created missing `$APPDIR/usr/share/noema` in `packaging/build.sh` prior to copying assets.

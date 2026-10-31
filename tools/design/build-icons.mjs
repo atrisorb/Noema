@@ -16,7 +16,7 @@ if (hasCargoTauri) {
 } else {
   const isWin = process.platform === 'win32';
   const npxCmd = isWin ? 'npx.cmd' : 'npx';
-  result = spawnSync(npxCmd, ['@tauri-apps/cli@2.12.4', 'icon', source, '-o', output], {
+  result = spawnSync(npxCmd, ['@tauri-apps/cli@2.12.5', 'icon', source, '-o', output], {
     cwd: root,
     stdio: 'inherit',
     shell: isWin
