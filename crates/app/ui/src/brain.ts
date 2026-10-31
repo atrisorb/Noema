@@ -50,6 +50,7 @@ export class BrainGraph {
   mode: 'wake' | 'dream' = 'wake';
   visible = false;
   selected: BrainNode | null = null;
+  reducedMotion = false;
 
   private worker: Worker | null = null;
   private positions = new Float32Array(0);
@@ -197,7 +198,7 @@ export class BrainGraph {
       this.edgeAttr.needsUpdate = true;
       this.dirty = false;
     }
-    if (this.material) this.material.uniforms.uTime.value = time;
+    if (this.material) this.material.uniforms.uTime.value = this.reducedMotion ? 0.0 : time;
     if (!this.visible) return;
     this.group.updateMatrixWorld(true);
     camera.updateMatrixWorld();
