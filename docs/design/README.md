@@ -11,6 +11,7 @@ This directory is the design law of NOEMA. Code follows it.
 | [ARTIFACT_WORKSPACE.md](ARTIFACT_WORKSPACE.md) | Claude Design structure parity, artifact format, chat, dashboards, templates, export, versions, verification |
 | [ANATOMY_AND_ASSETS.md](ANATOMY_AND_ASSETS.md) | Photoreal body, lower legs/feet, neutral pelvis, genitalia removal, material library, asset law, migration |
 | [DECISIONS.md](DECISIONS.md) | Accepted design decisions with rationale and rejected alternatives |
+| [AUDIT.md](AUDIT.md) | Block 10.1 measured baseline, asset/reference inventory, gap register |
 | [../research/CLAUDE_DESIGN_2026.md](../research/CLAUDE_DESIGN_2026.md) | Claude Design product research and structural findings |
 
 ## Reading order
@@ -39,8 +40,8 @@ Aesthesis is registered but not auto-started. The owner dispatches it from OpenC
 
 ## Current state
 
-- Design law: written.
-- Agent: registered, not run.
-- Block 10: pending.
-- Existing raster debt: 34 PNG + 1 ICO to migrate.
-- Existing body: muscle/bone atlas + capsule skin; lower legs/feet need geometry and material fixes; genitalia audit required.
+- Design law: written and frozen (v1.0, 2026-10-31).
+- Agent: Aesthesis running; Block 10.1 complete.
+- Block 10: 10.1 (audit + freeze) complete; 10.2 tokens next.
+- Raster debt: 34 files / 8.23 MiB (33 PNG + 1 ICO), 70 references. See [AUDIT.md](AUDIT.md).
+- Body: muscle/bone atlas + capsule skin. Baseline confirms skeletal lower legs, feet and hands; the pelvic mass is unresolved pending the 10.8 mesh audit.

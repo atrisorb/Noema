@@ -2,6 +2,26 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.6] - 2026-10-31 - Block 10.1: Design audit and freeze
+
+### Added
+- `docs/design/AUDIT.md`: measured baseline for Blocks 10.2-10.10 - driftwatch digest, 34-raster / 70-reference inventory, UI token debt, anatomy findings, artifact workspace gap, accessibility and performance baselines, gap register.
+- `docs/evidence/design-baseline-{body,legs,rail,machine,brain,studio}.webp` and `design-baseline.json`: current-state captures at 1600x900, DPR 1, 826 meshes and 290,886 triangles.
+- `crates/app/ui/scripts/capture-audit.mjs`: reproducible Playwright capture that writes WebP through CDP; no PNG is created.
+
+### Changed
+- `docs/MASTER_PLAN.md`: 10.1 ticked.
+- `docs/design/README.md`: current state reflects 10.1 completion.
+- `docs/AGENT_HANDOFF.md`: rewritten for the next block.
+
+### Verified
+- `cargo check --workspace` green (0.98s, cached).
+- Driftwatch digest: 8 updates, zero design impact; DeepSeek/Mistral/Gemini pricing forwarded to Thalamus.
+- Raster audit: 33 PNG + 1 ICO, 8,628,345 bytes, zero JPEG/GIF/BMP/TIFF.
+- UI baseline: 65 hex + 26 rgba in `style.css`, 5 hex in `main.ts`, 4 backdrop filters, no WOFF2, no brand SVG, 7 agents.
+- Anatomy: legs/feet/hands skeletal; pelvis mass unresolved pending the 10.8 mesh audit.
+- No `git push` performed.
+
 ## [0.5.5] - 2026-10-31 - Design charter: Aesthesis and Vitreous standards
 
 ### Added
