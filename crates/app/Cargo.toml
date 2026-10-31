@@ -12,3 +12,4 @@ noema-hippocampus = { path = "../hippocampus" }
 noema-inference = { path = "../inference" }
 rusqlite.workspace = true
 serde_json.workspace = true
+tokio.workspace = true

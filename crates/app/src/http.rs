@@ -94,6 +94,77 @@ fn handle(mut stream: TcpStream, cfg: Config) -> std::io::Result<()> {
                 Err(e) => json_response(&mut stream, 400, json!({ "error": e })),
             }
         }
+        ("GET", "/api/system/path") => match noema_core::path_env::status() {
+            Ok(payload) => json_response(&mut stream, 200, payload),
+            Err(e) => json_response(&mut stream, 500, json!({ "error": e })),
+        },
+        ("POST", "/api/system/path") => {
+            let parsed: Value = serde_json::from_slice(&body).unwrap_or(Value::Null);
+            let action = parsed.get("action").and_then(Value::as_str).unwrap_or("setup");
+            let result = match action {
+                "setup" => noema_core::path_env::setup(),
+                "clean" => noema_core::path_env::clean(),
+                "add" => {
+                    let dir = parsed
+                        .get("directory")
+                        .and_then(Value::as_str)
+                        .map(std::path::PathBuf::from)
+                        .or_else(noema_core::path_env::current_exe_dir);
+                    match dir {
+                        Some(d) => noema_core::path_env::add(&d),
+                        None => Err("missing directory".into()),
+                    }
+                }
+                "remove" => {
+                    let dir = parsed.get("directory").and_then(Value::as_str);
+                    match dir {
+                        Some(d) => noema_core::path_env::remove(std::path::Path::new(d)),
+                        None => Err("missing directory".into()),
+                    }
+                }
+                other => Err(format!("unknown path action: {other}")),
+            };
+            match result {
+                Ok(payload) => json_response(&mut stream, 200, payload),
+                Err(e) => json_response(&mut stream, 400, json!({ "error": e })),
+            }
+        }
+        ("GET", "/api/system/update") => {
+            let rt = tokio::runtime::Builder::new_current_thread()
+                .enable_all()
+                .build();
+            match rt {
+                Ok(rt) => match rt.block_on(noema_core::update::check_update(None)) {
+                    Ok(check) => json_response(
+                        &mut stream,
+                        200,
+                        serde_json::to_value(&check).unwrap_or_default(),
+                    ),
+                    Err(e) => json_response(&mut stream, 500, json!({ "error": e })),
+                },
+                Err(e) => json_response(&mut stream, 500, json!({ "error": e.to_string() })),
+            }
+        }
+        ("POST", "/api/system/update") => {
+            let parsed: Value = serde_json::from_slice(&body).unwrap_or(Value::Null);
+            let force = parsed.get("force").and_then(Value::as_bool).unwrap_or(false);
+            let rt = tokio::runtime::Builder::new_current_thread()
+                .enable_all()
+                .build();
+            match rt {
+                Ok(rt) => {
+                    let res = rt.block_on(async {
+                        let check = noema_core::update::check_update(None).await?;
+                        noema_core::update::apply_update(&check, force).await
+                    });
+                    match res {
+                        Ok(payload) => json_response(&mut stream, 200, payload),
+                        Err(e) => json_response(&mut stream, 400, json!({ "error": e })),
+                    }
+                }
+                Err(e) => json_response(&mut stream, 500, json!({ "error": e.to_string() })),
+            }
+        }
         ("GET", "/api/brain") => match cfg.api.brain() {
             Ok(payload) => json_response(&mut stream, 200, payload),
             Err(e) => json_response(&mut stream, 500, json!({ "error": e })),

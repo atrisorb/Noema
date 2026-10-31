@@ -5,10 +5,12 @@ pub mod daemon;
 pub mod event;
 pub mod hardware;
 pub mod ids;
+pub mod path_env;
 pub mod platform;
 pub mod rpc;
 pub mod session;
 pub mod store;
+pub mod update;
 pub mod vector;
 
 pub use hardware::{HardwareProfile, HardwareReport, Tuning};

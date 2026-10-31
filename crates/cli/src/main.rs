@@ -35,6 +35,8 @@ usage: noema <command>
   session resume              daemon resume state
   methods                     every daemon RPC method
   rpc <method> [json]         call any daemon RPC method
+  path [status|add|remove|clean|setup]  manage PATH and companion toolchain enrollment
+  update [--check|--force]    check for updates and auto-update NOEMA from GitHub
   help                        this text
 
 App actions use the Studio bridge on NOEMA_APP_PORT (default 4173).
@@ -57,6 +59,8 @@ fn main() -> ExitCode {
         "system" => system(&args[1..]),
         "studio" => studio(&args[1..]),
         "session" => session(&args[1..]),
+        "path" => path(&args[1..]),
+        "update" => update(&args[1..]),
         "methods" => {
             println!(
                 "{}",
@@ -232,6 +236,48 @@ fn session(args: &[String]) -> Result<Value, String> {
     }
 }
 
+fn path(args: &[String]) -> Result<Value, String> {
+    let sub = args.first().map(String::as_str).unwrap_or("status");
+    match sub {
+        "status" => noema_core::path_env::status(),
+        "add" => {
+            let target = args.get(1).map(std::path::PathBuf::from).or_else(noema_core::path_env::current_exe_dir);
+            let Some(dir) = target else {
+                return Err("could not determine directory to add".into());
+            };
+            noema_core::path_env::add(&dir)
+        }
+        "remove" => {
+            let Some(target) = args.get(1) else {
+                return Err("usage: noema path remove <directory>".into());
+            };
+            noema_core::path_env::remove(std::path::Path::new(target))
+        }
+        "clean" => noema_core::path_env::clean(),
+        "setup" => noema_core::path_env::setup(),
+        other => Err(format!("unknown path command: {other}. Expected status, add, remove, clean, setup")),
+    }
+}
+
+fn update(args: &[String]) -> Result<Value, String> {
+    let check_only = args.iter().any(|a| a == "--check");
+    let force = args.iter().any(|a| a == "--force");
+    let repo = std::env::var("NOEMA_GITHUB_REPO").ok();
+
+    let rt = tokio::runtime::Builder::new_current_thread()
+        .enable_all()
+        .build()
+        .map_err(|e| format!("failed to initialize tokio runtime: {e}"))?;
+
+    rt.block_on(async {
+        let check = noema_core::update::check_update(repo.as_deref()).await?;
+        if check_only {
+            return Ok(serde_json::to_value(&check).map_err(|e| e.to_string())?);
+        }
+        noema_core::update::apply_update(&check, force).await
+    })
+}
+
 fn local_store() -> Result<Store, String> {
     Store::open(&data_dir().join("noema.db")).map_err(|e| e.to_string())
 }
@@ -398,6 +444,10 @@ mod tests {
             ("GET", "/api/studio"),
             ("POST", "/api/studio"),
             ("POST", "/api/dream"),
+            ("GET", "/api/system/path"),
+            ("POST", "/api/system/path"),
+            ("GET", "/api/system/update"),
+            ("POST", "/api/system/update"),
         ];
         for (method, route) in ROUTES {
             assert!(
@@ -406,6 +456,8 @@ mod tests {
                     "/api/anatomy" => "anatomy",
                     "/api/anima" => "anima",
                     "/api/system" | "/api/system/refresh" => "system",
+                    "/api/system/path" => "path",
+                    "/api/system/update" => "update",
                     "/api/brain" => "brain",
                     "/api/brain/telemetry" => "telemetry",
                     "/api/brain/drag" => "drag",

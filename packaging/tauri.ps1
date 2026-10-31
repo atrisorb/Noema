@@ -11,13 +11,15 @@ $triple = ((rustc -vV) | Select-String '^host: ').Line.Split(':')[1].Trim()
 $sidecar = Join-Path $root "src-tauri\binaries\noema-app-$triple.exe"
 
 if (-not $SkipBuild) {
-  cargo build --release -p noema-app
-  if ($LASTEXITCODE -ne 0) { throw 'cargo build -p noema-app failed' }
+  cargo build --release -p noema-app -p noema-cli -p noema-core
+  if ($LASTEXITCODE -ne 0) { throw 'cargo build failed' }
 }
 if (-not (Test-Path $ui)) { throw "UI bundle missing: run 'npm run build' in crates/app/ui" }
 Remove-Item (Join-Path $root 'src-tauri\binaries\*') -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force (Join-Path $root 'src-tauri\binaries') | Out-Null
-Copy-Item (Join-Path $bin 'noema-app.exe') $sidecar -Force
+Copy-Item (Join-Path $bin 'noema-app.exe') (Join-Path $root "src-tauri\binaries\noema-app-$triple.exe") -Force
+Copy-Item (Join-Path $bin 'noema.exe') (Join-Path $root "src-tauri\binaries\noema-$triple.exe") -Force
+Copy-Item (Join-Path $bin 'noemad.exe') (Join-Path $root "src-tauri\binaries\noemad-$triple.exe") -Force
 
 cargo tauri build --config (Join-Path $root 'packaging\tauri.bundle.conf.json') --bundles nsis,msi
 if ($LASTEXITCODE -ne 0) { throw 'cargo tauri build failed' }

@@ -1,9 +1,18 @@
 {
   "bundle": {
-    "externalBin": ["binaries/noema-app"],
+    "externalBin": [
+      "binaries/noema-app",
+      "binaries/noema",
+      "binaries/noemad"
+    ],
     "resources": {
       "../crates/app/ui/dist/": "ui/",
       "../assets/": "assets/"
+    },
+    "windows": {
+      "nsis": {
+        "installerHooks": "../packaging/nsis_hooks.nsh"
+      }
     }
   }
 }

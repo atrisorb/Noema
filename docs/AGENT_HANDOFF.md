@@ -4,6 +4,15 @@
 
 ## Current state
 
+- **Release v0.5.22: Automatic PATH Management & GitHub Releases Auto-Updater (Axon / Cortex - 2026-10-31):**
+  - Added automated PATH engine (`crates/core/src/path_env.rs`) managing permanent Windows User PATH (`HKCU\Environment`), duplicate removal, broken path pruning, and companion toolchain discovery (`SolidCraft`, `CADCraft`, `Driftwatch`, `Cargo`).
+  - Added in-place auto-updater (`crates/core/src/update.rs`) integrating GitHub Releases API, matching platform assets, streaming downloads, and safely replacing binaries with Windows locked-file mitigation.
+  - Added CLI commands `noema path [status|add|remove|clean|setup]` and `noema update [--check|--force]`.
+  - Added bridge HTTP endpoints `/api/system/path` and `/api/system/update`.
+  - Added `packaging/install.ps1` for 1-click Windows deployment and `packaging/nsis_hooks.nsh` for Tauri NSIS automatic PATH registration.
+  - Bundled `noema` (CLI) and `noemad` (daemon) into desktop sidecars (`packaging/tauri.bundle.conf.json`, `tauri.ps1`, `tauri.sh`).
+  - Verified with 68 workspace tests passing and live deployment to `F:\NOEMA`.
+
 - **Release v0.5.21: Linux Packaging Harmonisation & Release Collision Fix (Axon / Cortex - 2026-10-31):**
   - Streamlined `packaging/build.sh` on Linux to build the portable archive `dist/noema-$VERSION-linux-$ARCH.tar.gz`.
   - Removed duplicate manual AppDir/deb/rpm generation in `build.sh` that caused HTTP 422 asset name collision on GitHub Releases with official Tauri bundles from `packaging/tauri.sh`.

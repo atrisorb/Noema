@@ -2,6 +2,24 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.22] - 2026-10-31 - Automatic PATH Management & GitHub Releases Auto-Updater
+
+### Added
+- Automated PATH Engine (`crates/core/src/path_env.rs`):
+  - Added cross-platform PATH management with permanent registry updates on Windows (`HKCU\Environment`), environment broadcast, duplicate detection, broken path pruning, and companion toolchain discovery (`SolidCraft`, `CADCraft`, `Driftwatch`, `Cargo`).
+  - Added CLI command `noema path [status|add|remove|clean|setup]` and bridge endpoints `GET/POST /api/system/path`.
+- In-Place Auto-Updater (`crates/core/src/update.rs`):
+  - Added GitHub Releases API integration querying latest assets, semver delta analysis, platform-matching asset downloading, and in-place executable replacement with Windows `.old` file lock mitigation.
+  - Added CLI command `noema update [--check|--force]` and bridge endpoints `GET/POST /api/system/update`.
+- Desktop & Packaging Integration:
+  - Added `packaging/install.ps1`: one-command automated deployment script targeting `F:\NOEMA` (or user target directory) with automatic PATH setup.
+  - Added `packaging/nsis_hooks.nsh`: NSIS installer/uninstaller hooks executing silent PATH enrollment/removal.
+  - Bundled `noema` (CLI) and `noemad` (daemon) alongside `noema-app` in `packaging/tauri.bundle.conf.json`, `tauri.ps1`, and `tauri.sh`.
+
+### Verified
+- `cargo test --workspace`: clean (68 tests passing across all crates).
+- Live execution on Windows: `F:\NOEMA` installed, enrolled in user PATH, verified via `noema path status` and `noema update --check`.
+
 ## [0.5.21] - 2026-10-31 - Linux Packaging Harmonisation & Release Collision Fix
 
 ### Fixed
