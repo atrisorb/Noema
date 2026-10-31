@@ -2,6 +2,21 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.16] - 2026-10-31 - Multi-Platform CI / Release Pipeline Hardened & Package Alignment
+
+### Fixed
+- CI / Release Pipeline (`.github/workflows/release.yml`):
+  - macOS runner: updated from deprecated `macos-14` (undergoing brownout retirement) to `macos-15`.
+  - Windows test gate: added `node tools/design/build-icons.mjs` step prior to `cargo test --workspace` so Tauri's Windows resource compiler (`tauri-build`) finds `icon.ico` on clean CI checkouts.
+  - Linux hardware probe (`crates/core/src/hardware.rs`): added `.ok()` conversion to fix method resolution error E0599 on `std::io::Result<String>`.
+  - GitHub Releases: elevated workflow permissions to `contents: write` and added `softprops/action-gh-release@v2` step so tags automatically publish compiled installers (`.exe`, `.msi`, `.dmg`, `.AppImage`, `.deb`, `.rpm`) and portable zip/tarballs to GitHub Releases.
+- Version Alignment:
+  - Bumped `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json` to `0.5.16` to match release tag `v0.5.16`, ensuring package scripts produce `noema-0.5.16-*` matching GitHub release tags.
+
+### Verified
+- `cargo check --workspace`: clean (0 errors, 0 warnings).
+- `cargo test --workspace`: 64 passed across all crates, 0 failed.
+
 ## [0.5.15] - 2026-10-31 - Exhaustive 2026 Model Catalog: Full Endpoint Aliases, Claude Opus 5.5 & Deprecated Model Mappings
 
 ### Added
@@ -21,15 +36,6 @@ All notable changes. Newest first. One entry per completed block/commit.
   - Deprecation tracking: `deprecated: bool`, `deprecation_notice: Option<&'static str>`, `replacement_id: Option<&'static str>`.
   - Resolution helpers: `active_models()`, `deprecated_models()`, `resolve_endpoint_alias()`, `all_accepted_endpoint_names()`.
 - `crates/inference/src/lib.rs`: re-exported all new query and resolution functions.
-
-### Fixed
-- CI / Release Pipeline (`.github/workflows/release.yml`):
-  - macOS runner: updated from deprecated `macos-14` (undergoing brownout retirement) to `macos-15`.
-  - Windows test gate: added `node tools/design/build-icons.mjs` step prior to `cargo test --workspace` so Tauri's Windows resource compiler (`tauri-build`) finds `icon.ico` on clean CI checkouts.
-  - Linux hardware probe (`crates/core/src/hardware.rs`): added `.ok()` conversion to fix method resolution error E0599 on `std::io::Result<String>`.
-  - GitHub Releases: elevated workflow permissions to `contents: write` and added `softprops/action-gh-release@v2` step so tags automatically publish compiled installers (`.exe`, `.msi`, `.dmg`, `.AppImage`, `.deb`, `.rpm`) and portable zip/tarballs to GitHub Releases.
-- Version Alignment:
-  - Bumped `Cargo.toml` and `src-tauri/tauri.conf.json` to `0.5.15` to match release tag `v0.5.15`, ensuring package scripts produce `noema-0.5.15-*` matching GitHub release tags.
 
 ### Verified
 - `cargo test -p noema-inference`: 26 passed, 0 failed.

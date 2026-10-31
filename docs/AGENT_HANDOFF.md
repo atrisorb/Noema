@@ -4,13 +4,13 @@
 
 ## Current state
 
-- **CI / Packaging & Multi-Platform Release Pipeline Hardened (Axon / Cortex - 2026-10-31):**
+- **Release v0.5.16: Multi-Platform CI / Packaging & GitHub Release Pipeline (Axon / Cortex - 2026-10-31):**
   - Resolved GitHub Actions release runner failures:
     - `macos-14` brownout retirement: upgraded runner to `macos-15`.
     - Linux target compilation error E0599: fixed `.filter()` method resolution on `std::io::Result` in `crates/core/src/hardware.rs` by inserting `.ok()`.
     - Windows clean-checkout test failure: added `node tools/design/build-icons.mjs` step before `cargo test --workspace` so Tauri's Windows resource compiler (`tauri-build`) finds `icon.ico`.
     - Release asset publishing: elevated workflow permissions to `contents: write` and wired `softprops/action-gh-release@v2` on tag triggers to upload generated bundles (`.exe`, `.msi`, `.dmg`, `.AppImage`, `.deb`, `.rpm`, `.zip`, `.tar.gz`) directly to GitHub Releases.
-  - Aligned package version to `0.5.15` in `Cargo.toml` and `src-tauri/tauri.conf.json` so build artifacts (`noema-0.5.15-*`) match git tag `v0.5.15`.
+  - Bumped version to `0.5.16` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json` so build artifacts (`noema-0.5.16-*`) match git tag `v0.5.16`.
   - Full workspace check and 64 tests passing green.
 
 - **Exhaustive 2026 Model Catalog & Multi-Provider Architecture (Thalamus - 2026-10-31):**
