@@ -19,9 +19,12 @@ Both scripts:
 4. emit the platform artifact under `dist/`.
 
 The standalone and desktop paths are independent. `build.ps1` / `build.sh` stay
-the portable zip/tar path with no WebKit requirement. `tauri.ps1` / `tauri.sh` reuse the
-same `target/release` binaries and UI dist, stage `noema-app` as a sidecar, and pass
-`packaging/tauri.bundle.conf.json` to cargo-tauri for the `externalBin` + `ui/`/`assets/`
+the portable zip/tar path with no WebKit requirement. Both packaging scripts ensure
+generated platform icons (`src-tauri/icons/`) are up-to-date from `assets/brand/noema-app-icon.svg`
+via `tools/design/build-icons.mjs` without committing raster images.
+`tauri.ps1` / `tauri.sh` reuse the same `target/release` binaries and UI dist, stage `noema-app`
+as a sidecar, and enforce strict loopback CSP and narrowed capability origins (`main.json`).
+`packaging/tauri.bundle.conf.json` is passed to cargo-tauri for the `externalBin` + `ui/`/`assets/`
 resources. That override is bundle-time only, so `cargo check --workspace` works on a
 clean checkout with no staged sidecar or UI dist.
 

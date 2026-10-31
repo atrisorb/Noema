@@ -40,8 +40,15 @@ Icon=noema
 Categories=Development;Science;
 EOF
     cp "$APPDIR/noema.desktop" "$APPDIR/usr/share/applications/"
-    cp "$ROOT/src-tauri/icons/128x128.png" "$APPDIR/usr/share/icons/hicolor/256x256/apps/noema.png" 2>/dev/null || true
-    cp "$APPDIR/usr/share/icons/hicolor/256x256/apps/noema.png" "$APPDIR/noema.png" 2>/dev/null || true
+    if [ ! -f "$ROOT/src-tauri/icons/128x128@2x.png" ]; then
+      (cd "$ROOT" && node tools/design/build-icons.mjs) || true
+    fi
+    ICON_SRC="$ROOT/src-tauri/icons/128x128@2x.png"
+    if [ ! -f "$ICON_SRC" ]; then
+      ICON_SRC="$ROOT/src-tauri/icons/128x128.png"
+    fi
+    cp "$ICON_SRC" "$APPDIR/usr/share/icons/hicolor/256x256/apps/noema.png" 2>/dev/null || true
+    cp "$ICON_SRC" "$APPDIR/noema.png" 2>/dev/null || true
     if command -v appimagetool >/dev/null; then
       appimagetool "$APPDIR" "$OUT/noema-$VERSION-linux-$ARCH.AppImage"
     else

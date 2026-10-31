@@ -8,10 +8,10 @@
     "beforeBuildCommand": ""
   },
   "app": {
-    "withGlobalTauri": true,
+    "withGlobalTauri": false,
     "windows": [],
     "security": {
-      "csp": null
+      "csp": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' http://127.0.0.1:4173 http://localhost:4173 http://127.0.0.1:5173 http://localhost:5173 http://127.0.0.1:4199 http://localhost:4199; worker-src 'self' blob:; frame-src 'self' data: blob:;"
     }
   },
   "bundle": {
