@@ -4,6 +4,16 @@
 
 ## Current state
 
+- **Universal Model Catalog & 2026 Rate Cards (Thalamus - 2026-10-31):**
+  - Updated catalog in `crates/inference/src/cost.rs` to track October 2026 stable flagship models:
+    - Google Gemini: Gemini 3.8 Flash, 3.5 Flash-Lite, 3.1 Pro (legacy 2.5 Flash / Pro retained).
+    - OpenAI: GPT-4o, GPT-4o mini, o1, o3-mini.
+    - Anthropic: Claude 3.7 Sonnet, Claude 3.5 Sonnet, Claude 3.5 Haiku, Claude 3 Opus.
+    - DeepSeek: DeepSeek-V3, DeepSeek-R1.
+    - Mistral: Mistral Large, Mistral Small, Codestral.
+    - Local: Llama 3.3 70B, Qwen 2.5 Coder 32B via zero-token card with local hardware amortisation.
+  - Exported `ModelCatalogEntry` and `default_catalog()` from `crates/inference`.
+  - All 25 unit tests in `noema-inference` and 63 workspace tests green.
 - **Block 10 FULLY CLOSED (2026-10-31):** Blocks 10.1 - 10.10 complete.
   - **10.8 closed:** Atlas classification calibrated for all 826 meshes (0 misclassified meshes). Musculature (calves, feet, arms, face) and skeletal system properly categorized, tinted and calibrated (muscle roughness .44, bone .52, clearcoat .04/.12). Neutral pelvis audited and confirmed (0 external-genitalia meshes). Soft contact occlusion ground shadow plane at y = -0.86 added (`crates/app/ui/src/surface.ts`). Procedural capsule hack rejected; full-body skin mesh assigned to Soma 3D topology pipeline.
   - **Security S1 closed (Axon):** Remote IPC in `src-tauri/capabilities/main.json` narrowed to exact loopback ports (4173, 5173, 4199). Strict CSP set in `src-tauri/tauri.conf.json` with no remote origins and `withGlobalTauri: false`. Packaging scripts use generated SVG platform icons without raster source commits.

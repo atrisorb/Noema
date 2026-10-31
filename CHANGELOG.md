@@ -2,6 +2,23 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.14] - 2026-10-31 - Universal Model Catalog & 2026 Rate Cards (Thalamus)
+
+### Added
+- `crates/inference/src/cost.rs`:
+  - Flagship 2026 Google Gemini 3.x models: `gemini-3.8-flash` ($0.75/$3.75), `gemini-3.5-flash-lite` ($0.30/$2.50), `gemini-3.1-pro` ($2.00/$12.00). Legacy 2.5 retained for compatibility.
+  - OpenAI models: `gpt-4o` ($2.50/$10.00), `gpt-4o-mini` ($0.15/$0.60), `o1` ($15.00/$60.00), `o3-mini` ($1.10/$4.40).
+  - Anthropic models: `claude-3-7-sonnet` ($3.00/$15.00), `claude-3-5-sonnet` ($3.00/$15.00), `claude-3-5-haiku` ($0.80/$4.00), `claude-3-opus` ($15.00/$75.00).
+  - Specialized & local: `codestral` ($0.30/$0.90), `local_zero()` (zero token rate for local Ollama / llama.cpp / vLLM runtimes).
+  - `ModelCatalogEntry` struct and `default_catalog()` function exposing 15+ models across Google, OpenAI, Anthropic, DeepSeek, Mistral, and local runtimes.
+- `crates/inference/src/lib.rs`: re-exported `ModelCatalogEntry` and `default_catalog`.
+
+### Verified
+- `cargo test -p noema-inference`: 25 passed, 0 failed.
+- `cargo test --workspace`: 63 passed across all crates, 0 failed.
+- `cargo check --workspace`: clean.
+- Driftwatch: verified 0 breaking updates on project dependencies.
+
 ## [0.5.13] - 2026-10-31 - Block 10.8 Closure, Security S1, FinOps & Brain Route
 
 ### Added
