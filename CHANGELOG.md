@@ -2,6 +2,17 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.17] - 2026-10-31 - Platform Icon Builder Robustness & Fallback
+
+### Fixed
+- `tools/design/build-icons.mjs`:
+  - Added detection and graceful fallback to `npx @tauri-apps/cli@2.12.4 icon` when `cargo-tauri` binary is not yet installed in CI environment, preventing exit code 101/1 during pre-test icon generation.
+- Version bump to `0.5.17` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.
+
+### Verified
+- `cargo check --workspace`: clean.
+- `node tools/design/build-icons.mjs`: verified generating all StoreLogo, ICO, ICNS, PNG, iOS, and Android icons cleanly.
+
 ## [0.5.16] - 2026-10-31 - Multi-Platform CI / Release Pipeline Hardened & Package Alignment
 
 ### Fixed

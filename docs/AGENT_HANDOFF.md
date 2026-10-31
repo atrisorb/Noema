@@ -4,6 +4,11 @@
 
 ## Current state
 
+- **Release v0.5.17: Platform Icon Builder Fallback & Robustness (Axon / Cortex - 2026-10-31):**
+  - Resolved `node tools/design/build-icons.mjs` failure on CI runners: `tools/design/build-icons.mjs` now detects if `cargo-tauri` is present, and gracefully falls back to `npx @tauri-apps/cli@2.12.4 icon` if `cargo-tauri` has not yet been compiled, resolving exit codes 101/1 across Linux, macOS, and Windows.
+  - Bumped version to `0.5.17` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.
+  - Workspace checks and icon generation verified.
+
 - **Release v0.5.16: Multi-Platform CI / Packaging & GitHub Release Pipeline (Axon / Cortex - 2026-10-31):**
   - Resolved GitHub Actions release runner failures:
     - `macos-14` brownout retirement: upgraded runner to `macos-15`.
