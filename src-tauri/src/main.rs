@@ -64,15 +64,17 @@ fn spawn_app(app: &tauri::AppHandle) -> Option<Child> {
     let bin = app_bin()?;
     let mut cmd = Command::new(bin);
     cmd.args(["serve", "--port", &port().to_string()]);
-    if let Ok(dir) = app.path().resource_dir() {
-        let ui = dir.join("ui");
-        let assets = dir.join("assets");
-        if ui.join("index.html").exists() {
-            cmd.arg("--ui").arg(ui);
-        }
-        if assets.exists() {
-            cmd.arg("--assets").arg(assets);
-        }
+    let exe_dir = std::env::current_exe().ok().and_then(|p| p.parent().map(|p| p.to_path_buf()));
+    let ui_dir = app.path().resource_dir().ok().map(|d| d.join("ui")).filter(|p| p.join("index.html").exists())
+        .or_else(|| exe_dir.as_ref().map(|d| d.join("ui")).filter(|p| p.join("index.html").exists()));
+    let assets_dir = app.path().resource_dir().ok().map(|d| d.join("assets")).filter(|p| p.exists())
+        .or_else(|| exe_dir.as_ref().map(|d| d.join("assets")).filter(|p| p.exists()));
+
+    if let Some(ui) = ui_dir {
+        cmd.arg("--ui").arg(ui);
+    }
+    if let Some(assets) = assets_dir {
+        cmd.arg("--assets").arg(assets);
     }
     cmd.stdout(Stdio::null()).stderr(Stdio::null());
     #[cfg(windows)]

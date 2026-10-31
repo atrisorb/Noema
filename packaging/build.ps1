@@ -14,7 +14,7 @@ $out = Join-Path $root 'dist'
 $stage = Join-Path $out "noema-$version-windows-x64"
 
 if (-not $SkipBuild) {
-  cargo build --profile $Profile -p noema-cli -p noema-core -p noema-app
+  cargo build --profile $Profile -p noema-cli -p noema-core -p noema-app -p noema-desktop
   if ($LASTEXITCODE -ne 0) { throw 'cargo build failed' }
 }
 if (-not $SkipUiBuild) {
@@ -30,8 +30,10 @@ if (-not $SkipUiBuild) {
 Remove-Item $stage -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Path $stage -Force | Out-Null
 $bin = Join-Path $root "target\$profileDir"
-foreach ($exe in 'noema.exe', 'noemad.exe', 'noema-app.exe') {
-  Copy-Item (Join-Path $bin $exe) $stage
+foreach ($exe in 'noema.exe', 'noemad.exe', 'noema-app.exe', 'noema-desktop.exe') {
+  if (Test-Path (Join-Path $bin $exe)) {
+    Copy-Item (Join-Path $bin $exe) $stage
+  }
 }
 Copy-Item (Join-Path $root 'crates\app\ui\dist') (Join-Path $stage 'ui') -Recurse
 Copy-Item (Join-Path $root 'assets') (Join-Path $stage 'assets') -Recurse
@@ -56,7 +58,7 @@ Page instfiles
 Section
   SetOutPath "\$INSTDIR"
   File /r "$stage\*.*"
-  CreateShortcut "\$DESKTOP\NOEMA.lnk" "\$INSTDIR\noema-app.exe"
+  CreateShortcut "\$DESKTOP\NOEMA.lnk" "\$INSTDIR\noema-desktop.exe"
 SectionEnd
 "@ | Set-Content -Path $nsi -Encoding UTF8
   & $makensis.Source $nsi

@@ -43,11 +43,28 @@ fn flag(args: &[String], name: &str) -> Option<String> {
 }
 
 fn serve(args: &[String]) -> Result<(), String> {
+    let exe_dir = std::env::current_exe().ok().and_then(|p| p.parent().map(|p| p.to_path_buf()));
     let manifest = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     let workspace = manifest.parent().and_then(|p| p.parent()).ok_or("bad manifest path")?.to_path_buf();
     let demo = args.iter().any(|a| a == "--demo");
-    let ui = flag(args, "--ui").map(PathBuf::from).unwrap_or_else(|| manifest.join("ui").join("dist"));
-    let assets = flag(args, "--assets").map(PathBuf::from).unwrap_or_else(|| workspace.join("assets"));
+    let ui = flag(args, "--ui").map(PathBuf::from).unwrap_or_else(|| {
+        if let Some(ref d) = exe_dir {
+            let candidate = d.join("ui");
+            if candidate.join("index.html").exists() {
+                return candidate;
+            }
+        }
+        manifest.join("ui").join("dist")
+    });
+    let assets = flag(args, "--assets").map(PathBuf::from).unwrap_or_else(|| {
+        if let Some(ref d) = exe_dir {
+            let candidate = d.join("assets");
+            if candidate.exists() {
+                return candidate;
+            }
+        }
+        workspace.join("assets")
+    });
     let port: u16 = flag(args, "--port").and_then(|p| p.parse().ok()).unwrap_or(4173);
     let db = flag(args, "--db").map(PathBuf::from).unwrap_or_else(|| {
         if demo {

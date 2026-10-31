@@ -6,6 +6,7 @@
 
 - **Release v0.5.22: Code CLI, Vitreous Terminal Engine, ASCII Wordmark, PATH Management & In-Place Auto-Updater (Axon / Cortex - 2026-10-31):**
   - Built comprehensive Code CLI surface outperforming 2026 competitors: `noema doctor` (full health audit with actionable suggestions), `noema theme [list|set]` (5 themes with 24-bit ANSI Truecolor), `noema diff` (syntax-colored unified code diffs), `noema mcp [list|status|test]` (MCP package supervisor), `noema agents` (8-agent roster inspection), `noema chat` (interactive coding prompt with streaming thoughts).
+  - Hardened desktop shell (`src-tauri`, `crates/app`): added portable `ui` and `assets` auto-discovery in `noema-app` and `noema-desktop`, ensuring standalone desktop execution from `F:\NOEMA\noema-desktop.exe` correctly boots the 3D Studio and child bridge process.
   - Designed and rendered Vitreous ASCII logo/wordmark lockup (`banner`) in artery coral (`#FF5A5F`) and nerve amber (`#FFC857`) in `crates/cli/src/theme.rs`, integrated across `noema session [resume|list]`, `noema status`, `noema doctor`, `noema chat`, and `noema --help`.
   - Upgraded `noema session resume` and `noema session list` with rich Vitreous cards and formatted Unicode tables, seamlessly reading local SQLite WAL store if daemon is offline.
   - Added automated PATH engine (`crates/core/src/path_env.rs`) managing permanent Windows User PATH (`HKCU\Environment`), duplicate removal, broken path pruning, and companion toolchain discovery (`SolidCraft`, `CADCraft`, `Driftwatch`, `Cargo`).

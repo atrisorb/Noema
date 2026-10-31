@@ -5,6 +5,9 @@ All notable changes. Newest first. One entry per completed block/commit.
 ## [0.5.22] - 2026-10-31 - Automatic PATH Management, GitHub Auto-Updater & Vitreous Code CLI
 
 ### Added
+- Desktop Shell & Standalone Asset Discovery (`src-tauri/src/main.rs`, `crates/app/src/main.rs`):
+  - Added auto-discovery of portable `ui` and `assets` directories adjacent to the running executable before falling back to development manifest paths, enabling standalone execution of `noema-desktop.exe` outside installer bundles.
+  - Updated `packaging/build.ps1` to include `noema-desktop.exe` in portable distribution packages and target desktop shortcuts directly to the GUI shell.
 - Vitreous Terminal ASCII Wordmark & Session Styling (`crates/cli/src/theme.rs`, `crates/cli/src/main.rs`):
   - Added 5-line precision ASCII wordmark lockup (`banner`) in artery coral (`#FF5A5F`) and nerve amber (`#FFC857`) adhering strictly to `docs/design/NOEMA_DESIGN_SYSTEM.md`.
   - Integrated ASCII wordmark into `noema session [resume|list]`, `noema status`, `noema doctor`, `noema chat`, and `noema --help`.
