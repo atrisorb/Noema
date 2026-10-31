@@ -2,6 +2,32 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.15] - 2026-10-31 - Complete 2026 Model Catalog: Gemini 4 Argon, GPT-6, Claude 5.5, Mistral Large 4, GLM 5.3, Kimi K3.1
+
+### Added
+- `crates/inference/src/cost.rs`:
+  - Complete, exhaustive October 2026 frontier model registry across 10 providers:
+    - **Google Gemini**: `gemini-4-argon` (unified 1M window, $2.00/$10.00, $0.10 implicit 95% cache discount, default thinking 32k), `gemini-3.8-flash` ($0.75/$3.75), `gemini-3.5-flash-lite` ($0.30/$2.50), `gemini-3.1-pro` ($2.00/$12.00), `gemini-3.8-live` ($1.00/$4.00 native audio/video), `gemini-2.5-flash` ($0.075/$0.30), `gemini-2.5-pro` ($1.25/$5.00).
+    - **OpenAI**: `gpt-6-astra` ($10.00/$50.00), `gpt-5.6-sol` ($5.00/$30.00), `gpt-5.6-terra` ($2.50/$15.00), `gpt-5-mini` ($0.20/$0.80), `o3` ($2.00/$8.00), `o3-pro` ($20.00/$80.00), `o3-mini` ($1.10/$4.40), `o4-mini` ($1.10/$4.40), `o1` ($15.00/$60.00), `gpt-4o` ($2.50/$10.00), `gpt-4o-mini` ($0.15/$0.60).
+    - **Anthropic**: `claude-sonnet-5-5` ($2.00/$10.00), `claude-opus-5-5` ($4.00/$20.00), `claude-haiku-5-5` ($0.10/$0.50), `claude-3-7-sonnet` ($3.00/$15.00), `claude-3-5-sonnet` ($3.00/$15.00), `claude-3-5-haiku` ($0.80/$4.00), `claude-3-opus` ($15.00/$75.00).
+    - **Mistral AI**: `mistral-large-4` (Le Chonk 1.05T MoE, 1M context, $1.36/$4.18, $0.14 cache read), `mistral-large-2411` ($2.00/$6.00), `mistral-small-2501` ($0.10/$0.30), `codestral-2501` ($0.30/$0.90).
+    - **DeepSeek**: `deepseek-flash` (V4.1-Flash, peak-aware $0.15-$0.30 in / $0.60-$1.20 out / $0.003-$0.006 cache), `deepseek-reasoner` (R1, $0.55/$2.19), `deepseek-chat` (V3, $0.14/$0.28).
+    - **Zhipu AI (GLM)**: `glm-5.3` (1M context, $1.40/$4.40), `glm-5.3-flash` ($0.15/$0.50), `glm-5.3-flashx` ($0.37/$1.25), `glm-4.7-flash` (free tier).
+    - **Moonshot AI (Kimi)**: `kimi-k3.1-pro` (1M context, $2.00/$10.00, $0.20 cache read), `kimi-k3.1-pro-highspeed` ($4.00/$20.00), `kimi-k3` ($3.00/$15.00).
+    - **Meta Llama**: `llama-3.3-70b-instruct` ($0.60/$0.90), `llama-3.1-405b-instruct` ($3.00/$3.00).
+    - **Alibaba Qwen**: `qwen-2.5-coder-32b` ($0.20/$0.20).
+    - **Local runtimes**: zero-token cost for Ollama / vLLM / llama.cpp / LM Studio with amortised hardware and kWh calculation.
+  - Comprehensive parameters on `ModelCatalogEntry`: context window, max output tokens, thinking support, default thinking budget, vision, audio, tools, prompt caching, and wire protocol.
+  - Query helpers: `default_catalog()`, `catalog_entry()`, `all_providers()`, `models_by_provider()`, and `RateCard::for_model()`.
+- `crates/inference/src/lib.rs`: added `Moonshot`, `Zhipu`, `Mistral` to `Standard` wire enum, re-exported catalog query functions.
+- `crates/inference/src/adapter.rs`: standard wire path routing and default bases for Moonshot (`api.moonshot.cn`), Zhipu (`open.bigmodel.cn`), and Mistral (`api.mistral.ai`).
+
+### Verified
+- `cargo test -p noema-inference`: 24 passed, 0 failed.
+- `cargo test --workspace`: 63 passed, 0 failed.
+- `cargo check --workspace`: green.
+- `npm run --prefix crates/app/ui build`: green.
+
 ## [0.5.14] - 2026-10-31 - Universal Model Catalog & 2026 Rate Cards (Thalamus)
 
 ### Added

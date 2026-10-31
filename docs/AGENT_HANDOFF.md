@@ -4,16 +4,22 @@
 
 ## Current state
 
-- **Universal Model Catalog & 2026 Rate Cards (Thalamus - 2026-10-31):**
-  - Updated catalog in `crates/inference/src/cost.rs` to track October 2026 stable flagship models:
-    - Google Gemini: Gemini 3.8 Flash, 3.5 Flash-Lite, 3.1 Pro (legacy 2.5 Flash / Pro retained).
-    - OpenAI: GPT-4o, GPT-4o mini, o1, o3-mini.
-    - Anthropic: Claude 3.7 Sonnet, Claude 3.5 Sonnet, Claude 3.5 Haiku, Claude 3 Opus.
-    - DeepSeek: DeepSeek-V3, DeepSeek-R1.
-    - Mistral: Mistral Large, Mistral Small, Codestral.
-    - Local: Llama 3.3 70B, Qwen 2.5 Coder 32B via zero-token card with local hardware amortisation.
-  - Exported `ModelCatalogEntry` and `default_catalog()` from `crates/inference`.
-  - All 25 unit tests in `noema-inference` and 63 workspace tests green.
+- **Exhaustive 2026 Model Catalog & Multi-Provider Architecture (Thalamus - 2026-10-31):**
+  - Implemented exhaustive October 2026 frontier model registry across 10 providers in `crates/inference/src/cost.rs`:
+    - **Google Gemini**: `gemini-4-argon` (unified 1M window, $2.00/$10.00, $0.10 implicit 95% cache discount, default thinking 32k), `gemini-3.8-flash` ($0.75/$3.75), `gemini-3.5-flash-lite` ($0.30/$2.50), `gemini-3.1-pro` ($2.00/$12.00), `gemini-3.8-live` ($1.00/$4.00 native audio/video), `gemini-2.5-flash`, `gemini-2.5-pro`.
+    - **OpenAI**: `gpt-6-astra` ($10.00/$50.00), `gpt-5.6-sol` ($5.00/$30.00), `gpt-5.6-terra` ($2.50/$15.00), `gpt-5-mini` ($0.20/$0.80), `o3` ($2.00/$8.00), `o3-pro` ($20.00/$80.00), `o3-mini` ($1.10/$4.40), `o4-mini` ($1.10/$4.40), `o1` ($15.00/$60.00), `gpt-4o`, `gpt-4o-mini`.
+    - **Anthropic**: `claude-sonnet-5-5` ($2.00/$10.00), `claude-opus-5-5` ($4.00/$20.00), `claude-haiku-5-5` ($0.10/$0.50), `claude-3-7-sonnet`, `claude-3-5-sonnet`, `claude-3-5-haiku`, `claude-3-opus`.
+    - **Mistral AI**: `mistral-large-4` (Le Chonk 1.05T MoE, 1M context, $1.36/$4.18, $0.14 cache read), `mistral-large-2411`, `mistral-small-2501`, `codestral-2501`.
+    - **DeepSeek**: `deepseek-flash` (V4.1-Flash, peak-aware $0.15-$0.30 in / $0.60-$1.20 out / $0.003-$0.006 cache), `deepseek-reasoner` (R1), `deepseek-chat` (V3).
+    - **Zhipu AI (GLM)**: `glm-5.3` (1M context, $1.40/$4.40), `glm-5.3-flash` ($0.15/$0.50), `glm-5.3-flashx` ($0.37/$1.25), `glm-4.7-flash` (free tier).
+    - **Moonshot AI (Kimi)**: `kimi-k3.1-pro` (1M context, $2.00/$10.00, $0.20 cache read), `kimi-k3.1-pro-highspeed` ($4.00/$20.00), `kimi-k3` ($3.00/$15.00).
+    - **Meta Llama**: `llama-3.3-70b-instruct`, `llama-3.1-405b-instruct`.
+    - **Alibaba Qwen**: `qwen-2.5-coder-32b`.
+    - **Local runtimes**: zero-token cost for Ollama / vLLM / llama.cpp / LM Studio with amortised hardware and kWh calculation.
+  - Comprehensive parameters on `ModelCatalogEntry`: context window, max output tokens, thinking support, default thinking budget, vision, audio, tools, prompt caching, and wire protocol.
+  - Query helpers: `default_catalog()`, `catalog_entry()`, `all_providers()`, `models_by_provider()`, and `RateCard::for_model()`.
+  - Added `Standard::Moonshot`, `Standard::Zhipu`, `Standard::Mistral` to wire codec protocol in `crates/inference/src/lib.rs` and `crates/inference/src/adapter.rs`.
+  - All 24 unit tests in `noema-inference` and 63 workspace tests green.
 - **Block 10 FULLY CLOSED (2026-10-31):** Blocks 10.1 - 10.10 complete.
   - **10.8 closed:** Atlas classification calibrated for all 826 meshes (0 misclassified meshes). Musculature (calves, feet, arms, face) and skeletal system properly categorized, tinted and calibrated (muscle roughness .44, bone .52, clearcoat .04/.12). Neutral pelvis audited and confirmed (0 external-genitalia meshes). Soft contact occlusion ground shadow plane at y = -0.86 added (`crates/app/ui/src/surface.ts`). Procedural capsule hack rejected; full-body skin mesh assigned to Soma 3D topology pipeline.
   - **Security S1 closed (Axon):** Remote IPC in `src-tauri/capabilities/main.json` narrowed to exact loopback ports (4173, 5173, 4199). Strict CSP set in `src-tauri/tauri.conf.json` with no remote origins and `withGlobalTauri: false`. Packaging scripts use generated SVG platform icons without raster source commits.

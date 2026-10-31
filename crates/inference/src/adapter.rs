@@ -40,6 +40,9 @@ impl Adapter {
             Standard::AnthropicMessages => "https://api.anthropic.com",
             Standard::Gemini => "https://generativelanguage.googleapis.com",
             Standard::DeepSeek => "https://api.deepseek.com",
+            Standard::Moonshot => "https://api.moonshot.cn",
+            Standard::Zhipu => "https://open.bigmodel.cn",
+            Standard::Mistral => "https://api.mistral.ai",
             Standard::Ollama => "http://127.0.0.1:11434",
             Standard::LlamaCpp => "http://127.0.0.1:8080",
             Standard::Vllm => "http://127.0.0.1:8000",
@@ -55,7 +58,10 @@ impl Adapter {
             | Standard::LlamaCpp
             | Standard::Vllm
             | Standard::LmStudio
+            | Standard::Moonshot
+            | Standard::Mistral
             | Standard::CustomHttp => "/v1/chat/completions".to_string(),
+            Standard::Zhipu => "/api/paas/v4/chat/completions".to_string(),
             Standard::OpenAiResponses => "/v1/responses".to_string(),
             Standard::AnthropicMessages => "/v1/messages".to_string(),
             Standard::DeepSeek => "/chat/completions".to_string(),

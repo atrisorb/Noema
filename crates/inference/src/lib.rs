@@ -20,6 +20,9 @@ pub enum Standard {
     AnthropicMessages,
     Gemini,
     DeepSeek,
+    Moonshot,
+    Zhipu,
+    Mistral,
     Ollama,
     LlamaCpp,
     Vllm,
@@ -44,6 +47,9 @@ impl Usage {
 }
 
 pub use adapter::{Adapter, HttpCall};
-pub use cost::{LocalCost, ModelCatalogEntry, RateCard, RateWindow, default_catalog};
+pub use cost::{
+    LocalCost, ModelCatalogEntry, RateCard, RateWindow, all_providers, catalog_entry,
+    default_catalog, models_by_provider,
+};
 pub use request::{Effort, Message, Reasoning, Request, Role, Sampling, StreamEvent};
 pub use telemetry::{Activation, ActivationWindow};
