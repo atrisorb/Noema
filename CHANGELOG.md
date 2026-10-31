@@ -2,29 +2,29 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
-## [0.5.15] - 2026-10-31 - Exhaustive 2026 Model Catalog: Gemini 4 Argon, GPT-6 Series, Claude 5.5 & Fable, Mistral Large 4, DeepSeek Flash/V4 Pro, GLM 5.3, Kimi K3.1
+## [0.5.15] - 2026-10-31 - Exhaustive 2026 Model Catalog: Full Endpoint Aliases, Claude Opus 5.5 & Deprecated Model Mappings
 
 ### Added
 - `crates/inference/src/cost.rs`:
-  - Complete, exhaustive October 2026 frontier model registry across all 10 providers (35+ models):
-    - **Google Gemini**: `gemini-4-argon` (unified 1M window flagship, $2.00/$10.00, $0.10 implicit 95% cache discount, default thinking 32k), `gemini-3.8-flash` ($0.75/$3.75), `gemini-3.5-flash-lite` ($0.30/$2.50), `gemini-3.1-pro` ($2.00/$12.00), `gemini-3.8-live` ($1.00/$4.00 native audio/video), `gemini-2.5-flash` ($0.075/$0.30), `gemini-2.5-pro` ($1.25/$5.00).
-    - **OpenAI**: `gpt-6-astra` ($10.00/$50.00, 1.05M window), `gpt-6.1-sol` ($2.00/$10.00), `gpt-6.1-terra` ($1.00/$5.00), `gpt-6-luna` ($0.10/$0.50), `gpt-realtime-2.1` ($4.00/$24.00), `gpt-realtime-2.1-mini` ($0.60/$2.40), `o3` ($2.00/$8.00), `o3-pro` ($20.00/$80.00), `o4-mini` ($1.10/$4.40), `o3-mini` ($1.10/$4.40), `o1` ($15.00/$60.00), `gpt-4o` ($2.50/$10.00), `gpt-4o-mini` ($0.15/$0.60).
-    - **Anthropic**: `claude-fable-5-1` ($10.00/$50.00, 1M context / 128k output flagship), `claude-opus-5-5` ($4.00/$20.00), `claude-sonnet-5-5` ($2.00/$10.00), `claude-haiku-5-5` ($0.10/$0.50), `claude-3-7-sonnet` ($3.00/$15.00), `claude-3-5-sonnet` ($3.00/$15.00), `claude-3-5-haiku` ($0.80/$4.00), `claude-3-opus` ($15.00/$75.00).
-    - **Mistral AI**: `mistral-large-4` (*Le Chonk* 1.05T MoE, 1M context, $0.70-$1.36 / $2.10-$4.18, $0.07-$0.14 cache read), `mistral-medium-3.5` ($0.40/$1.20), `mistral-large-2411` ($2.00/$6.00), `mistral-small-4` ($0.10/$0.30), `ministral-3-14b` ($0.20/$0.20), `ministral-3-8b` ($0.10/$0.10), `ministral-3-3b` ($0.04/$0.04), `codestral-2501` ($0.30/$0.90).
-    - **DeepSeek**: `deepseek-flash` (serving DeepSeek-V4.1-Flash-1017, peak-aware $0.15-$0.30 in / $0.60-$1.20 out / $0.003-$0.006 cache, 1M context), `deepseek-v4-pro` (serving DeepSeek-V4-Pro-0813, $0.66/$1.98), `deepseek-reasoner` (R1, $0.55/$2.19), `deepseek-chat` (V3, $0.14/$0.28).
-    - **Zhipu AI (GLM)**: `glm-5.3` (1M context, $1.40/$4.40), `glm-5.3-flash` ($0.15/$0.50), `glm-5.3-flashx` ($0.37/$1.25), `glm-4.7-flash` (free tier).
-    - **Moonshot AI (Kimi)**: `kimi-k3.1-pro` (1M context, $2.00/$10.00, $0.20 cache read), `kimi-k3.1-pro-highspeed` ($4.00/$20.00), `kimi-k3` ($3.00/$15.00).
-    - **Meta Llama**: `llama-3.3-70b-instruct` ($0.60/$0.90), `llama-3.1-405b-instruct` ($3.00/$3.00), `llama-3.1-8b-instruct` ($0.05/$0.08).
-    - **Alibaba Qwen**: `qwen-2.5-coder-32b-instruct` ($0.20/$0.20), `qwen-2.5-72b-instruct` ($0.35/$0.40).
-    - **Local runtimes**: zero-token rate for Ollama / vLLM / llama.cpp / LM Studio with amortised hardware and kWh calculation.
-  - Comprehensive parameters on `ModelCatalogEntry`: context window, max output tokens, thinking support, default thinking budget, vision, audio, tools, prompt caching, and wire protocol.
-  - Query helpers: `default_catalog()`, `catalog_entry()`, `all_providers()`, `models_by_provider()`, and fuzzy resolver `RateCard::for_model()`.
-- `crates/inference/src/lib.rs`: added `Moonshot`, `Zhipu`, `Mistral` to `Standard` wire enum, re-exported catalog query functions.
-- `crates/inference/src/adapter.rs`: standard wire path routing and default bases for Moonshot (`api.moonshot.cn`), Zhipu (`open.bigmodel.cn`), and Mistral (`api.mistral.ai`).
+  - Complete, exhaustive October 2026 frontier model registry across all 10 providers (45+ active and deprecated models mapped):
+    - **Google Gemini**: `gemini-4-argon` (unified 1M window flagship, $2.00/$10.00, $0.10 implicit 95% cache discount, default thinking 32k), `gemini-3.8-flash` ($0.75/$3.75), `gemini-3.5-flash-lite` ($0.30/$2.50), `gemini-3.1-pro` ($2.00/$12.00), `gemini-3.8-live` ($1.00/$4.00 native audio/video), `gemini-2.5-flash` ($0.075/$0.30), `gemini-2.5-pro` ($1.25/$5.00), `gemini-2.0-flash` ($0.10/$0.40). Deprecated/Legacy mappings: `gemini-1.5-pro` (replaced by `gemini-4-argon`), `gemini-1.5-flash` (replaced by `gemini-2.5-flash`), `gemini-1.0-pro` (sunset).
+    - **OpenAI**: `gpt-6-astra` ($10.00/$50.00, 1.05M window), `gpt-6.1-sol` ($2.00/$10.00), `gpt-6.1-terra` ($1.00/$5.00), `gpt-6-luna` ($0.10/$0.50), `gpt-realtime-2.1` ($4.00/$24.00), `gpt-realtime-2.1-mini` ($0.60/$2.40), `o3` ($2.00/$8.00), `o3-pro` ($20.00/$80.00), `o4-mini` ($1.10/$4.40), `o3-mini` ($1.10/$4.40), `o1` ($15.00/$60.00), `gpt-4o` ($2.50/$10.00), `gpt-4o-mini` ($0.15/$0.60). Deprecated/Sunset mappings: `o1-preview`, `o1-mini` (replaced by `o4-mini`/`o3`), `gpt-4-turbo`, `gpt-4` (replaced by `gpt-4o`), `gpt-3.5-turbo` (replaced by `gpt-4o-mini`).
+    - **Anthropic**: `claude-fable-5-1` ($10.00/$50.00, 1M context / 128k output flagship), `claude-opus-5-5` ($4.00/$20.00, 1M context / 128k output, 32k thinking, aliases `claude-opus-5.5`, `claude-5-5-opus-20261001`, `claude-opus-5-5-latest`), `claude-sonnet-5-5` ($2.00/$10.00), `claude-haiku-5-5` ($0.10/$0.50), `claude-3-7-sonnet` ($3.00/$15.00), `claude-3-5-sonnet` ($3.00/$15.00), `claude-3-5-haiku` ($0.80/$4.00). Deprecated/Legacy mappings: `claude-3-opus` (replaced by `claude-opus-5-5`), `claude-3-sonnet` (replaced by `claude-sonnet-5-5`), `claude-3-haiku` (replaced by `claude-haiku-5-5`).
+    - **Mistral AI**: `mistral-large-4` (*Le Chonk* 1.05T MoE, 1M context, $0.70-$1.36 / $2.10-$4.18, $0.07-$0.14 cache read), `mistral-medium-3.5` ($0.40/$1.20), `mistral-large-2411` ($2.00/$6.00), `mistral-small-4` ($0.10/$0.30), `mistral-small-2501` ($0.10/$0.30), `ministral-3-14b` ($0.20/$0.20), `ministral-3-8b` ($0.10/$0.10), `ministral-3-3b` ($0.04/$0.04), `codestral-2501` ($0.30/$0.90), `pixtral-12b` ($0.15/$0.15). Deprecated/Legacy mappings: `open-mixtral-8x22b` (replaced by `mistral-large-4`), `open-mixtral-8x7b` (replaced by `ministral-3-14b`).
+    - **DeepSeek**: `deepseek-flash` (serving DeepSeek-V4.1-Flash-1017, peak-aware $0.15-$0.30 in / $0.60-$1.20 out / $0.003-$0.006 cache, 1M context), `deepseek-v4-pro` (serving DeepSeek-V4-Pro-0813, $0.66/$1.98), `deepseek-reasoner` (R1, $0.55/$2.19), `deepseek-chat` (V3, $0.14/$0.28). Deprecated mapping: `deepseek-coder` (replaced by `deepseek-chat`).
+    - **Zhipu AI (GLM)**: `glm-5.3` (1M context, $1.40/$4.40), `glm-5.3-flash` ($0.15/$0.50), `glm-5.3-flashx` ($0.37/$1.25), `glm-4-plus` ($1.40/$1.40), `glm-4-air` ($0.14/$0.14), `glm-4-long` ($0.14/$0.14), `glm-4.7-flash` (free tier). Deprecated mapping: `glm-3-turbo` (replaced by `glm-5.3-flash`).
+    - **Moonshot AI (Kimi)**: `kimi-k3.1-pro` (1M context, $2.00/$10.00, $0.20 cache read), `kimi-k3.1-pro-highspeed` ($4.00/$20.00), `kimi-k3` ($3.00/$15.00), `moonshot-v1-128k`, `moonshot-v1-32k`, `moonshot-v1-8k`.
+    - **Meta Llama**: `llama-3.3-70b-instruct` ($0.60/$0.90), `llama-3.1-405b-instruct` ($3.00/$3.00), `llama-3.1-70b-instruct` ($0.50/$0.75), `llama-3.1-8b-instruct` ($0.05/$0.08), `llama-3.2-90b-vision` ($0.80/$1.20), `llama-3.2-11b-vision` ($0.16/$0.16), `llama-3.2-3b`, `llama-3.2-1b`. Deprecated mapping: `llama-2-70b-chat` (replaced by `llama-3.3-70b-instruct`).
+    - **Alibaba Qwen**: `qwen-2.5-coder-32b-instruct` ($0.20/$0.20), `qwen-2.5-coder-7b` ($0.05/$0.05), `qwen-2.5-72b-instruct` ($0.35/$0.40), `qwen-2.5-32b`, `qwen-2.5-14b`, `qwen-2.5-7b`, `qwen-2.5-math-72b`, `qwq-32b-preview`. Deprecated mapping: `qwen-2-72b-instruct` (replaced by `qwen-2.5-72b-instruct`).
+    - **Local runtimes**: zero-token rate for Ollama / vLLM / llama.cpp / LM Studio (`local/llama3.3`, `local/deepseek-r1`, `local/qwen2.5-coder`, `local/mistral-nemo`, `local/phi-4`) with amortised hardware and kWh calculation.
+  - Full endpoint name mapping on every entry via `aliases`: supports date-stamped snapshots (e.g. `2026-10-15`, `20241022`), URL path models (`models/gemini-4-argon`), dotted/hyphenated variations (`claude-opus-5.5`), and provider prefixes.
+  - Deprecation tracking: `deprecated: bool`, `deprecation_notice: Option<&'static str>`, `replacement_id: Option<&'static str>`.
+  - Resolution helpers: `active_models()`, `deprecated_models()`, `resolve_endpoint_alias()`, `all_accepted_endpoint_names()`.
+- `crates/inference/src/lib.rs`: re-exported all new query and resolution functions.
 
 ### Verified
-- `cargo test -p noema-inference`: 25 passed, 0 failed.
-- `cargo test --workspace`: 63 passed across all crates, 0 failed.
+- `cargo test -p noema-inference`: 26 passed, 0 failed.
+- `cargo test --workspace`: 64 passed across all crates, 0 failed.
 - `cargo check --workspace`: clean.
 - `npm run --prefix crates/app/ui build`: clean.
 

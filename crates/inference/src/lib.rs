@@ -48,8 +48,9 @@ impl Usage {
 
 pub use adapter::{Adapter, HttpCall};
 pub use cost::{
-    LocalCost, ModelCatalogEntry, RateCard, RateWindow, all_providers, catalog_entry,
-    default_catalog, models_by_provider,
+    active_models, all_accepted_endpoint_names, all_providers, catalog_entry, default_catalog,
+    deprecated_models, models_by_provider, resolve_endpoint_alias, LocalCost, ModelCatalogEntry,
+    RateCard, RateWindow,
 };
 pub use request::{Effort, Message, Reasoning, Request, Role, Sampling, StreamEvent};
 pub use telemetry::{Activation, ActivationWindow};
