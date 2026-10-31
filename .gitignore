@@ -1,0 +1,50 @@
+# Rust
+/target
+**/*.rs.bk
+*.pdb
+*.profraw
+
+# Node / UI
+node_modules/
+app/ui/dist/
+crates/app/ui/dist/
+app/ui/.vite/
+crates/app/ui/test-results/
+crates/app/ui/playwright-report/
+*.tsbuildinfo
+
+# Tauri / bundlers
+crates/app/gen/schemas/
+crates/app/icons/*.png
+src-tauri/gen/
+src-tauri/binaries/
+dist/
+*.msi
+*.dmg
+*.app/
+*.exe
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+secrets/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Scratch assets
+assets/scratch/
+*.blend1
+*.tmp
+
+# Local agent instructions - never push
+/AGENTS.md
+/agents/
+/memory/

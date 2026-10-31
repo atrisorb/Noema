@@ -1,0 +1,78 @@
+name: release
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: package (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-14, ubuntu-24.04]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: npm
+          cache-dependency-path: crates/app/ui/package-lock.json
+
+      - name: Tauri Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential curl wget file libssl-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf libxdo-dev
+
+      - name: Rust tests
+        run: cargo test --workspace
+
+      - name: Windows packaging tools
+        if: runner.os == 'Windows'
+        run: choco install nsis -y --no-progress
+
+      - name: Linux packaging tools
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rpm
+          curl -fsSL -o /usr/local/bin/appimagetool https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+          sudo chmod +x /usr/local/bin/appimagetool
+
+      - name: Package (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./packaging/build.ps1
+
+      - name: Package (macOS / Linux)
+        if: runner.os != 'Windows'
+        run: bash packaging/build.sh
+
+      - name: Tauri CLI
+        run: cargo install tauri-cli --version 2.12.4 --locked
+
+      - name: macOS Rust targets
+        if: runner.os == 'macOS'
+        run: rustup target add aarch64-apple-darwin x86_64-apple-darwin
+
+      - name: Desktop bundles (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./packaging/tauri.ps1 -SkipBuild
+
+      - name: Desktop bundles (macOS / Linux)
+        if: runner.os != 'Windows'
+        run: bash packaging/tauri.sh
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: noema-${{ matrix.os }}
+          path: dist/**
+          if-no-files-found: error

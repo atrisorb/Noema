@@ -1,0 +1,21 @@
+[package]
+name = "noema-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "NOEMA core: identifiers, session state, event-bus contracts, daemon"
+
+[[bin]]
+name = "noemad"
+path = "src/bin/noemad.rs"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+rusqlite.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true

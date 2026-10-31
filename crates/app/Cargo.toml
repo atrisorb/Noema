@@ -1,0 +1,14 @@
+[package]
+name = "noema-app"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "NOEMA desktop shell (Tauri v2) hosting the anatomical Studio"
+
+[dependencies]
+noema-core = { path = "../core" }
+noema-hippocampus = { path = "../hippocampus" }
+noema-inference = { path = "../inference" }
+rusqlite.workspace = true
+serde_json.workspace = true

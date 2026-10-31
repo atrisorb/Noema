@@ -1,0 +1,16 @@
+[package]
+name = "noema-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "noema - CLI with full parity over the NOEMA daemon"
+
+[[bin]]
+name = "noema"
+path = "src/main.rs"
+
+[dependencies]
+noema-core = { path = "../core" }
+serde_json.workspace = true
+tokio.workspace = true

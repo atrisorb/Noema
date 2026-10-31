@@ -1,0 +1,10 @@
+[package]
+name = "noema-hippocampus"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "NOEMA brain: graph physics, incremental 3D projection and activation telemetry"
+
+[dependencies]
+serde.workspace = true

@@ -1,0 +1,149 @@
+{
+  "commands": [
+    {
+      "command": "solid.cylinder",
+      "params": {
+        "radius": 14,
+        "height": 22,
+        "base": [
+          0,
+          0,
+          0
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "body_name": "Vertebral body"
+      }
+    },
+    {
+      "command": "solid.torus",
+      "params": {
+        "major": 9,
+        "minor": 3.2,
+        "center": [
+          0,
+          0,
+          22
+        ],
+        "body_name": "Vertebral ring"
+      }
+    },
+    {
+      "command": "solid.cylinder",
+      "params": {
+        "radius": 4,
+        "height": 18,
+        "base": [
+          10,
+          0,
+          11
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "body_name": "Pedicle R"
+      }
+    },
+    {
+      "command": "solid.cylinder",
+      "params": {
+        "radius": 4,
+        "height": 18,
+        "base": [
+          -10,
+          0,
+          11
+        ],
+        "axis": [
+          -1,
+          0,
+          0
+        ],
+        "body_name": "Pedicle L"
+      }
+    },
+    {
+      "command": "solid.cylinder",
+      "params": {
+        "radius": 2.8,
+        "height": 24,
+        "base": [
+          25,
+          0,
+          12
+        ],
+        "axis": [
+          1,
+          0,
+          0.15
+        ],
+        "body_name": "Transverse R"
+      }
+    },
+    {
+      "command": "solid.cylinder",
+      "params": {
+        "radius": 2.8,
+        "height": 24,
+        "base": [
+          -25,
+          0,
+          12
+        ],
+        "axis": [
+          -1,
+          0,
+          0.15
+        ],
+        "body_name": "Transverse L"
+      }
+    },
+    {
+      "command": "solid.cylinder",
+      "params": {
+        "radius": 3.4,
+        "height": 28,
+        "base": [
+          0,
+          -7,
+          13
+        ],
+        "axis": [
+          0,
+          -0.82,
+          -0.57
+        ],
+        "body_name": "Spinous process"
+      }
+    },
+    {
+      "command": "solid.sphere",
+      "params": {
+        "radius": 4.6,
+        "center": [
+          34,
+          0,
+          15
+        ],
+        "body_name": "Facet R"
+      }
+    },
+    {
+      "command": "solid.sphere",
+      "params": {
+        "radius": 4.6,
+        "center": [
+          -34,
+          0,
+          15
+        ],
+        "body_name": "Facet L"
+      }
+    }
+  ]
+}

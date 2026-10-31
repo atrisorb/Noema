@@ -1,0 +1,492 @@
+{
+  "bodies": [
+    {
+      "area_mm2": 3166.5318390411467,
+      "bbox": {
+        "max": [
+          13.999783786985338,
+          13.999623872368996,
+          22.00000000000001
+        ],
+        "min": [
+          -13.999783786985338,
+          -13.999623872369,
+          0.0
+        ]
+      },
+      "center_of_mass": [
+        1.7381038291076945e-16,
+        -2.3382679716776725e-15,
+        10.999999999999998
+      ],
+      "closed": true,
+      "density_g_cm3": 1.29,
+      "edges": 2,
+      "face_types": {
+        "cylinder": 1,
+        "plane": 2
+      },
+      "faces": 3,
+      "kernel": {
+        "edges": 6,
+        "faces": 4,
+        "shells": 1,
+        "vertices": 4
+      },
+      "mass_g": 17.47307445231826,
+      "material": "Default",
+      "name": "Vertebral body",
+      "vertices": 2,
+      "volume_mm3": 13545.018955285474
+    },
+    {
+      "area_mm2": 1136.9358388133392,
+      "bbox": {
+        "max": [
+          12.199961326805102,
+          12.199961326805088,
+          25.19971258426573
+        ],
+        "min": [
+          -12.199961326805088,
+          -12.199961326805084,
+          18.800287415734267
+        ]
+      },
+      "center_of_mass": [
+        -9.895428353915705e-15,
+        7.443308743239153e-15,
+        21.99997199469156
+      ],
+      "closed": true,
+      "density_g_cm3": 1.29,
+      "edges": 0,
+      "face_types": {
+        "other": 1
+      },
+      "faces": 1,
+      "kernel": {
+        "edges": 12,
+        "faces": 6,
+        "shells": 1,
+        "vertices": 6
+      },
+      "mass_g": 2.3463782233466093,
+      "material": "Default",
+      "name": "Vertebral ring",
+      "vertices": 0,
+      "volume_mm3": 1818.8978475555114
+    },
+    {
+      "area_mm2": 552.8900397090131,
+      "bbox": {
+        "max": [
+          28.000000000000018,
+          3.9999382248529534,
+          14.999892534962575
+        ],
+        "min": [
+          9.999999999999973,
+          -3.9999382248529547,
+          7.000107465037428
+        ]
+      },
+      "center_of_mass": [
+        18.99999999999999,
+        5.8270532846392e-16,
+        11.0
+      ],
+      "closed": true,
+      "density_g_cm3": 1.29,
+      "edges": 2,
+      "face_types": {
+        "cylinder": 1,
+        "plane": 2
+      },
+      "faces": 3,
+      "kernel": {
+        "edges": 6,
+        "faces": 4,
+        "shells": 1,
+        "vertices": 4
+      },
+      "mass_g": 1.166999139326795,
+      "material": "Default",
+      "name": "Pedicle R",
+      "vertices": 2,
+      "volume_mm3": 904.6504956021668
+    },
+    {
+      "area_mm2": 552.8900397090131,
+      "bbox": {
+        "max": [
+          -9.999999999999973,
+          3.9999382248529547,
+          14.999892534962575
+        ],
+        "min": [
+          -28.000000000000018,
+          -3.9999382248529534,
+          7.000107465037428
+        ]
+      },
+      "center_of_mass": [
+        -18.99999999999999,
+        -5.8270532846392e-16,
+        11.0
+      ],
+      "closed": true,
+      "density_g_cm3": 1.29,
+      "edges": 2,
+      "face_types": {
+        "cylinder": 1,
+        "plane": 2
+      },
+      "faces": 3,
+      "kernel": {
+        "edges": 6,
+        "faces": 4,
+        "shells": 1,
+        "vertices": 4
+      },
+      "mass_g": 1.166999139326795,
+      "material": "Default",
+      "name": "Pedicle L",
+      "vertices": 2,
+      "volume_mm3": 904.6504956021668
+    },
+    {
+      "area_mm2": 471.4645089180076,
+      "bbox": {
+        "max": [
+          49.14981457805441,
+          2.7999567573970676,
+          18.32911826509946
+        ],
+        "min": [
+          24.584657890783163,
+          -2.799956757397065,
+          9.231052605226173
+        ]
+      },
+      "center_of_mass": [
+        36.86723623441918,
+        3.2214952472996034e-16,
+        13.780085435162874
+      ],
+      "closed": true,
+      "density_g_cm3": 1.29,
+      "edges": 2,
+      "face_types": {
+        "cylinder": 1,
+        "plane": 2
+      },
+      "faces": 3,
+      "kernel": {
+        "edges": 6,
+        "faces": 4,
+        "shells": 1,
+        "vertices": 4
+      },
+      "mass_g": 0.7624208131255527,
+      "material": "Default",
+      "name": "Transverse R",
+      "vertices": 2,
+      "volume_mm3": 591.0238861438393
+    },
+    {
+      "area_mm2": 471.4645089180076,
+      "bbox": {
+        "max": [
+          -24.584657890783163,
+          2.799956757397065,
+          18.32911826509946
+        ],
+        "min": [
+          -49.14981457805441,
+          -2.7999567573970676,
+          9.231052605226173
+        ]
+      },
+      "center_of_mass": [
+        -36.86723623441918,
+        -3.2214952472996034e-16,
+        13.780085435162874
+      ],
+      "closed": true,
+      "density_g_cm3": 1.29,
+      "edges": 2,
+      "face_types": {
+        "cylinder": 1,
+        "plane": 2
+      },
+      "faces": 3,
+      "kernel": {
+        "edges": 6,
+        "faces": 4,
+        "shells": 1,
+        "vertices": 4
+      },
+      "mass_g": 0.7624208131255527,
+      "material": "Default",
+      "name": "Transverse L",
+      "vertices": 2,
+      "volume_mm3": 591.0238861438393
+    },
+    {
+      "area_mm2": 670.755958513786,
+      "bbox": {
+        "max": [
+          3.399947491125012,
+          -5.059430527287234,
+          15.791696434428879
+        ],
+        "min": [
+          -3.399947491125009,
+          -31.931628381172743,
+          -5.773286163480334
+        ]
+      },
+      "center_of_mass": [
+        7.594851465462669e-16,
+        -18.49552945422999,
+        5.009205135474278
+      ],
+      "closed": true,
+      "density_g_cm3": 1.29,
+      "edges": 2,
+      "face_types": {
+        "cylinder": 1,
+        "plane": 2
+      },
+      "faces": 3,
+      "kernel": {
+        "edges": 6,
+        "faces": 4,
+        "shells": 1,
+        "vertices": 4
+      },
+      "mass_g": 1.311545327340991,
+      "material": "Default",
+      "name": "Spinous process",
+      "vertices": 2,
+      "volume_mm3": 1016.701804140303
+    },
+    {
+      "area_mm2": 265.8951347054323,
+      "bbox": {
+        "max": [
+          38.6,
+          4.599999999999998,
+          19.6
+        ],
+        "min": [
+          29.400000000000006,
+          -4.599999999999998,
+          10.399999999999999
+        ]
+      },
+      "center_of_mass": [
+        33.99999999999824,
+        -1.2600285648597754e-15,
+        14.99999999994772
+      ],
+      "closed": true,
+      "density_g_cm3": 1.29,
+      "edges": 0,
+      "face_types": {
+        "sphere": 1
+      },
+      "faces": 1,
+      "kernel": {
+        "edges": 12,
+        "faces": 6,
+        "shells": 1,
+        "vertices": 8
+      },
+      "mass_g": 0.5259216002242376,
+      "material": "Default",
+      "name": "Facet R",
+      "vertices": 0,
+      "volume_mm3": 407.6911629645253
+    },
+    {
+      "area_mm2": 265.8951347054292,
+      "bbox": {
+        "max": [
+          -29.400000000000006,
+          4.599999999999998,
+          19.6
+        ],
+        "min": [
+          -38.6,
+          -4.599999999999998,
+          10.399999999999999
+        ]
+      },
+      "center_of_mass": [
+        -34.00000000000177,
+        9.460672740365797e-16,
+        14.999999999947727
+      ],
+      "closed": true,
+      "density_g_cm3": 1.29,
+      "edges": 0,
+      "face_types": {
+        "sphere": 1
+      },
+      "faces": 1,
+      "kernel": {
+        "edges": 12,
+        "faces": 6,
+        "shells": 1,
+        "vertices": 8
+      },
+      "mass_g": 0.5259216002242365,
+      "material": "Default",
+      "name": "Facet L",
+      "vertices": 0,
+      "volume_mm3": 407.69116296452444
+    }
+  ],
+  "body_count": 9,
+  "params": [],
+  "sketches": [],
+  "timeline": [
+    {
+      "boolean_diagnostics": {
+        "events": [],
+        "truncated": false
+      },
+      "error": null,
+      "id": 1,
+      "ms": 2.4704,
+      "name": "Cylinder1",
+      "rolled_back": false,
+      "suppressed": false,
+      "type": "CylinderFeature",
+      "warning": null
+    },
+    {
+      "boolean_diagnostics": {
+        "events": [],
+        "truncated": false
+      },
+      "error": null,
+      "id": 2,
+      "ms": 37.4803,
+      "name": "Torus1",
+      "rolled_back": false,
+      "suppressed": false,
+      "type": "TorusFeature",
+      "warning": null
+    },
+    {
+      "boolean_diagnostics": {
+        "events": [],
+        "truncated": false
+      },
+      "error": null,
+      "id": 3,
+      "ms": 1.0621999999999998,
+      "name": "Cylinder2",
+      "rolled_back": false,
+      "suppressed": false,
+      "type": "CylinderFeature",
+      "warning": null
+    },
+    {
+      "boolean_diagnostics": {
+        "events": [],
+        "truncated": false
+      },
+      "error": null,
+      "id": 4,
+      "ms": 1.0116999999999998,
+      "name": "Cylinder3",
+      "rolled_back": false,
+      "suppressed": false,
+      "type": "CylinderFeature",
+      "warning": null
+    },
+    {
+      "boolean_diagnostics": {
+        "events": [],
+        "truncated": false
+      },
+      "error": null,
+      "id": 5,
+      "ms": 0.9783000000000001,
+      "name": "Cylinder4",
+      "rolled_back": false,
+      "suppressed": false,
+      "type": "CylinderFeature",
+      "warning": null
+    },
+    {
+      "boolean_diagnostics": {
+        "events": [],
+        "truncated": false
+      },
+      "error": null,
+      "id": 6,
+      "ms": 0.9673,
+      "name": "Cylinder5",
+      "rolled_back": false,
+      "suppressed": false,
+      "type": "CylinderFeature",
+      "warning": null
+    },
+    {
+      "boolean_diagnostics": {
+        "events": [],
+        "truncated": false
+      },
+      "error": null,
+      "id": 7,
+      "ms": 0.9559,
+      "name": "Cylinder6",
+      "rolled_back": false,
+      "suppressed": false,
+      "type": "CylinderFeature",
+      "warning": null
+    },
+    {
+      "boolean_diagnostics": {
+        "events": [],
+        "truncated": false
+      },
+      "error": null,
+      "id": 8,
+      "ms": 14.2278,
+      "name": "Sphere1",
+      "rolled_back": false,
+      "suppressed": false,
+      "type": "SphereFeature",
+      "warning": null
+    },
+    {
+      "boolean_diagnostics": {
+        "events": [],
+        "truncated": false
+      },
+      "error": null,
+      "id": 9,
+      "ms": 12.293999999999999,
+      "name": "Sphere2",
+      "rolled_back": false,
+      "suppressed": false,
+      "type": "SphereFeature",
+      "warning": null
+    }
+  ],
+  "total": {
+    "area_mm2": 7554.723003033174,
+    "edges": 12,
+    "faces": 21,
+    "mass_g": 26.041681108359025,
+    "open_bodies_skipped": 0,
+    "vertices": 12,
+    "volume_mm3": 20187.349696402354
+  }
+}

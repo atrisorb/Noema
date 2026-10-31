@@ -1,0 +1,68 @@
+{
+  "capturedAt": "2026-10-31T14:19:35.567Z",
+  "host": "HP-ATR",
+  "engine": "chromium (CDP, Chrome 156.0.0.0)",
+  "cdp": "http://127.0.0.1:9333",
+  "url": "http://127.0.0.1:4199/",
+  "windowMs": 5000,
+  "info": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 (0x00001F82) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "dpr": 1,
+    "canvas": {
+      "width": 1280,
+      "height": 720,
+      "cssWidth": 1280,
+      "cssHeight": 720
+    },
+    "appFps": 52.26480836236927,
+    "renderInfo": {
+      "calls": 841,
+      "triangles": 292740,
+      "frame": 107
+    },
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+  },
+  "stats": {
+    "frames": 301,
+    "windowMs": 5006.099999999255,
+    "fpsMean": 60.126645492508096,
+    "fpsP50": 59.88023952095874,
+    "mean": 16.631561461791545,
+    "p50": 16.699999999999818,
+    "p95": 16.80000000000109,
+    "p99": 17.19999999999891,
+    "max": 17.300000000000182,
+    "hitches": 0,
+    "hitchesPerSec": 0,
+    "droppedFrames": 0
+  },
+  "shot": "docs/evidence/block9-harness-selftest.png",
+  "note": "self-test only, not a WebView2 measurement: --launch drives Chromium over CDP",
+  "baseline": {
+    "path": "docs/evidence/block9-baseline.json",
+    "scenario": "full-atlas",
+    "fpsMean": 60.109835247129304,
+    "p99": 17
+  },
+  "checks": [
+    {
+      "check": "fps >= 90% of browser baseline",
+      "base": 60.109835247129304,
+      "got": 60.126645492508096,
+      "pass": true
+    },
+    {
+      "check": "p99 <= 1.5x baseline + 2 ms",
+      "base": 17,
+      "got": 17.19999999999891,
+      "pass": true
+    },
+    {
+      "check": "hitches/s <= baseline + 1",
+      "base": 0,
+      "got": 0,
+      "pass": true
+    }
+  ]
+}

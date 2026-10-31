@@ -1,0 +1,9 @@
+{
+  "bundle": {
+    "externalBin": ["binaries/noema-app"],
+    "resources": {
+      "../crates/app/ui/dist/": "ui/",
+      "../assets/": "assets/"
+    }
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "capturedAt": "2026-10-31T14:08:59.834Z",
+  "host": "HP-ATR",
+  "engine": "playwright-chromium (browser baseline)",
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "windowMs": 5000,
+  "machine": {
+    "cached": true,
+    "generated_at_ms": 1793455731251,
+    "overrides": {},
+    "profile": {
+      "arch": "x86_64",
+      "cpu_brand": "Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz",
+      "data_dir": "C:\\Users\\Adriano Sorbello\\AppData\\Roaming\\noema",
+      "detected_at_ms": 1793455705713,
+      "free_disk_mb": 7814,
+      "gpus": [
+        {
+          "driver": "32.0.16.1692",
+          "kind": "discrete",
+          "name": "NVIDIA GeForce GTX 1650",
+          "vendor": "nvidia",
+          "vram_mb": 4095
+        }
+      ],
+      "hostname": "HP-ATR",
+      "logical_cores": 6,
+      "os": "windows",
+      "physical_cores": 6,
+      "platform": "windows",
+      "ram_mb": 24456,
+      "total_disk_mb": 120723
+    },
+    "tuning": {
+      "daemon": {
+        "sqlite_cache_mb": 764,
+        "worker_threads": 5
+      },
+      "inference": {
+        "gpu_layers": -1,
+        "max_context_tokens": 8192,
+        "parallel_requests": 3,
+        "recommended_runtime": "ollama",
+        "vram_budget_mb": 3480
+      },
+      "quality": "high",
+      "reasons": [
+        "cpu: Intel(R) Core(TM) i5-9400F CPU @ 2.90GHz (6 logical / 6 physical)",
+        "ram: 24456 MB",
+        "data volume: 7814 MB free of 120723 MB",
+        "gpu: NVIDIA GeForce GTX 1650 (Discrete, 4095 MB)"
+      ],
+      "render": {
+        "lod_bias": 1,
+        "max_texture_mb": 1024,
+        "particle_budget": 2500,
+        "pixel_ratio_cap": 1.75,
+        "shadows": true
+      }
+    }
+  },
+  "runs": [
+    {
+      "scenario": "full-atlas",
+      "stats": {
+        "frames": 301,
+        "windowMs": 5007.5,
+        "fpsMean": 60.109835247129304,
+        "fpsP50": 59.88023952095874,
+        "mean": 16.63621262458472,
+        "p50": 16.699999999999818,
+        "p95": 16.900000000001455,
+        "p99": 17,
+        "max": 17.100000000000364,
+        "hitches": 0,
+        "hitchesPerSec": 0,
+        "droppedFrames": 0
+      },
+      "info": {
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 (0x00001F82) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (NVIDIA)",
+        "dpr": 1,
+        "canvas": {
+          "width": 1600,
+          "height": 900,
+          "cssWidth": 1600,
+          "cssHeight": 900
+        },
+        "appFps": 59.98800239952015,
+        "renderInfo": {
+          "calls": 841,
+          "triangles": 292740,
+          "frame": 198
+        },
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+      },
+      "shot": "docs/evidence/block9-baseline-full.png"
+    },
+    {
+      "scenario": "brain-wake",
+      "stats": {
+        "frames": 301,
+        "windowMs": 5010.300000000745,
+        "fpsMean": 60.0762429395356,
+        "fpsP50": 59.88023952095874,
+        "mean": 16.64551495016859,
+        "p50": 16.699999999999818,
+        "p95": 16.900000000000546,
+        "p99": 17.100000000000364,
+        "max": 17.5,
+        "hitches": 0,
+        "hitchesPerSec": 0,
+        "droppedFrames": 0
+      },
+      "info": {
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 (0x00001F82) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (NVIDIA)",
+        "dpr": 1,
+        "canvas": {
+          "width": 1600,
+          "height": 900,
+          "cssWidth": 1600,
+          "cssHeight": 900
+        },
+        "appFps": 59.999999999999986,
+        "renderInfo": {
+          "calls": 105,
+          "triangles": 32917,
+          "frame": 272
+        },
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+      },
+      "shot": "docs/evidence/block9-baseline-brain.png"
+    },
+    {
+      "scenario": "cellular-zoom",
+      "stats": {
+        "frames": 301,
+        "windowMs": 5010.400000002235,
+        "fpsMean": 60.075043908643174,
+        "fpsP50": 59.880239520962,
+        "mean": 16.64584717608716,
+        "p50": 16.69999999999891,
+        "p95": 16.799999999999272,
+        "p99": 16.80000000000109,
+        "max": 16.80000000000109,
+        "hitches": 0,
+        "hitchesPerSec": 0,
+        "droppedFrames": 0
+      },
+      "info": {
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 (0x00001F82) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (NVIDIA)",
+        "dpr": 1,
+        "canvas": {
+          "width": 1600,
+          "height": 900,
+          "cssWidth": 1600,
+          "cssHeight": 900
+        },
+        "appFps": 60.00774293457214,
+        "renderInfo": {
+          "calls": 149,
+          "triangles": 81718,
+          "frame": 671
+        },
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+      },
+      "shot": "docs/evidence/block9-baseline-cellular.png"
+    },
+    {
+      "scenario": "full-atlas",
+      "stats": {
+        "frames": 177,
+        "windowMs": 5004.900000002235,
+        "fpsMean": 35.36534196485863,
+        "fpsP50": 30.030030030030687,
+        "mean": 28.276271186453307,
+        "p50": 33.29999999999927,
+        "p95": 33.80000000000018,
+        "p99": 50,
+        "max": 50,
+        "hitches": 121,
+        "hitchesPerSec": 24.17630721891466,
+        "droppedFrames": 121
+      },
+      "info": {
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 (0x00001F82) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "vendor": "Google Inc. (NVIDIA)",
+        "dpr": 2,
+        "canvas": {
+          "width": 2800,
+          "height": 1575,
+          "cssWidth": 1600,
+          "cssHeight": 900
+        },
+        "appFps": 34.82972136222912,
+        "renderInfo": {
+          "calls": 841,
+          "triangles": 292740,
+          "frame": 141
+        },
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+      },
+      "shot": "docs/evidence/block9-baseline-dpr2.png"
+    }
+  ]
+}

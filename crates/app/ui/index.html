@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NOEMA · The Body</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <canvas id="scene"></canvas>
+  <svg id="brain-labels" aria-hidden="true"></svg>
+
+  <header id="hud">
+    <div class="brand">NOEMA <span>· the body</span></div>
+    <div id="layers">
+      <label><input type="checkbox" data-layer="skin" /><span>skin</span>
+        <input type="range" data-opacity="skin" min="0" max="100" value="12" aria-label="skin opacity" /></label>
+      <label><input type="checkbox" data-layer="muscles" checked /><span>muscles</span>
+        <input type="range" data-opacity="muscles" min="0" max="100" value="100" aria-label="muscles opacity" /></label>
+      <label><input type="checkbox" data-layer="skeleton" checked /><span>skeleton</span>
+        <input type="range" data-opacity="skeleton" min="0" max="100" value="100" aria-label="skeleton opacity" /></label>
+      <label><input type="checkbox" data-layer="nerves" checked /><span>nerves</span>
+        <input type="range" data-opacity="nerves" min="0" max="100" value="100" aria-label="nerves opacity" /></label>
+      <label><input type="checkbox" data-layer="vessels" checked /><span>vessels</span>
+        <input type="range" data-opacity="vessels" min="0" max="100" value="100" aria-label="vessels opacity" /></label>
+      <label><input type="checkbox" data-layer="organs" checked /><span>organs</span>
+        <input type="range" data-opacity="organs" min="0" max="100" value="100" aria-label="organs opacity" /></label>
+      <label><input type="checkbox" data-layer="brain" checked /><span>brain</span>
+        <input type="range" data-opacity="brain" min="0" max="100" value="100" aria-label="brain opacity" /></label>
+      <label><input type="checkbox" data-layer="agents" checked /><span>agents</span>
+        <input type="range" data-opacity="agents" min="0" max="100" value="100" aria-label="agents opacity" /></label>
+    </div>
+    <div id="fps">-- fps</div>
+    <div id="session-pill">no session yet</div>
+    <button id="studio-btn" title="Studio: sessions, role models, BI widgets">studio</button>
+    <button id="brain-btn" title="Thought graph">brain</button>
+    <button id="dream-btn" class="hidden" title="Dream Mode">dream</button>
+    <button id="machine-btn" title="Hardware profile and tuning">machine</button>
+  </header>
+
+  <div id="hint">loading anatomy…</div>
+
+  <nav id="roster" aria-label="Agents"></nav>
+
+  <aside id="rail" aria-hidden="true">
+    <button id="rail-close" aria-label="close">×</button>
+    <div class="rail-head"><span id="agent-dot"></span>
+      <div><h2 id="agent-name"></h2><p id="agent-role"></p></div></div>
+    <p id="greeting"></p>
+    <nav id="tabs">
+      <button data-tab="activity" class="on">activity</button>
+      <button data-tab="tokens">tokens</button>
+      <button data-tab="costs">costs</button>
+      <button data-tab="ecosystem">skills · mcp</button>
+      <button data-tab="workspace">workspace</button>
+    </nav>
+    <div id="tab-body"></div>
+  </aside>
+
+  <aside id="anima-panel" aria-hidden="true">
+    <button id="anima-close" aria-label="close">×</button>
+    <h2>L'Anima</h2>
+    <p class="muted">The heart holds the identity. Edits persist to the local database.</p>
+    <label>Identity<textarea id="anima-identity" rows="3"></textarea></label>
+    <label>System prompt<textarea id="anima-prompt" rows="5"></textarea></label>
+    <div class="row"><button id="anima-save">save</button><span id="anima-status" class="muted"></span></div>
+  </aside>
+
+  <aside id="machine-panel" aria-hidden="true">
+    <button id="machine-close" aria-label="close">×</button>
+    <h2>Machine</h2>
+    <p class="muted">Detected once, cached 12 h. Every value below is overrideable and visible to the CLI.</p>
+    <div id="machine-specs"></div>
+    <label>quality preset<select id="machine-quality">
+      <option value="ultra">ultra</option>
+      <option value="high">high</option>
+      <option value="balanced">balanced</option>
+      <option value="low">low</option>
+    </select></label>
+    <label>pixel ratio cap<input id="machine-ratio" type="number" min="1" max="3" step="0.05" /></label>
+    <label>particle budget<input id="machine-particles" type="number" min="200" max="8000" step="100" /></label>
+    <div class="row"><button id="machine-save">apply</button><button id="machine-refresh">re-detect</button><span id="machine-status" class="muted"></span></div>
+  </aside>
+
+  <aside id="brain-card" aria-hidden="true">
+    <button id="brain-card-close" aria-label="close">x</button>
+    <h2 id="brain-card-title"></h2>
+    <p id="brain-card-meta" class="muted"></p>
+    <p id="brain-card-body"></p>
+    <p id="brain-card-links" class="muted"></p>
+  </aside>
+
+  <div id="brain-legend" class="hidden" aria-hidden="true"></div>
+
+  <div id="studio-panel" aria-hidden="true"></div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

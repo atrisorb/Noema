@@ -1,0 +1,15 @@
+{
+  "name": "memory-mcp",
+  "version": "1.0.0",
+  "kind": "mcp",
+  "description": "Semantic introspection over NOEMA thoughts, edges and dreams.",
+  "entry": "server.mjs",
+  "transport": "stdio",
+  "permissions": ["db:read", "fs:read"],
+  "env": ["NOEMA_DB"],
+  "mcp": {
+    "command": "node",
+    "args": ["server.mjs"],
+    "env": {}
+  }
+}

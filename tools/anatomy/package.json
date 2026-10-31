@@ -1,0 +1,9 @@
+{
+  "name": "noema-anatomy-tools",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Offline asset pipeline for the NOEMA anatomy atlas (simplify, prune, compress).",
+  "devDependencies": {
+    "@gltf-transform/cli": "^4.5.1"
+  }
+}

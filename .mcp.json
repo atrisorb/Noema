@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "playwright-webgpu": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--config",
+        "F:\\Progetti\\agentic-anatomy-workspace\\playwright-mcp-webgpu.json"
+      ]
+    },
+    "driftwatch": {
+      "command": "node",
+      "args": [
+        "F:\\tools\\driftwatch\\mcp\\server.js"
+      ],
+      "env": {
+        "NODE_PATH": "F:\\tools\\driftwatch\\node_modules"
+      }
+    }
+  }
+}

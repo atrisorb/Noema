@@ -1,0 +1,27 @@
+[workspace]
+resolver = "3"
+members = ["crates/*", "src-tauri"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+license = "MIT"
+authors = ["Adriano Sorbello"]
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+uuid = { version = "1", features = ["v4", "serde"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "io-util", "sync", "time", "signal", "process"] }
+futures-util = "0.3"
+tokio-tungstenite = { version = "0.30", features = ["rustls-tls-webpki-roots"] }
+sha2 = "0.10"
+base64 = "0.23"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+rusqlite = { version = "0.37", features = ["bundled", "load_extension"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "stream", "rustls-tls"] }
+chrono = { version = "0.4", features = ["serde"] }
+chrono-tz = "0.10"

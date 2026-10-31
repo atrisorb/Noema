@@ -1,0 +1,17 @@
+﻿{
+  "browser": {
+    "browserName": "chromium",
+    "launchOptions": {
+      "headless": false,
+      "args": [
+        "--use-gl=angle",
+        "--use-angle=d3d11",
+        "--enable-unsafe-webgpu",
+        "--enable-features=Vulkan,UseSkiaRenderer",
+        "--ignore-gpu-blocklist",
+        "--disable-gpu-sandbox",
+        "--window-size=1920,1080"
+      ]
+    }
+  }
+}

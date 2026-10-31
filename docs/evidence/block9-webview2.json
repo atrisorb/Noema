@@ -1,0 +1,67 @@
+{
+  "capturedAt": "2026-10-31T14:09:21.349Z",
+  "host": "HP-ATR",
+  "engine": "webview2 (CDP)",
+  "cdp": "http://127.0.0.1:9333",
+  "url": "http://127.0.0.1:4299/",
+  "windowMs": 5000,
+  "info": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1650 (0x00001F82) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "dpr": 1,
+    "canvas": {
+      "width": 1120,
+      "height": 700,
+      "cssWidth": 1120,
+      "cssHeight": 700
+    },
+    "appFps": 49.99000199960004,
+    "renderInfo": {
+      "calls": 841,
+      "triangles": 292740,
+      "frame": 106
+    },
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36 Edg/156.0.0.0"
+  },
+  "stats": {
+    "frames": 301,
+    "windowMs": 5009.900000000745,
+    "fpsMean": 60.08103954169848,
+    "fpsP50": 59.88023952095874,
+    "mean": 16.644186046514104,
+    "p50": 16.699999999999818,
+    "p95": 16.80000000000109,
+    "p99": 17,
+    "max": 17.199999999999818,
+    "hitches": 0,
+    "hitchesPerSec": 0,
+    "droppedFrames": 0
+  },
+  "shot": "docs/evidence/block9-webview2.png",
+  "baseline": {
+    "path": "docs/evidence/block9-baseline.json",
+    "scenario": "full-atlas",
+    "fpsMean": 60.109835247129304,
+    "p99": 17
+  },
+  "checks": [
+    {
+      "check": "fps >= 90% of browser baseline",
+      "base": 60.109835247129304,
+      "got": 60.08103954169848,
+      "pass": true
+    },
+    {
+      "check": "p99 <= 1.5x baseline + 2 ms",
+      "base": 17,
+      "got": 17,
+      "pass": true
+    },
+    {
+      "check": "hitches/s <= baseline + 1",
+      "base": 0,
+      "got": 0,
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+# Keep build artifacts off the small system drive (C: ~9 GB free, F: ~466 GB).
+[build]
+target-dir = "target"

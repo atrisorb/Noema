@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOEMA</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    background: radial-gradient(circle at 50% 40%, #101a2b 0%, #05070d 70%);
+    color: #dce7f5; font: 15px/1.6 "Segoe UI", system-ui, sans-serif;
+  }
+  main { max-width: 34rem; padding: 2rem; text-align: center; }
+  h1 { margin: 0 0 .75rem; font-size: 2rem; letter-spacing: .35em; color: #7ee7ff; }
+  p { margin: .5rem 0; color: #9fb2c8; }
+  code { color: #ffb86b; background: #0b1220; padding: .15rem .4rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>NOEMA</h1>
+  <p>The local Studio is not reachable on the configured port.</p>
+  <p>Start the bridge, then relaunch this window:</p>
+  <p><code>noema-app serve --port 4173</code></p>
+  <p>Or point <code>NOEMA_APP_PORT</code> at a running instance.</p>
+</main>
+</body>
+</html>

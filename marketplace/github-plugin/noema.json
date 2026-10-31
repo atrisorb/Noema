@@ -1,0 +1,12 @@
+{
+  "name": "github-plugin",
+  "version": "1.0.0",
+  "kind": "plugin",
+  "description": "Proprietary GitHub plugin: user/repo search, branches, checkout, live diff, session pin.",
+  "entry": "noema",
+  "permissions": ["git", "network:github.com", "keychain"],
+  "env": ["NOEMA_GITHUB_TOKEN"],
+  "plugin": {
+    "homepage": "https://github.com"
+  }
+}
