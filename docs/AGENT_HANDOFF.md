@@ -4,6 +4,13 @@
 
 ## Current state
 
+- **Release v0.5.18: Universal Cross-Platform Packaging & CI Warning Cleanup (Axon / Cortex - 2026-10-31):**
+  - Resolved macOS packaging failure: staged architecture-specific slices (`aarch64` and `x86_64`) alongside universal binary in `packaging/tauri.sh`, satisfying Tauri v2 universal bundle resource validation.
+  - Resolved Linux packaging failure: created missing `$APPDIR/usr/share/noema` in `packaging/build.sh` prior to copying assets.
+  - Hardened Linux CI runner: configured `APPIMAGE_EXTRACT_AND_RUN: "1"` and added `libfuse2t64` / `libfuse2` fallback to `.github/workflows/release.yml`.
+  - Cleaned all compiler & bundler warnings: eliminated unread variables and dead helper functions in `crates/core/src/hardware.rs`; adjusted Vite chunk size warning threshold.
+  - Bumped version to `0.5.18` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.
+
 - **Release v0.5.17: Platform Icon Builder Fallback & Robustness (Axon / Cortex - 2026-10-31):**
   - Resolved `node tools/design/build-icons.mjs` failure on CI runners: `tools/design/build-icons.mjs` now detects if `cargo-tauri` is present, and gracefully falls back to `npx @tauri-apps/cli@2.12.4 icon` if `cargo-tauri` has not yet been compiled, resolving exit codes 101/1 across Linux, macOS, and Windows.
   - Bumped version to `0.5.17` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.

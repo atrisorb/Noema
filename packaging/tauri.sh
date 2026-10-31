@@ -20,10 +20,15 @@ case "$(uname -s)" in
     rustup target add aarch64-apple-darwin x86_64-apple-darwin
     cargo build --release -p noema-app --target aarch64-apple-darwin
     cargo build --release -p noema-app --target x86_64-apple-darwin
-    lipo -create       "$ROOT/target/aarch64-apple-darwin/release/noema-app"       "$ROOT/target/x86_64-apple-darwin/release/noema-app"       -output "$BINARIES/noema-app-universal-apple-darwin"
+    cp "$ROOT/target/aarch64-apple-darwin/release/noema-app" "$BINARIES/noema-app-aarch64-apple-darwin"
+    cp "$ROOT/target/x86_64-apple-darwin/release/noema-app" "$BINARIES/noema-app-x86_64-apple-darwin"
+    lipo -create \
+      "$ROOT/target/aarch64-apple-darwin/release/noema-app" \
+      "$ROOT/target/x86_64-apple-darwin/release/noema-app" \
+      -output "$BINARIES/noema-app-universal-apple-darwin"
     cargo tauri build --config "$ROOT/packaging/tauri.bundle.conf.json" \
       --target universal-apple-darwin --bundles dmg
-    cp "$ROOT/target/universal-apple-darwin/release/bundle/dmg/"*.dmg "$OUT/"
+    find "$ROOT/target" -type f -name '*.dmg' -exec cp {} "$OUT/" \;
     ;;
   Linux)
     TRIPLE=$(rustc -vV | sed -n 's/^host: //p')

@@ -27,7 +27,7 @@ case "$(uname -s)" in
     tar -C "$STAGE" -czf "$OUT/noema-$VERSION-linux-$ARCH.tar.gz" .
     APPDIR="$OUT/NOEMA.AppDir"
     rm -rf "$APPDIR"
-    mkdir -p "$APPDIR/usr/bin" "$APPDIR/usr/share/applications" "$APPDIR/usr/share/icons/hicolor/256x256/apps"
+    mkdir -p "$APPDIR/usr/bin" "$APPDIR/usr/share/applications" "$APPDIR/usr/share/noema" "$APPDIR/usr/share/icons/hicolor/256x256/apps"
     cp "$STAGE/noema" "$STAGE/noemad" "$STAGE/noema-app" "$APPDIR/usr/bin/"
     cp -r "$STAGE/ui" "$STAGE/assets" "$APPDIR/usr/share/noema/"
     cat > "$APPDIR/noema.desktop" <<'EOF'

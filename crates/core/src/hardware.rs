@@ -448,6 +448,7 @@ fn dedup_gpus(gpus: Vec<GpuInfo>) -> Vec<GpuInfo> {
         .collect()
 }
 
+#[cfg(windows)]
 fn num(value: &Value, key: &str) -> u64 {
     value
         .get(key)
@@ -628,12 +629,12 @@ fn probe() -> RawProbe {
             .unwrap_or_default()
             .to_string();
         let mut pairs = BTreeSet::new();
-        let (mut phys, mut core) = (0u32, 0u32);
+        let mut phys = 0u32;
         for line in cpuinfo.lines() {
             if let Some(v) = line.strip_prefix("physical id\t:") {
                 phys = v.trim().parse().unwrap_or(0);
             } else if let Some(v) = line.strip_prefix("core id\t:") {
-                core = v.trim().parse().unwrap_or(0);
+                let core = v.trim().parse().unwrap_or(0);
                 pairs.insert((phys, core));
             }
         }

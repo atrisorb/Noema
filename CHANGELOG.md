@@ -2,6 +2,28 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.18] - 2026-10-31 - Universal Cross-Platform Packaging & CI Warning Cleanup
+
+### Fixed
+- macOS Packaging (`packaging/tauri.sh`):
+  - Staged both `noema-app-aarch64-apple-darwin` and `noema-app-x86_64-apple-darwin` sidecars alongside `noema-app-universal-apple-darwin`, fixing Tauri's architecture-slice validation error during `--target universal-apple-darwin`.
+  - Used recursive `find` for `.dmg` copying to ensure artifacts land in `dist/tauri` regardless of bundle layout.
+- Linux Packaging (`packaging/build.sh`):
+  - Ensured `$APPDIR/usr/share/noema` directory creation before copying assets, eliminating missing target directory error during AppImage staging.
+- Linux AppImage & FUSE Support (`.github/workflows/release.yml`):
+  - Added `APPIMAGE_EXTRACT_AND_RUN: "1"` to GitHub Actions environment to guarantee AppImage execution on runners without kernel FUSE.
+  - Added fallback installation for `libfuse2t64` / `libfuse2`.
+- Compiler Warnings (`crates/core/src/hardware.rs`):
+  - Guarded `fn num` with `#[cfg(windows)]` to eliminate unused function warning on Linux and macOS targets.
+  - Eliminated unread initial assignment to `core` variable in Linux `/proc/cpuinfo` parser.
+- Frontend Bundling (`crates/app/ui/vite.config.ts`):
+  - Adjusted `chunkSizeWarningLimit` to 1000 kB for Draco 3D decoder and Three.js bundle, eliminating Vite chunk size warning.
+- Version bump to `0.5.18` across `Cargo.toml`, `Cargo.lock`, and `src-tauri/tauri.conf.json`.
+
+### Verified
+- `cargo check --workspace`: clean (0 errors, 0 warnings).
+- `npm --prefix crates/app/ui run build`: clean (0 warnings).
+
 ## [0.5.17] - 2026-10-31 - Platform Icon Builder Robustness & Fallback
 
 ### Fixed
