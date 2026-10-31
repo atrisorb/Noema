@@ -119,10 +119,12 @@ impl RateCard {
         self.multiplier(at) != 1.0
     }
 
-    // --- Google Gemini ---
+    // =========================================================================
+    // 1. Google Gemini
+    // =========================================================================
 
     /// Gemini 4 Argon: unified 1M input/output window flagship (released Oct 2026).
-    /// Input: $2.00/M, Output/Thinking: $10.00/M, Implicit Cache Read: $0.10/M (95% discount).
+    /// Input: $2.00/M, Output/Thinking: $10.00/M, Implicit Cache Read: $0.10/M (-95%).
     pub fn gemini_4_argon() -> Self {
         Self {
             input: 2.00,
@@ -224,7 +226,9 @@ impl RateCard {
         }
     }
 
-    // --- OpenAI ---
+    // =========================================================================
+    // 2. OpenAI (GPT-6, o3, Realtime)
+    // =========================================================================
 
     /// GPT-6 Astra: frontier intelligence flagship (2026).
     /// Input: $10.00/M, Output/Thinking: $50.00/M, Cache Read: $1.00/M.
@@ -241,45 +245,75 @@ impl RateCard {
         }
     }
 
-    /// GPT-5.6 Sol: frontier agentic and reasoning model.
-    /// Input: $5.00/M, Output: $30.00/M, Cache Read: $0.50/M.
-    pub fn gpt_5_6_sol() -> Self {
+    /// GPT-6.1 Sol: balanced frontier performance and cost (2026).
+    /// Input: $2.00/M, Output: $10.00/M, Cache Read: $0.20/M.
+    pub fn gpt_6_1_sol() -> Self {
         Self {
-            input: 5.00,
-            output: 30.00,
-            reasoning: 30.00,
-            cache_read: 0.50,
-            cache_write: 5.00,
+            input: 2.00,
+            output: 10.00,
+            reasoning: 10.00,
+            cache_read: 0.20,
+            cache_write: 2.00,
             per_call: 0.0,
             windows: Vec::new(),
             local: None,
         }
     }
 
-    /// GPT-5.6 Terra: balanced frontier performance.
-    /// Input: $2.50/M, Output: $15.00/M, Cache Read: $0.25/M.
-    pub fn gpt_5_6_terra() -> Self {
+    /// GPT-6.1 Terra: visual reasoning, computer use, fast execution (2026).
+    /// Input: $1.00/M, Output: $5.00/M, Cache Read: $0.10/M.
+    pub fn gpt_6_1_terra() -> Self {
         Self {
-            input: 2.50,
-            output: 15.00,
-            reasoning: 15.00,
-            cache_read: 0.25,
-            cache_write: 2.50,
+            input: 1.00,
+            output: 5.00,
+            reasoning: 5.00,
+            cache_read: 0.10,
+            cache_write: 1.00,
             per_call: 0.0,
             windows: Vec::new(),
             local: None,
         }
     }
 
-    /// GPT-5 mini: fast agentic model.
-    /// Input: $0.20/M, Output: $0.80/M, Cache Read: $0.02/M.
-    pub fn gpt_5_mini() -> Self {
+    /// GPT-6 Luna: high-volume, cost-sensitive agentic model (2026).
+    /// Input: $0.10/M, Output: $0.50/M, Cache Read: $0.01/M.
+    pub fn gpt_6_luna() -> Self {
         Self {
-            input: 0.20,
-            output: 0.80,
-            reasoning: 0.80,
-            cache_read: 0.02,
-            cache_write: 0.20,
+            input: 0.10,
+            output: 0.50,
+            reasoning: 0.50,
+            cache_read: 0.01,
+            cache_write: 0.10,
+            per_call: 0.0,
+            windows: Vec::new(),
+            local: None,
+        }
+    }
+
+    /// GPT-Realtime-2.1: low-latency speech & text endpoint.
+    /// Input: $4.00/M, Output: $24.00/M, Cache Read: $0.40/M.
+    pub fn gpt_realtime_2_1() -> Self {
+        Self {
+            input: 4.00,
+            output: 24.00,
+            reasoning: 24.00,
+            cache_read: 0.40,
+            cache_write: 4.00,
+            per_call: 0.0,
+            windows: Vec::new(),
+            local: None,
+        }
+    }
+
+    /// GPT-Realtime-2.1 mini: lightweight voice & text streaming.
+    /// Input: $0.60/M, Output: $2.40/M, Cache Read: $0.06/M.
+    pub fn gpt_realtime_2_1_mini() -> Self {
+        Self {
+            input: 0.60,
+            output: 2.40,
+            reasoning: 2.40,
+            cache_read: 0.06,
+            cache_write: 0.60,
             per_call: 0.0,
             windows: Vec::new(),
             local: None,
@@ -301,7 +335,7 @@ impl RateCard {
         }
     }
 
-    /// OpenAI o3-pro: ultra-deep reasoning and verified proofs.
+    /// OpenAI o3-pro: ultra-deep reasoning and formal verification.
     /// Input: $20.00/M, Output/Thinking: $80.00/M, Cache Read: $2.00/M.
     pub fn openai_o3_pro() -> Self {
         Self {
@@ -316,6 +350,21 @@ impl RateCard {
         }
     }
 
+    /// OpenAI o4-mini: next-generation fast reasoning with 90% cache discount.
+    /// Input: $1.10/M, Output/Thinking: $4.40/M, Cache Read: $0.11/M.
+    pub fn openai_o4_mini() -> Self {
+        Self {
+            input: 1.10,
+            output: 4.40,
+            reasoning: 4.40,
+            cache_read: 0.11,
+            cache_write: 1.10,
+            per_call: 0.0,
+            windows: Vec::new(),
+            local: None,
+        }
+    }
+
     /// OpenAI o3-mini: STEM and code-focused reasoning model.
     /// Input: $1.10/M, Output/Thinking: $4.40/M, Cache Read: $0.55/M.
     pub fn openai_o3_mini() -> Self {
@@ -324,21 +373,6 @@ impl RateCard {
             output: 4.40,
             reasoning: 4.40,
             cache_read: 0.55,
-            cache_write: 1.10,
-            per_call: 0.0,
-            windows: Vec::new(),
-            local: None,
-        }
-    }
-
-    /// OpenAI o4-mini: next-generation fast reasoning.
-    /// Input: $1.10/M, Output/Thinking: $4.40/M, Cache Read: $0.11/M.
-    pub fn openai_o4_mini() -> Self {
-        Self {
-            input: 1.10,
-            output: 4.40,
-            reasoning: 4.40,
-            cache_read: 0.11,
             cache_write: 1.10,
             per_call: 0.0,
             windows: Vec::new(),
@@ -388,24 +422,26 @@ impl RateCard {
         }
     }
 
-    // --- Anthropic ---
+    // =========================================================================
+    // 3. Anthropic (Claude 5.x Series)
+    // =========================================================================
 
-    /// Claude Sonnet 5.5: flagship 5.5 generation model.
-    /// Input: $2.00/M, Output/Thinking: $10.00/M, Cache Read: $0.10/M, Cache Write: $2.50/M.
-    pub fn claude_sonnet_5_5() -> Self {
+    /// Claude Fable 5.1: frontier reasoning and long-context synthesis (2026).
+    /// Input: $10.00/M, Output/Thinking: $50.00/M, Cache Read: $0.25/M.
+    pub fn claude_fable_5_1() -> Self {
         Self {
-            input: 2.00,
-            output: 10.00,
-            reasoning: 10.00,
-            cache_read: 0.10,
-            cache_write: 2.50,
+            input: 10.00,
+            output: 50.00,
+            reasoning: 50.00,
+            cache_read: 0.25,
+            cache_write: 10.00,
             per_call: 0.0,
             windows: Vec::new(),
             local: None,
         }
     }
 
-    /// Claude Opus 5.5: deepest frontier reasoning.
+    /// Claude Opus 5.5: deepest agentic reasoning.
     /// Input: $4.00/M, Output/Thinking: $20.00/M, Cache Read: $0.20/M, Cache Write: $5.00/M.
     pub fn claude_opus_5_5() -> Self {
         Self {
@@ -420,7 +456,22 @@ impl RateCard {
         }
     }
 
-    /// Claude Haiku 5.5: high-speed 5.5 tier model.
+    /// Claude Sonnet 5.5: 1M context flagship workhorse.
+    /// Input: $2.00/M, Output/Thinking: $10.00/M, Cache Read: $0.10/M, Cache Write: $2.50/M.
+    pub fn claude_sonnet_5_5() -> Self {
+        Self {
+            input: 2.00,
+            output: 10.00,
+            reasoning: 10.00,
+            cache_read: 0.10,
+            cache_write: 2.50,
+            per_call: 0.0,
+            windows: Vec::new(),
+            local: None,
+        }
+    }
+
+    /// Claude Haiku 5.5: high-speed entry tier.
     /// Input: $0.10/M, Output: $0.50/M, Cache Read: $0.01/M, Cache Write: $0.125/M.
     pub fn claude_haiku_5_5() -> Self {
         Self {
@@ -491,44 +542,108 @@ impl RateCard {
         }
     }
 
-    // --- Mistral AI ---
+    // =========================================================================
+    // 4. Mistral AI (Large 4, Medium 3.5, Small 4, Ministral)
+    // =========================================================================
 
     /// Mistral Large 4 ("Le Chonk"): 1.05T MoE architecture, 1M context.
-    /// Input: $1.36/M, Output/Thinking: $4.18/M, Cache Read: $0.14/M (90% discount).
+    /// Input: $0.70/M, Output/Thinking: $2.10/M, Cache Read: $0.07/M (-90%).
     pub fn mistral_large_4() -> Self {
         Self {
-            input: 1.36,
-            output: 4.18,
-            reasoning: 4.18,
-            cache_read: 0.14,
-            cache_write: 1.36,
+            input: 0.70,
+            output: 2.10,
+            reasoning: 2.10,
+            cache_read: 0.07,
+            cache_write: 0.70,
             per_call: 0.0,
             windows: Vec::new(),
             local: None,
         }
     }
 
-    /// Mistral Large (2411).
-    pub fn mistral_large() -> Self {
+    /// Mistral Medium 3.5 (128B): 256k context.
+    /// Input: $1.50/M, Output: $7.50/M, Cache Read: $0.15/M.
+    pub fn mistral_medium_3_5() -> Self {
         Self {
-            input: 2.00,
-            output: 6.00,
-            reasoning: 6.00,
-            cache_read: 0.50,
-            cache_write: 2.00,
+            input: 1.50,
+            output: 7.50,
+            reasoning: 7.50,
+            cache_read: 0.15,
+            cache_write: 1.50,
             per_call: 0.0,
             windows: Vec::new(),
             local: None,
         }
     }
 
-    /// Mistral Small (2501).
-    pub fn mistral_small() -> Self {
+    /// Mistral Large 3 (2411): 256k context.
+    /// Input: $0.50/M, Output: $1.50/M, Cache Read: $0.10/M.
+    pub fn mistral_large_3() -> Self {
+        Self {
+            input: 0.50,
+            output: 1.50,
+            reasoning: 1.50,
+            cache_read: 0.10,
+            cache_write: 0.50,
+            per_call: 0.0,
+            windows: Vec::new(),
+            local: None,
+        }
+    }
+
+    /// Mistral Small 4: 256k context.
+    /// Input: $0.15/M, Output: $0.60/M, Cache Read: $0.015/M.
+    pub fn mistral_small_4() -> Self {
+        Self {
+            input: 0.15,
+            output: 0.60,
+            reasoning: 0.60,
+            cache_read: 0.015,
+            cache_write: 0.15,
+            per_call: 0.0,
+            windows: Vec::new(),
+            local: None,
+        }
+    }
+
+    /// Ministral 3 14B: edge and lightweight model.
+    /// Input: $0.20/M, Output: $0.20/M, Cache Read: $0.02/M.
+    pub fn ministral_3_14b() -> Self {
+        Self {
+            input: 0.20,
+            output: 0.20,
+            reasoning: 0.20,
+            cache_read: 0.02,
+            cache_write: 0.20,
+            per_call: 0.0,
+            windows: Vec::new(),
+            local: None,
+        }
+    }
+
+    /// Ministral 3 8B: low-latency edge model.
+    /// Input: $0.15/M, Output: $0.15/M, Cache Read: $0.015/M.
+    pub fn ministral_3_8b() -> Self {
+        Self {
+            input: 0.15,
+            output: 0.15,
+            reasoning: 0.15,
+            cache_read: 0.015,
+            cache_write: 0.15,
+            per_call: 0.0,
+            windows: Vec::new(),
+            local: None,
+        }
+    }
+
+    /// Ministral 3 3B: ultra-light edge model.
+    /// Input: $0.10/M, Output: $0.10/M, Cache Read: $0.01/M.
+    pub fn ministral_3_3b() -> Self {
         Self {
             input: 0.10,
-            output: 0.30,
-            reasoning: 0.30,
-            cache_read: 0.025,
+            output: 0.10,
+            reasoning: 0.10,
+            cache_read: 0.01,
             cache_write: 0.10,
             per_call: 0.0,
             windows: Vec::new(),
@@ -536,7 +651,8 @@ impl RateCard {
         }
     }
 
-    /// Codestral (2501).
+    /// Codestral (2501): 256k context repository reasoning.
+    /// Input: $0.30/M, Output: $0.90/M, Cache Read: $0.075/M.
     pub fn mistral_codestral() -> Self {
         Self {
             input: 0.30,
@@ -550,12 +666,14 @@ impl RateCard {
         }
     }
 
-    // --- DeepSeek ---
+    // =========================================================================
+    // 5. DeepSeek (V4.1 Flash, V4 Pro, R1, V3)
+    // =========================================================================
 
-    /// DeepSeek-V4.1 Flash: dynamic peak/off-peak pricing with ultra-low cache read.
-    /// Off-peak Input: $0.15/M, Output: $0.60/M, Cache Hit: $0.003/M.
-    /// Peak window configured with 2.0x multiplier.
-    pub fn deepseek_v4_flash() -> Self {
+    /// DeepSeek-Flash (V4.1-Flash-1017): 1M context, dynamic peak/off-peak pricing.
+    /// Off-peak: In $0.15/M, Out $0.60/M, Cache Read $0.003/M.
+    /// Peak window (2.0x): In $0.30/M, Out $1.20/M, Cache Read $0.006/M.
+    pub fn deepseek_flash() -> Self {
         Self {
             input: 0.15,
             output: 0.60,
@@ -567,6 +685,37 @@ impl RateCard {
                 RateWindow {
                     timezone: "UTC".into(),
                     weekday_mask: 0b0011111, // Mon-Fri
+                    start_minute: 1 * 60,
+                    end_minute: 4 * 60,
+                    multiplier: 2.0,
+                },
+                RateWindow {
+                    timezone: "UTC".into(),
+                    weekday_mask: 0b0011111,
+                    start_minute: 6 * 60,
+                    end_minute: 10 * 60,
+                    multiplier: 2.0,
+                },
+            ],
+            local: None,
+        }
+    }
+
+    /// DeepSeek-V4-Pro (V4-Pro-0813): 1M context heavy agentic model.
+    /// Off-peak: In $0.66/M, Out $1.98/M, Cache Read $0.022/M.
+    /// Peak window (2.0x): In $1.32/M, Out $3.96/M, Cache Read $0.044/M.
+    pub fn deepseek_v4_pro() -> Self {
+        Self {
+            input: 0.66,
+            output: 1.98,
+            reasoning: 1.98,
+            cache_read: 0.022,
+            cache_write: 0.66,
+            per_call: 0.0,
+            windows: vec![
+                RateWindow {
+                    timezone: "UTC".into(),
+                    weekday_mask: 0b0011111,
                     start_minute: 1 * 60,
                     end_minute: 4 * 60,
                     multiplier: 2.0,
@@ -611,7 +760,9 @@ impl RateCard {
         }
     }
 
-    // --- Zhipu AI (GLM) ---
+    // =========================================================================
+    // 6. Zhipu AI (GLM)
+    // =========================================================================
 
     /// GLM-5.3: 1M context MoE flagship model (Zhipu AI).
     /// Input: $1.40/M, Output/Thinking: $4.40/M, Cache Read: $0.26/M.
@@ -663,10 +814,12 @@ impl RateCard {
         Self::default()
     }
 
-    // --- Moonshot AI (Kimi) ---
+    // =========================================================================
+    // 7. Moonshot AI (Kimi)
+    // =========================================================================
 
     /// Kimi K3.1 Pro: 1M context flagship model with superior analysis.
-    /// Input: $2.00/M, Output/Thinking: $10.00/M, Cache Read: $0.20/M (90% discount).
+    /// Input: $2.00/M, Output/Thinking: $10.00/M, Cache Read: $0.20/M (-90%).
     pub fn kimi_k3_1_pro() -> Self {
         Self {
             input: 2.00,
@@ -709,7 +862,9 @@ impl RateCard {
         }
     }
 
-    // --- Meta Llama & Qwen (Hosted / Cloud) ---
+    // =========================================================================
+    // 8. Meta Llama & Qwen (Hosted / Cloud)
+    // =========================================================================
 
     /// Llama 3.3 70B Instruct (hosted rate).
     pub fn llama_3_3_70b() -> Self {
@@ -739,6 +894,20 @@ impl RateCard {
         }
     }
 
+    /// Llama 3.1 8B Instruct (hosted rate).
+    pub fn llama_3_1_8b() -> Self {
+        Self {
+            input: 0.05,
+            output: 0.08,
+            reasoning: 0.08,
+            cache_read: 0.01,
+            cache_write: 0.05,
+            per_call: 0.0,
+            windows: Vec::new(),
+            local: None,
+        }
+    }
+
     /// Qwen 2.5 Coder 32B Instruct (hosted rate).
     pub fn qwen_2_5_coder_32b() -> Self {
         Self {
@@ -747,6 +916,20 @@ impl RateCard {
             reasoning: 0.20,
             cache_read: 0.05,
             cache_write: 0.20,
+            per_call: 0.0,
+            windows: Vec::new(),
+            local: None,
+        }
+    }
+
+    /// Qwen 2.5 72B Instruct (hosted rate).
+    pub fn qwen_2_5_72b() -> Self {
+        Self {
+            input: 0.40,
+            output: 0.40,
+            reasoning: 0.40,
+            cache_read: 0.10,
+            cache_write: 0.40,
             per_call: 0.0,
             windows: Vec::new(),
             local: None,
@@ -781,14 +964,18 @@ impl RateCard {
         } else if m.contains("gemini") {
             Some(Self::gemini_3_8_flash())
         // 2. OpenAI
-        } else if m.contains("gpt-6") || m.contains("astra") {
+        } else if m.contains("gpt-6-astra") || m.contains("astra") {
             Some(Self::gpt_6_astra())
-        } else if m.contains("gpt-5.6-sol") || m.contains("sol") {
-            Some(Self::gpt_5_6_sol())
-        } else if m.contains("gpt-5.6-terra") || m.contains("terra") {
-            Some(Self::gpt_5_6_terra())
-        } else if m.contains("gpt-5-mini") || m.contains("gpt-5-nano") {
-            Some(Self::gpt_5_mini())
+        } else if m.contains("gpt-6.1-sol") || m.contains("6.1-sol") || m.contains("sol") {
+            Some(Self::gpt_6_1_sol())
+        } else if m.contains("gpt-6.1-terra") || m.contains("6.1-terra") || m.contains("terra") {
+            Some(Self::gpt_6_1_terra())
+        } else if m.contains("gpt-6-luna") || m.contains("luna") {
+            Some(Self::gpt_6_luna())
+        } else if m.contains("realtime-2.1-mini") {
+            Some(Self::gpt_realtime_2_1_mini())
+        } else if m.contains("realtime-2.1") || m.contains("realtime") {
+            Some(Self::gpt_realtime_2_1())
         } else if m.contains("o3-pro") {
             Some(Self::openai_o3_pro())
         } else if m.contains("o4-mini") {
@@ -804,6 +991,8 @@ impl RateCard {
         } else if m.contains("gpt-4o") || m.contains("gpt-4") || m.contains("chatgpt") {
             Some(Self::openai_gpt_4o())
         // 3. Anthropic
+        } else if m.contains("fable") || m.contains("claude-fable") {
+            Some(Self::claude_fable_5_1())
         } else if m.contains("opus-5-5") || m.contains("claude-opus-5") {
             Some(Self::claude_opus_5_5())
         } else if m.contains("haiku-5-5") || m.contains("claude-haiku-5") {
@@ -821,17 +1010,27 @@ impl RateCard {
         // 4. Mistral AI
         } else if m.contains("mistral-large-4") || m.contains("chonk") {
             Some(Self::mistral_large_4())
-        } else if m.contains("mistral-large") {
-            Some(Self::mistral_large())
+        } else if m.contains("mistral-medium-3.5") || m.contains("medium-3.5") {
+            Some(Self::mistral_medium_3_5())
+        } else if m.contains("mistral-large-3") || m.contains("mistral-large") {
+            Some(Self::mistral_large_3())
+        } else if m.contains("mistral-small-4") {
+            Some(Self::mistral_small_4())
+        } else if m.contains("ministral-3-14b") {
+            Some(Self::ministral_3_14b())
+        } else if m.contains("ministral-3-8b") {
+            Some(Self::ministral_3_8b())
+        } else if m.contains("ministral-3-3b") {
+            Some(Self::ministral_3_3b())
         } else if m.contains("codestral") {
             Some(Self::mistral_codestral())
-        } else if m.contains("pixtral") {
-            Some(Self::mistral_large())
         } else if m.contains("mistral") {
-            Some(Self::mistral_small())
+            Some(Self::mistral_small_4())
         // 5. DeepSeek
+        } else if m.contains("deepseek-v4-pro") || m.contains("v4-pro") {
+            Some(Self::deepseek_v4_pro())
         } else if m.contains("deepseek-v4") || m.contains("deepseek-flash") {
-            Some(Self::deepseek_v4_flash())
+            Some(Self::deepseek_flash())
         } else if m.contains("deepseek-r1") || m.contains("reasoner") {
             Some(Self::deepseek_r1())
         } else if m.contains("deepseek") {
@@ -859,8 +1058,12 @@ impl RateCard {
         // 8. Meta Llama & Qwen
         } else if m.contains("llama-3.1-405b") {
             Some(Self::llama_3_1_405b())
+        } else if m.contains("llama-3.1-8b") {
+            Some(Self::llama_3_1_8b())
         } else if m.contains("llama-3.3") || m.contains("llama") {
             Some(Self::llama_3_3_70b())
+        } else if m.contains("qwen-2.5-72b") {
+            Some(Self::qwen_2_5_72b())
         } else if m.contains("qwen") {
             Some(Self::qwen_2_5_coder_32b())
         // 9. Local zero-token fallback
@@ -894,15 +1097,15 @@ pub struct ModelCatalogEntry {
 /// Exhaustive built-in model catalog for all supported cloud and local providers (October 2026).
 pub fn default_catalog() -> Vec<ModelCatalogEntry> {
     vec![
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         // 1. Google Gemini
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         ModelCatalogEntry {
             id: "gemini-4-argon",
             provider: "google",
             name: "Gemini 4 Argon",
             standard: Standard::Gemini,
-            capability: "reasoning,agentic,code,math,science,multimodal",
+            capability: "reasoning,agentic,code,math,science,multimodal,unified_1m",
             context_window: 1_048_576,
             max_output_tokens: 65_536,
             supports_thinking: true,
@@ -918,7 +1121,7 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             provider: "google",
             name: "Gemini 3.8 Flash",
             standard: Standard::Gemini,
-            capability: "general,reasoning,agentic,code",
+            capability: "general,reasoning,agentic,code,long_horizon",
             context_window: 1_048_576,
             max_output_tokens: 65_536,
             supports_thinking: true,
@@ -994,16 +1197,16 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             rate_card: RateCard::gemini_2_5_flash(),
         },
 
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         // 2. OpenAI
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         ModelCatalogEntry {
             id: "gpt-6-astra",
             provider: "openai",
             name: "GPT-6 Astra",
             standard: Standard::OpenAiChat,
             capability: "frontier_intelligence,agentic,reasoning,multimodal",
-            context_window: 500_000,
+            context_window: 1_048_576,
             max_output_tokens: 65_536,
             supports_thinking: true,
             default_thinking_budget: Some(32_768),
@@ -1014,12 +1217,12 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             rate_card: RateCard::gpt_6_astra(),
         },
         ModelCatalogEntry {
-            id: "gpt-5.6-sol",
+            id: "gpt-6.1-sol",
             provider: "openai",
-            name: "GPT-5.6 Sol",
+            name: "GPT-6.1 Sol",
             standard: Standard::OpenAiChat,
-            capability: "frontier,code,agentic,deep_understanding",
-            context_window: 256_000,
+            capability: "frontier_workhorse,complex_coding,agentic",
+            context_window: 1_048_576,
             max_output_tokens: 32_768,
             supports_thinking: true,
             default_thinking_budget: Some(16_384),
@@ -1027,15 +1230,15 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             supports_audio: false,
             supports_tools: true,
             supports_caching: true,
-            rate_card: RateCard::gpt_5_6_sol(),
+            rate_card: RateCard::gpt_6_1_sol(),
         },
         ModelCatalogEntry {
-            id: "gpt-5.6-terra",
+            id: "gpt-6.1-terra",
             provider: "openai",
-            name: "GPT-5.6 Terra",
+            name: "GPT-6.1 Terra",
             standard: Standard::OpenAiChat,
-            capability: "general,balanced,code,multimodal",
-            context_window: 256_000,
+            capability: "visual_reasoning,computer_use,fast_writing",
+            context_window: 1_048_576,
             max_output_tokens: 32_768,
             supports_thinking: true,
             default_thinking_budget: Some(8_192),
@@ -1043,15 +1246,15 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             supports_audio: false,
             supports_tools: true,
             supports_caching: true,
-            rate_card: RateCard::gpt_5_6_terra(),
+            rate_card: RateCard::gpt_6_1_terra(),
         },
         ModelCatalogEntry {
-            id: "gpt-5-mini",
+            id: "gpt-6-luna",
             provider: "openai",
-            name: "GPT-5 mini",
+            name: "GPT-6 Luna",
             standard: Standard::OpenAiChat,
-            capability: "fast,agentic,code",
-            context_window: 256_000,
+            capability: "high_volume,cost_sensitive,fast_agentic",
+            context_window: 1_048_576,
             max_output_tokens: 16_384,
             supports_thinking: false,
             default_thinking_budget: None,
@@ -1059,7 +1262,39 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             supports_audio: false,
             supports_tools: true,
             supports_caching: true,
-            rate_card: RateCard::gpt_5_mini(),
+            rate_card: RateCard::gpt_6_luna(),
+        },
+        ModelCatalogEntry {
+            id: "gpt-realtime-2.1",
+            provider: "openai",
+            name: "GPT-Realtime 2.1",
+            standard: Standard::OpenAiChat,
+            capability: "realtime_voice,speech_to_speech,native_audio",
+            context_window: 128_000,
+            max_output_tokens: 8_192,
+            supports_thinking: false,
+            default_thinking_budget: None,
+            supports_vision: false,
+            supports_audio: true,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::gpt_realtime_2_1(),
+        },
+        ModelCatalogEntry {
+            id: "gpt-realtime-2.1-mini",
+            provider: "openai",
+            name: "GPT-Realtime 2.1 Mini",
+            standard: Standard::OpenAiChat,
+            capability: "realtime_voice_mini,fast_audio",
+            context_window: 128_000,
+            max_output_tokens: 8_192,
+            supports_thinking: false,
+            default_thinking_budget: None,
+            supports_vision: false,
+            supports_audio: true,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::gpt_realtime_2_1_mini(),
         },
         ModelCatalogEntry {
             id: "o3",
@@ -1094,22 +1329,6 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             rate_card: RateCard::openai_o3_pro(),
         },
         ModelCatalogEntry {
-            id: "o3-mini",
-            provider: "openai",
-            name: "o3-mini",
-            standard: Standard::OpenAiChat,
-            capability: "fast_reasoning,stem,code",
-            context_window: 200_000,
-            max_output_tokens: 65_536,
-            supports_thinking: true,
-            default_thinking_budget: Some(16_384),
-            supports_vision: false,
-            supports_audio: false,
-            supports_tools: true,
-            supports_caching: true,
-            rate_card: RateCard::openai_o3_mini(),
-        },
-        ModelCatalogEntry {
             id: "o4-mini",
             provider: "openai",
             name: "o4-mini",
@@ -1124,6 +1343,22 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             supports_tools: true,
             supports_caching: true,
             rate_card: RateCard::openai_o4_mini(),
+        },
+        ModelCatalogEntry {
+            id: "o3-mini",
+            provider: "openai",
+            name: "o3-mini",
+            standard: Standard::OpenAiChat,
+            capability: "fast_reasoning,stem,code",
+            context_window: 200_000,
+            max_output_tokens: 65_536,
+            supports_thinking: true,
+            default_thinking_budget: Some(16_384),
+            supports_vision: false,
+            supports_audio: false,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::openai_o3_mini(),
         },
         ModelCatalogEntry {
             id: "gpt-4o",
@@ -1158,33 +1393,33 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             rate_card: RateCard::openai_gpt_4o_mini(),
         },
 
-        // ----------------------------------------------------
-        // 3. Anthropic
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
+        // 3. Anthropic (Claude 5.x Series)
+        // ---------------------------------------------------------------------
         ModelCatalogEntry {
-            id: "claude-sonnet-5-5",
+            id: "claude-fable-5-1",
             provider: "anthropic",
-            name: "Claude Sonnet 5.5",
+            name: "Claude Fable 5.1",
             standard: Standard::AnthropicMessages,
-            capability: "frontier,engineering,agentic,autonomous",
-            context_window: 200_000,
-            max_output_tokens: 64_000,
+            capability: "frontier_reasoning,long_horizon_synthesis,1m_context",
+            context_window: 1_000_000,
+            max_output_tokens: 128_000,
             supports_thinking: true,
-            default_thinking_budget: Some(16_384),
+            default_thinking_budget: Some(65_536),
             supports_vision: true,
             supports_audio: false,
             supports_tools: true,
             supports_caching: true,
-            rate_card: RateCard::claude_sonnet_5_5(),
+            rate_card: RateCard::claude_fable_5_1(),
         },
         ModelCatalogEntry {
             id: "claude-opus-5-5",
             provider: "anthropic",
             name: "Claude Opus 5.5",
             standard: Standard::AnthropicMessages,
-            capability: "deepest_reasoning,synthesis,complex_system_design",
-            context_window: 200_000,
-            max_output_tokens: 64_000,
+            capability: "deepest_agentic_reasoning,architecture_synthesis,1m_context",
+            context_window: 1_000_000,
+            max_output_tokens: 128_000,
             supports_thinking: true,
             default_thinking_budget: Some(32_768),
             supports_vision: true,
@@ -1194,13 +1429,29 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             rate_card: RateCard::claude_opus_5_5(),
         },
         ModelCatalogEntry {
+            id: "claude-sonnet-5-5",
+            provider: "anthropic",
+            name: "Claude Sonnet 5.5",
+            standard: Standard::AnthropicMessages,
+            capability: "frontier_engineering,agentic_workhorse,1m_context",
+            context_window: 1_000_000,
+            max_output_tokens: 128_000,
+            supports_thinking: true,
+            default_thinking_budget: Some(16_384),
+            supports_vision: true,
+            supports_audio: false,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::claude_sonnet_5_5(),
+        },
+        ModelCatalogEntry {
             id: "claude-haiku-5-5",
             provider: "anthropic",
             name: "Claude Haiku 5.5",
             standard: Standard::AnthropicMessages,
             capability: "ultra_fast,agentic_subtasks,high_throughput",
             context_window: 200_000,
-            max_output_tokens: 16_384,
+            max_output_tokens: 64_000,
             supports_thinking: true,
             default_thinking_budget: Some(4_096),
             supports_vision: true,
@@ -1258,9 +1509,9 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             rate_card: RateCard::claude_3_5_haiku(),
         },
 
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         // 4. Mistral AI
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         ModelCatalogEntry {
             id: "mistral-large-4",
             provider: "mistral",
@@ -1278,12 +1529,28 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             rate_card: RateCard::mistral_large_4(),
         },
         ModelCatalogEntry {
-            id: "mistral-large-2411",
+            id: "mistral-medium-3.5",
             provider: "mistral",
-            name: "Mistral Large 3",
+            name: "Mistral Medium 3.5 (128B)",
             standard: Standard::Mistral,
-            capability: "general,reasoning,multilingual",
-            context_window: 128_000,
+            capability: "general_intelligence,multilingual,256k_context",
+            context_window: 256_000,
+            max_output_tokens: 32_768,
+            supports_thinking: false,
+            default_thinking_budget: None,
+            supports_vision: false,
+            supports_audio: false,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::mistral_medium_3_5(),
+        },
+        ModelCatalogEntry {
+            id: "mistral-large-3",
+            provider: "mistral",
+            name: "Mistral Large 3 (2411)",
+            standard: Standard::Mistral,
+            capability: "general,reasoning,multilingual,256k_context",
+            context_window: 256_000,
             max_output_tokens: 8_192,
             supports_thinking: false,
             default_thinking_budget: None,
@@ -1291,7 +1558,71 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             supports_audio: false,
             supports_tools: true,
             supports_caching: true,
-            rate_card: RateCard::mistral_large(),
+            rate_card: RateCard::mistral_large_3(),
+        },
+        ModelCatalogEntry {
+            id: "mistral-small-4",
+            provider: "mistral",
+            name: "Mistral Small 4",
+            standard: Standard::Mistral,
+            capability: "lightweight,fast,256k_context",
+            context_window: 256_000,
+            max_output_tokens: 16_384,
+            supports_thinking: false,
+            default_thinking_budget: None,
+            supports_vision: false,
+            supports_audio: false,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::mistral_small_4(),
+        },
+        ModelCatalogEntry {
+            id: "ministral-3-14b",
+            provider: "mistral",
+            name: "Ministral 3 14B",
+            standard: Standard::Mistral,
+            capability: "edge_powerhouse,agent_subtasks,symmetric_pricing",
+            context_window: 256_000,
+            max_output_tokens: 8_192,
+            supports_thinking: false,
+            default_thinking_budget: None,
+            supports_vision: false,
+            supports_audio: false,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::ministral_3_14b(),
+        },
+        ModelCatalogEntry {
+            id: "ministral-3-8b",
+            provider: "mistral",
+            name: "Ministral 3 8B",
+            standard: Standard::Mistral,
+            capability: "edge_efficient,fast_inference",
+            context_window: 256_000,
+            max_output_tokens: 8_192,
+            supports_thinking: false,
+            default_thinking_budget: None,
+            supports_vision: false,
+            supports_audio: false,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::ministral_3_8b(),
+        },
+        ModelCatalogEntry {
+            id: "ministral-3-3b",
+            provider: "mistral",
+            name: "Ministral 3 3B",
+            standard: Standard::Mistral,
+            capability: "ultra_light_edge,mobile_device_ready",
+            context_window: 256_000,
+            max_output_tokens: 8_192,
+            supports_thinking: false,
+            default_thinking_budget: None,
+            supports_vision: false,
+            supports_audio: false,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::ministral_3_3b(),
         },
         ModelCatalogEntry {
             id: "codestral-2501",
@@ -1309,33 +1640,17 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             supports_caching: true,
             rate_card: RateCard::mistral_codestral(),
         },
-        ModelCatalogEntry {
-            id: "mistral-small-2501",
-            provider: "mistral",
-            name: "Mistral Small",
-            standard: Standard::Mistral,
-            capability: "lightweight,fast,multilingual",
-            context_window: 128_000,
-            max_output_tokens: 8_192,
-            supports_thinking: false,
-            default_thinking_budget: None,
-            supports_vision: false,
-            supports_audio: false,
-            supports_tools: true,
-            supports_caching: true,
-            rate_card: RateCard::mistral_small(),
-        },
 
-        // ----------------------------------------------------
-        // 5. DeepSeek
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
+        // 5. DeepSeek (V4.1 Flash, V4 Pro, R1, V3)
+        // ---------------------------------------------------------------------
         ModelCatalogEntry {
             id: "deepseek-flash",
             provider: "deepseek",
             name: "DeepSeek-V4.1 Flash",
             standard: Standard::DeepSeek,
-            capability: "fast,code,ultra_low_cache_price,peak_aware",
-            context_window: 128_000,
+            capability: "1m_context,fast_code,ultra_low_cache_price,peak_aware",
+            context_window: 1_000_000,
             max_output_tokens: 16_384,
             supports_thinking: false,
             default_thinking_budget: None,
@@ -1343,7 +1658,23 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             supports_audio: false,
             supports_tools: true,
             supports_caching: true,
-            rate_card: RateCard::deepseek_v4_flash(),
+            rate_card: RateCard::deepseek_flash(),
+        },
+        ModelCatalogEntry {
+            id: "deepseek-v4-pro",
+            provider: "deepseek",
+            name: "DeepSeek-V4 Pro",
+            standard: Standard::DeepSeek,
+            capability: "1m_context,heavy_agentic,deep_coding,peak_aware",
+            context_window: 1_000_000,
+            max_output_tokens: 32_768,
+            supports_thinking: true,
+            default_thinking_budget: Some(16_384),
+            supports_vision: false,
+            supports_audio: false,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::deepseek_v4_pro(),
         },
         ModelCatalogEntry {
             id: "deepseek-reasoner",
@@ -1378,9 +1709,9 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             rate_card: RateCard::deepseek_v3(),
         },
 
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         // 6. Zhipu AI (GLM)
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         ModelCatalogEntry {
             id: "glm-5.3",
             provider: "zhipu",
@@ -1446,9 +1777,9 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             rate_card: RateCard::glm_4_7_flash(),
         },
 
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         // 7. Moonshot AI (Kimi)
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         ModelCatalogEntry {
             id: "kimi-k3.1-pro",
             provider: "moonshot",
@@ -1498,9 +1829,9 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             rate_card: RateCard::kimi_k3(),
         },
 
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         // 8. Meta Llama (Hosted / Cloud API)
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         ModelCatalogEntry {
             id: "meta-llama/llama-3.3-70b-instruct",
             provider: "meta",
@@ -1533,10 +1864,26 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             supports_caching: true,
             rate_card: RateCard::llama_3_1_405b(),
         },
+        ModelCatalogEntry {
+            id: "meta-llama/llama-3.1-8b-instruct",
+            provider: "meta",
+            name: "Llama 3.1 8B Instruct",
+            standard: Standard::OpenAiChat,
+            capability: "fast,lightweight,edge",
+            context_window: 128_000,
+            max_output_tokens: 8_192,
+            supports_thinking: false,
+            default_thinking_budget: None,
+            supports_vision: false,
+            supports_audio: false,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::llama_3_1_8b(),
+        },
 
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         // 9. Alibaba Qwen
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         ModelCatalogEntry {
             id: "qwen/qwen-2.5-coder-32b-instruct",
             provider: "qwen",
@@ -1553,10 +1900,26 @@ pub fn default_catalog() -> Vec<ModelCatalogEntry> {
             supports_caching: true,
             rate_card: RateCard::qwen_2_5_coder_32b(),
         },
+        ModelCatalogEntry {
+            id: "qwen/qwen-2.5-72b-instruct",
+            provider: "qwen",
+            name: "Qwen 2.5 72B",
+            standard: Standard::OpenAiChat,
+            capability: "general,reasoning,multilingual",
+            context_window: 128_000,
+            max_output_tokens: 16_384,
+            supports_thinking: false,
+            default_thinking_budget: None,
+            supports_vision: false,
+            supports_audio: false,
+            supports_tools: true,
+            supports_caching: true,
+            rate_card: RateCard::qwen_2_5_72b(),
+        },
 
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         // 10. Local Self-Hosted Runtimes (Ollama, llama.cpp, vLLM)
-        // ----------------------------------------------------
+        // ---------------------------------------------------------------------
         ModelCatalogEntry {
             id: "local/llama-3.3-70b",
             provider: "local",
@@ -1664,15 +2027,18 @@ mod tests {
     }
 
     #[test]
-    fn deepseek_v4_flash_peak_window_and_rates() {
-        let card = RateCard::deepseek_v4_flash();
-        assert_eq!(card.input, 0.15);
-        assert_eq!(card.output, 0.60);
-        assert_eq!(card.cache_read, 0.003);
-        // Off-peak: UTC 12:00
-        assert!(!card.peak(at("2026-10-28T12:00:00Z")));
-        // Peak: UTC 02:00 Mon-Fri
-        assert!(card.peak(at("2026-10-28T02:00:00Z")));
+    fn deepseek_flash_and_v4_pro_peak_window() {
+        let flash = RateCard::deepseek_flash();
+        assert_eq!(flash.input, 0.15);
+        assert_eq!(flash.output, 0.60);
+        assert_eq!(flash.cache_read, 0.003);
+        assert!(!flash.peak(at("2026-10-28T12:00:00Z")));
+        assert!(flash.peak(at("2026-10-28T02:00:00Z")));
+
+        let pro = RateCard::deepseek_v4_pro();
+        assert_eq!(pro.input, 0.66);
+        assert_eq!(pro.output, 1.98);
+        assert_eq!(pro.cache_read, 0.022);
     }
 
     #[test]
@@ -1688,34 +2054,42 @@ mod tests {
     }
 
     #[test]
-    fn mistral_large_4_and_glm_kimi_models() {
+    fn mistral_large_4_and_ministral_models() {
         let m4 = RateCard::mistral_large_4();
-        assert_eq!(m4.input, 1.36);
-        assert_eq!(m4.output, 4.18);
+        assert_eq!(m4.input, 0.70);
+        assert_eq!(m4.output, 2.10);
         assert_eq!(RateCard::for_model("mistral-large-4"), Some(m4));
 
-        let glm = RateCard::glm_5_3();
-        assert_eq!(glm.input, 1.40);
-        assert_eq!(glm.output, 4.40);
-        assert_eq!(RateCard::for_model("glm-5.3"), Some(glm));
-
-        let kimi = RateCard::kimi_k3_1_pro();
-        assert_eq!(kimi.input, 2.00);
-        assert_eq!(kimi.output, 10.00);
-        assert_eq!(RateCard::for_model("kimi-k3.1-pro"), Some(kimi));
+        let m14b = RateCard::ministral_3_14b();
+        assert_eq!(m14b.input, 0.20);
+        assert_eq!(m14b.output, 0.20);
+        assert_eq!(RateCard::for_model("ministral-3-14b"), Some(m14b));
     }
 
     #[test]
-    fn claude_5_5_and_openai_gpt6_o3() {
+    fn claude_fable_and_5_5_series() {
+        let fable = RateCard::claude_fable_5_1();
+        assert_eq!(fable.input, 10.00);
+        assert_eq!(fable.output, 50.00);
+        assert_eq!(RateCard::for_model("claude-fable-5-1"), Some(fable));
+
         let sonnet55 = RateCard::claude_sonnet_5_5();
         assert_eq!(sonnet55.input, 2.00);
         assert_eq!(sonnet55.output, 10.00);
         assert_eq!(RateCard::for_model("claude-sonnet-5-5"), Some(sonnet55));
+    }
 
-        let gpt6 = RateCard::gpt_6_astra();
-        assert_eq!(gpt6.input, 10.00);
-        assert_eq!(gpt6.output, 50.00);
-        assert_eq!(RateCard::for_model("gpt-6-astra"), Some(gpt6));
+    #[test]
+    fn openai_gpt6_sol_terra_o3() {
+        let sol = RateCard::gpt_6_1_sol();
+        assert_eq!(sol.input, 2.00);
+        assert_eq!(sol.output, 10.00);
+        assert_eq!(RateCard::for_model("gpt-6.1-sol"), Some(sol));
+
+        let terra = RateCard::gpt_6_1_terra();
+        assert_eq!(terra.input, 1.00);
+        assert_eq!(terra.output, 5.00);
+        assert_eq!(RateCard::for_model("gpt-6.1-terra"), Some(terra));
 
         let o3 = RateCard::openai_o3();
         assert_eq!(o3.input, 2.00);
@@ -1726,7 +2100,7 @@ mod tests {
     #[test]
     fn catalog_completeness_and_filters() {
         let catalog = default_catalog();
-        assert!(catalog.len() >= 30, "catalog has {}", catalog.len());
+        assert!(catalog.len() >= 35, "catalog has {}", catalog.len());
 
         let providers = all_providers();
         assert_eq!(providers.len(), 10);
@@ -1739,13 +2113,25 @@ mod tests {
             );
         }
 
-        let argon_entry = catalog_entry("gemini-4-argon").expect("gemini-4-argon must be present");
-        assert_eq!(argon_entry.provider, "google");
-        assert!(argon_entry.supports_thinking);
-        assert_eq!(argon_entry.context_window, 1_048_576);
+        let argon = catalog_entry("gemini-4-argon").expect("gemini-4-argon must be present");
+        assert_eq!(argon.provider, "google");
+        assert!(argon.supports_thinking);
+        assert_eq!(argon.context_window, 1_048_576);
 
         let chonk = catalog_entry("mistral-large-4").expect("mistral-large-4 must be present");
         assert_eq!(chonk.provider, "mistral");
         assert_eq!(chonk.context_window, 1_000_000);
+
+        let sol = catalog_entry("gpt-6.1-sol").expect("gpt-6.1-sol must be present");
+        assert_eq!(sol.provider, "openai");
+        assert_eq!(sol.context_window, 1_048_576);
+
+        let fable = catalog_entry("claude-fable-5-1").expect("claude-fable-5-1 must be present");
+        assert_eq!(fable.provider, "anthropic");
+        assert_eq!(fable.max_output_tokens, 128_000);
+
+        let flash = catalog_entry("deepseek-flash").expect("deepseek-flash must be present");
+        assert_eq!(flash.provider, "deepseek");
+        assert_eq!(flash.context_window, 1_000_000);
     }
 }
