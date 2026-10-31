@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-labelledby="synapse-title">
+  <title id="synapse-title">Synapse - The Knot</title>
+  <defs><radialGradient id="synapse-glow"><stop offset="0" stop-color="#6C8CFF" stop-opacity=".22"/><stop offset="1" stop-color="#6C8CFF" stop-opacity="0"/></radialGradient></defs>
+  <g class="glow"><circle cx="24" cy="24" r="22" fill="url(#synapse-glow)"/></g>
+  <g class="body" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9c9 0 13 7 13 15s-4 15-13 15"/><path d="M34 9c-9 0-13 7-13 15s4 15 13 15"/></g>
+  <g class="trace" stroke="#6C8CFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="18" cy="18" r="2.3" fill="#6C8CFF" stroke="none"/><circle cx="30" cy="18" r="2.3" fill="#6C8CFF" stroke="none"/><circle cx="24" cy="32" r="2.3" fill="#6C8CFF" stroke="none"/></g>
+</svg>

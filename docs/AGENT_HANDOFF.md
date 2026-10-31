@@ -4,7 +4,8 @@
 
 ## Current state
 
-- **Block 10.3 complete (2026-10-31):** SVG logo suite, favicon, generated platform icons. 28 rasters remain for 10.9. Details below.
+- **Block 10.4 complete (2026-10-31):** eight SVG mascots, 24px roster integration, WebP sheet. 10.5 shell is next. 28 rasters remain for 10.9.
+- **Block 10.3 complete (2026-10-31):** SVG logo suite, favicon, generated platform icons.
 - **Block 10.1 complete (2026-10-31):** design audit and freeze. `docs/design/AUDIT.md` is the baseline; UI source was read-only in that block.
 - **Block 9 complete (2026-10-31):** Tauri v2 desktop wrapper + bundle pipeline. Owner push pending.
 - **Design law:** `docs/design/NOEMA_DESIGN_SYSTEM.md` **v1.1** frozen. `ARTIFACT_WORKSPACE.md`, `ANATOMY_AND_ASSETS.md`, `DECISIONS.md`, `AUDIT.md` support it.
@@ -22,12 +23,20 @@
 7. **Evidence:** `docs/evidence/design-logo-suite.webp` (Cavity + Bone, all seven assets, mark sizes).
 8. **Build:** `npm run build` green; favicon in `dist`.
 
-## Next block: 10.4 mascots
+## Block 10.4 results
 
-- Create eight SVG mascots in `assets/mascots/`: Loom, Arrow, Lantern, Knot, Mason, Seahorse, Iris, Prism. Abstract anatomy, `body`/`trace`/`glow` groups, currentColor body, one accent, reduced-motion path.
-- Add a sprite/loader module and render the mascot next to each roster entry at 24px; test 16px.
-- Aesthesis is the eighth mascot but is not a runtime agent yet: ship the asset and loader, do not fake a roster entry. Propose the roster change to Cortex.
-- Evidence: `docs/evidence/design-mascots.webp`; no raster source.
+1. **Eight SVGs:** `assets/mascots/{cortex,axon,thalamus,synapse,soma,hippocampus,retina,aesthesis}.svg`, 48x48, `body`/`trace`/`glow`, currentColor body, one accent.
+2. **Loader:** `crates/app/ui/src/mascots.ts` imports raw SVGs through Vite; unknown ids return empty.
+3. **Roster:** 24px mascot replaces the generic dot; accent stays per agent; hover raises the glow; reduced motion removes the transition.
+4. **Evidence:** `docs/evidence/design-mascots.webp` at 96 and 24 in Cavity + Bone. Distinct silhouettes, no emoji.
+5. **Aesthesis:** asset ships, roster stays at 7 until Cortex approves an eighth runtime agent.
+
+## Next block: 10.5 glass + shell
+
+- Lens/Membrane/Cavity primitives; Spine command bar 56px, rail 72px, inspector 380px, status filament 28px.
+- Move layer controls into the inspector; add a theme toggle and persist `noema:theme`; add focus-visible and reduced-motion global rules.
+- Restyle Studio, Brain, Anima and Machine with tokens; responsive at 1280/1024/768/480.
+- Evidence: `docs/evidence/design-shell-{cavity,bone}.webp` plus a mobile capture; Playwright smoke.
 
 ## Token workflow
 

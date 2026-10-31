@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-labelledby="hippocampus-title">
+  <title id="hippocampus-title">Hippocampus - The Seahorse</title>
+  <defs><radialGradient id="hippocampus-glow"><stop offset="0" stop-color="#6C8CFF" stop-opacity=".22"/><stop offset="1" stop-color="#6C8CFF" stop-opacity="0"/></radialGradient></defs>
+  <g class="glow"><circle cx="24" cy="24" r="22" fill="url(#hippocampus-glow)"/></g>
+  <g class="body" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M31 6c7 3 8 11 3 16-4 4-9 6-9 12 0 4 3 6 7 6"/><path d="M31 6c-4 0-6 2-7 5"/></g>
+  <g class="trace" stroke="#6C8CFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M8 29c3-3 7-3 10 0"/><path d="M8 36c3-3 7-3 10 0"/></g>
+</svg>

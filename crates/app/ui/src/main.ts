@@ -6,6 +6,7 @@ import { Atlas, type AtlasLayer } from './atlas';
 import { Circulation } from './circulation';
 import { Swarm } from './agents';
 import { BrainGraph, type BrainNode } from './brain';
+import { mascot } from './mascots';
 import { mountStudio } from './studio';
 import type { Anatomy, Agent, LayerName } from './types';
 import { apiBase, apiUrl, assetBase, getJson, isTauri } from './platform';
@@ -549,7 +550,10 @@ function addRoster(agents: Agent[]) {
   agents.forEach((agent) => {
     const button = el('button') as HTMLButtonElement;
     button.style.setProperty('--dot', agent.accent);
-    button.append(el('i'), el('span', undefined, agent.name));
+    const icon = el('span') as HTMLSpanElement;
+    icon.className = 'agent-mascot';
+    icon.innerHTML = mascot(agent.id, 24);
+    button.append(icon, el('span', undefined, agent.name));
     button.addEventListener('click', () => openAgent(agent.id));
     roster.append(button);
   });

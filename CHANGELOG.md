@@ -2,6 +2,23 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.9] - 2026-10-31 - Block 10.4: Eight mascots
+
+### Added
+- `assets/mascots/`: eight SVG glyphs with `body`, `trace` and `glow` groups - Cortex Loom, Axon Arrow, Thalamus Lantern, Synapse Knot, Soma Mason, Hippocampus Seahorse, Retina Iris, Aesthesis Prism.
+- `crates/app/ui/src/mascots.ts`: Vite raw-SVG loader, 24px roster integration, unknown ids return empty.
+- `assets/mascots/README.md`: rig and size contract.
+- `tools/design/render-mascot-sheet.mjs` and `docs/evidence/design-mascots.webp`: 96px and 24px, Cavity + Bone.
+
+### Changed
+- Roster buttons render the agent mascot instead of the generic dot; accent stays per agent. Hover raises the glow; reduced motion removes the transition.
+- `docs/MASTER_PLAN.md` 10.4 ticked; design README state.
+
+### Verified
+- `npm run build` green; mascot SVGs inline in the bundle.
+- All eight render at 24px and 96px; Aesthesis ships as an asset, not a fake runtime agent.
+- No raster added, no `git push`.
+
 ## [0.5.8] - 2026-10-31 - Block 10.3: SVG logo suite
 
 ### Added

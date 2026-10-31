@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-labelledby="retina-title">
+  <title id="retina-title">Retina - The Iris</title>
+  <defs><radialGradient id="retina-glow"><stop offset="0" stop-color="#FFC857" stop-opacity=".22"/><stop offset="1" stop-color="#FFC857" stop-opacity="0"/></radialGradient></defs>
+  <g class="glow"><circle cx="24" cy="24" r="22" fill="url(#retina-glow)"/></g>
+  <g class="body" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="6"/></g>
+  <g class="trace" stroke="#FFC857" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M24 8v7M24 33v7M8 24h7M33 24h7M12.7 12.7l5 5M30.3 30.3l5 5M35.3 12.7l-5 5M17.7 30.3l-5 5"/></g>
+</svg>

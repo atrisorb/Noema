@@ -17,6 +17,11 @@ html, body { margin: 0; height: 100%; overflow: hidden; background: radial-gradi
 #roster { position: fixed; left: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 6px; }
 #roster button { all: unset; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 5px 10px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line); color: #b9cbe4; font-size: 11px; letter-spacing: .08em; backdrop-filter: blur(8px); transition: border-color .2s, color .2s; }
 #roster button:hover { border-color: #7ee7ff; color: #fff; }
+.agent-mascot { display: inline-flex; width: 24px; height: 24px; flex: none; color: inherit; }
+.agent-mascot svg { width: 100%; height: 100%; display: block; }
+.agent-mascot .glow { opacity: .55; transition: opacity var(--noema-motion-standard) var(--noema-ease-standard); }
+#roster button:hover .agent-mascot .glow { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .agent-mascot .glow { transition: none; } }
 #roster i { width: 7px; height: 7px; border-radius: 50%; background: var(--dot, #7ee7ff); box-shadow: 0 0 8px var(--dot, #7ee7ff); }
 aside { position: fixed; top: 0; bottom: 0; width: 380px; padding: 54px 24px 24px; background: var(--glass); backdrop-filter: blur(14px); border-left: 1px solid var(--line); transition: transform .38s cubic-bezier(.2,.8,.2,1); overflow-y: auto; }
 #rail { right: 0; transform: translateX(105%); }

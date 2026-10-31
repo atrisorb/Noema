@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-labelledby="soma-title">
+  <title id="soma-title">Soma - The Mason</title>
+  <defs><radialGradient id="soma-glow"><stop offset="0" stop-color="#FF5A5F" stop-opacity=".22"/><stop offset="1" stop-color="#FF5A5F" stop-opacity="0"/></radialGradient></defs>
+  <g class="glow"><circle cx="24" cy="24" r="22" fill="url(#soma-glow)"/></g>
+  <g class="body" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6l14 8v20l-14 8-14-8V14Z"/><path d="M10 14l14 8 14-8M24 22v20"/></g>
+  <g class="trace" stroke="#FF5A5F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M14 28h5l3-6 4 12 3-6h5"/></g>
+</svg>

@@ -50,9 +50,10 @@ Aesthesis is registered but not auto-started. The owner dispatches it from OpenC
 ## Current state
 
 - Design law: written and frozen (v1.1, 2026-10-31).
-- Agent: Aesthesis running; Block 10.3 complete.
-- Block 10: 10.1 audit, 10.2 tokens and 10.3 logo suite complete; 10.4 mascots next.
+- Agent: Aesthesis running; Block 10.4 complete.
+- Block 10: 10.1 audit, 10.2 tokens, 10.3 logo suite and 10.4 mascots complete; 10.5 shell next.
 - Tokens: 29 color pairs, 12 type scales, 9 space steps, radius/z/motion/motion curves; Cavity + Bone; 24/24 contrast pairs pass AA.
 - Brand: seven SVG sources in `assets/brand/`; logo sheet `docs/evidence/design-logo-suite.webp`; platform icons generated and git-ignored.
+- Mascots: eight SVG sources in `assets/mascots/`, loaded into the roster at 24px; sheet `docs/evidence/design-mascots.webp`.
 - Raster debt: 34 files / 8.23 MiB (33 PNG + 1 ICO), 70 references. See [AUDIT.md](AUDIT.md).
 - Body: muscle/bone atlas + capsule skin. Baseline confirms skeletal lower legs, feet and hands; the pelvic mass is unresolved pending the 10.8 mesh audit.
