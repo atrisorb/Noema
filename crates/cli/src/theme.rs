@@ -278,6 +278,41 @@ impl Styler {
         format!("{}\x1b[30m FAIL \x1b[0m", self.theme.danger.to_ansi_bg())
     }
 
+    /// Editorial ASCII wordmark and lockup.
+    pub fn banner(&self, subtitle: Option<&str>) -> String {
+        let n1 = " _   _    ___    _____  __  __     _   ";
+        let n2 = "| \\ | |  / _ \\  | ____||  \\/  |   / \\  ";
+        let n3 = "|  \\| | | | | | | |__  | \\  / |  / _ \\ ";
+        let n4 = "| |\\  | | |_| | |  __| | |\\/| | / ___ \\";
+        let n5 = "|_| \\_|  \\___/  |_____||_|  |_|/_/   \\_\\";
+
+        if !self.active {
+            let mut out = format!("{n1}\n{n2}\n{n3}\n{n4}\n{n5}\n");
+            if let Some(sub) = subtitle {
+                out.push_str(&format!("{sub}\n"));
+            }
+            return out;
+        }
+
+        let artery_fg = self.theme.artery.to_ansi_fg();
+        let dim_fg = self.theme.ink_muted.to_ansi_fg();
+        let sub_fg = self.theme.nerve.to_ansi_fg();
+        let reset = "\x1b[0m";
+
+        let mut lines = Vec::new();
+        lines.push(format!("{artery_fg}{n1}{reset}"));
+        lines.push(format!("{artery_fg}{n2}{reset}"));
+        lines.push(format!("{artery_fg}{n3}{reset}  {dim_fg}the anatomical mind{reset}"));
+        lines.push(format!("{artery_fg}{n4}{reset}  {sub_fg}v{}{reset}", noema_core::VERSION));
+        lines.push(format!("{artery_fg}{n5}{reset}"));
+
+        if let Some(sub) = subtitle {
+            lines.push(format!("\n  {}", self.ink_soft(sub)));
+        }
+
+        lines.join("\n")
+    }
+
     /// Render an elegant Vitreous boxed card.
     pub fn card(&self, title: &str, lines: &[String]) -> String {
         if !self.active {

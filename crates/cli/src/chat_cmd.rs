@@ -8,7 +8,7 @@ pub fn handle(prompt: Option<&str>, styler: &Styler, as_json: bool) -> Result<Va
             if !styler.active {
                 return Err("Interactive chat requires a TTY. Pass prompt as an argument.".into());
             }
-            println!("{}", styler.bold(&styler.artery("NOEMA Interactive Code Assistant (type 'exit' to quit)")));
+            println!("\n{}\n", styler.banner(Some("Interactive Code Assistant")));
             println!("{}", styler.dim("Connected to Thalamus inference engine. Multi-model routing active.\n"));
             use std::io::Write;
             print!("{} ", styler.bold(&styler.nerve("noema>")));

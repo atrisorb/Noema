@@ -2,9 +2,13 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
-## [0.5.22] - 2026-10-31 - Automatic PATH Management & GitHub Releases Auto-Updater
+## [0.5.22] - 2026-10-31 - Automatic PATH Management, GitHub Auto-Updater & Vitreous Code CLI
 
 ### Added
+- Vitreous Terminal ASCII Wordmark & Session Styling (`crates/cli/src/theme.rs`, `crates/cli/src/main.rs`):
+  - Added 5-line precision ASCII wordmark lockup (`banner`) in artery coral (`#FF5A5F`) and nerve amber (`#FFC857`) adhering strictly to `docs/design/NOEMA_DESIGN_SYSTEM.md`.
+  - Integrated ASCII wordmark into `noema session [resume|list]`, `noema status`, `noema doctor`, `noema chat`, and `noema --help`.
+  - Enhanced `noema session resume` with working session cards (active agent, model, branch, git diff stat) and `noema session list` with formatted Unicode tables, seamlessly reading local SQLite WAL store if daemon is offline.
 - Automated PATH Engine (`crates/core/src/path_env.rs`):
   - Added cross-platform PATH management with permanent registry updates on Windows (`HKCU\Environment`), environment broadcast, duplicate detection, broken path pruning, and companion toolchain discovery (`SolidCraft`, `CADCraft`, `Driftwatch`, `Cargo`).
   - Added CLI command `noema path [status|add|remove|clean|setup]` and bridge endpoints `GET/POST /api/system/path`.
@@ -22,7 +26,7 @@ All notable changes. Newest first. One entry per completed block/commit.
 
 ### Verified
 - `cargo test --workspace`: clean (68 tests passing across all crates).
-- Live execution on Windows: `F:\NOEMA` installed, enrolled in user PATH, verified via `noema path status` and `noema update --check`.
+- Live execution on Windows: `F:\NOEMA` installed, enrolled in user PATH, verified via `noema path status`, `noema doctor`, `noema session resume`, and `noema update --check`.
 
 ## [0.5.21] - 2026-10-31 - Linux Packaging Harmonisation & Release Collision Fix
 

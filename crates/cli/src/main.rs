@@ -110,7 +110,7 @@ fn main() -> ExitCode {
         "brain" => brain(&args[1..]),
         "system" => system(&args[1..]),
         "studio" => studio(&args[1..]),
-        "session" => session(&args[1..]),
+        "session" => session(&args[1..], &styler, as_json),
         "path" => path(&args[1..], &styler, as_json),
         "update" => update(&args[1..], &styler, as_json),
         "methods" => {
@@ -182,20 +182,7 @@ fn main() -> ExitCode {
 }
 
 fn print_help(styler: &Styler) {
-    if !styler.active {
-        println!("{HELP}");
-        return;
-    }
-
-    println!("\n{}", styler.card(
-        "NOEMA  ·  the anatomical mind (Code CLI)",
-        &[
-            format!("Version: {} · Cavity Vitreous Theme", styler.bold(&styler.artery(noema_core::VERSION))),
-            styler.dim("The anatomical mind and agentic coding environment"),
-            styler.dim("Run 'noema doctor' to verify all toolchains and system health."),
-        ]
-    ));
-
+    println!("\n{}\n", styler.banner(Some("The anatomical mind and agentic coding environment")));
     println!("{HELP}\n");
 }
 
@@ -248,6 +235,8 @@ fn status(styler: &Styler, as_json: bool) -> ExitCode {
                 return ExitCode::SUCCESS;
             }
 
+            println!("\n{}\n", styler.banner(Some("System & Session Status")));
+
             let source = value.get("source").and_then(Value::as_str).unwrap_or("daemon");
             let is_daemon = source == "daemon";
 
@@ -266,6 +255,9 @@ fn status(styler: &Styler, as_json: bool) -> ExitCode {
                     let id = session.get("id").and_then(Value::as_str).unwrap_or("-");
                     let title = session.get("title").and_then(Value::as_str).unwrap_or("active session");
                     lines.push(format!("Active Session: {} ({})", styler.bold(&styler.artery(id)), styler.ink(title)));
+                } else if let Some(last_session) = resume.get("last_session").and_then(Value::as_str) {
+                    let agent = resume.get("last_agent").and_then(Value::as_str).unwrap_or("noema-cortex");
+                    lines.push(format!("Active Session: {} (Agent: {})", styler.bold(&styler.artery(last_session)), styler.nerve(agent)));
                 }
             }
 
@@ -546,10 +538,62 @@ fn studio(args: &[String]) -> Result<Value, String> {
     }
 }
 
-fn session(args: &[String]) -> Result<Value, String> {
-    match args.first().map(String::as_str) {
-        None | Some("resume") => call("session.resume", json!({})),
-        Some("list") => {
+fn session(args: &[String], styler: &Styler, as_json: bool) -> Result<Value, String> {
+    let sub = args.first().map(String::as_str).unwrap_or("resume");
+    match sub {
+        "resume" => {
+            let res = call("session.resume", json!({})).or_else(|offline| {
+                let db = data_dir().join("noema.db");
+                Store::open(&db)
+                    .and_then(|store| store.resume())
+                    .map(|resume| json!({ "resume": resume, "source": "local", "offline_reason": offline }))
+                    .map_err(|e| e.to_string())
+            })?;
+
+            if as_json {
+                return Ok(res);
+            }
+
+            println!("\n{}\n", styler.banner(Some("Session Resume Checkpoint")));
+
+            let mut lines = Vec::new();
+            let session_data = res.get("session").or_else(|| res.get("resume"));
+            if let Some(session) = session_data {
+                let id = session.get("id").or_else(|| session.get("last_session")).and_then(Value::as_str).unwrap_or("none");
+                let agent = session.get("agent").or_else(|| session.get("last_agent")).and_then(Value::as_str).unwrap_or("noema-cortex");
+                let model = session.get("model").and_then(Value::as_str).unwrap_or("claude-sonnet-4-6");
+                let cwd = session.get("cwd").or_else(|| session.get("last_cwd")).and_then(Value::as_str).unwrap_or("-");
+                let branch = session.get("branch").or_else(|| session.get("last_branch")).and_then(Value::as_str).unwrap_or("main");
+
+                lines.push(format!("Session ID: {}", styler.bold(&styler.artery(id))));
+                lines.push(format!("Agent:      {}", styler.nerve(agent)));
+                lines.push(format!("Model:      {}", styler.vein(model)));
+                lines.push(format!("Branch:     {}", styler.lymph(branch)));
+                lines.push(format!("Workspace:  {}", styler.ink_muted(cwd)));
+
+                if let Some(diff) = res.get("diff_stat").or_else(|| session.get("diff_stat")) {
+                    let files = diff.get("files_changed").and_then(Value::as_u64).unwrap_or(0);
+                    let ins = diff.get("insertions").and_then(Value::as_u64).unwrap_or(0);
+                    let del = diff.get("deletions").and_then(Value::as_u64).unwrap_or(0);
+                    lines.push(format!(
+                        "Diff Stat:  {} files · {} insertions (+) · {} deletions (-)",
+                        styler.ink(&files.to_string()),
+                        styler.lymph(&ins.to_string()),
+                        styler.danger(&del.to_string())
+                    ));
+                }
+            } else {
+                lines.push(styler.dim("No active working session found."));
+            }
+
+            lines.push(styler.dim("──────────────────────────────────────────────────────────"));
+            lines.push(format!("Resume interactive chat with: {}", styler.nerve("noema chat")));
+            lines.push(format!("List previous sessions with:     {}", styler.lymph("noema session list")));
+
+            println!("{}", styler.card("Active Working Session State", &lines));
+            Ok(res)
+        }
+        "list" => {
             let mut limit = 50u64;
             if let Some(i) = args.iter().position(|a| a == "--limit") {
                 limit = args
@@ -557,13 +601,51 @@ fn session(args: &[String]) -> Result<Value, String> {
                     .and_then(|v| v.parse().ok())
                     .ok_or("--limit needs a number")?;
             }
-            call("session.list", json!({ "limit": limit }))
+            let res = call("session.list", json!({ "limit": limit })).or_else(|_offline| {
+                let db = data_dir().join("noema.db");
+                let store = Store::open(&db).map_err(|e| e.to_string())?;
+                store.list_sessions(limit as u32).map(|sessions| json!({ "sessions": sessions })).map_err(|e| e.to_string())
+            })?;
+
+            if as_json {
+                return Ok(res);
+            }
+
+            println!("\n{}\n", styler.banner(Some("Session History Index")));
+
+            let empty = Vec::new();
+            let sessions = res.get("sessions").and_then(Value::as_array).unwrap_or(&empty);
+
+            if sessions.is_empty() {
+                println!("  No previous sessions recorded in store.\n");
+            } else {
+                let headers = ["Session ID", "Agent", "Model", "Branch", "Workspace"];
+                let rows: Vec<Vec<String>> = sessions.iter().map(|s| {
+                    let id = s.get("id").and_then(Value::as_str).unwrap_or("-");
+                    let agent = s.get("agent").and_then(Value::as_str).unwrap_or("-");
+                    let model = s.get("model").and_then(Value::as_str).unwrap_or("-");
+                    let branch = s.get("branch").and_then(Value::as_str).unwrap_or("main");
+                    let cwd = s.get("cwd").and_then(Value::as_str).unwrap_or("-");
+                    vec![
+                        styler.bold(&styler.artery(id)),
+                        styler.nerve(agent),
+                        styler.vein(model),
+                        styler.lymph(branch),
+                        styler.ink_muted(cwd),
+                    ]
+                }).collect();
+
+                println!("{}", styler.table(&headers, &rows));
+                println!("  Total recorded sessions: {}\n", styler.lymph(&sessions.len().to_string()));
+            }
+
+            Ok(res)
         }
-        Some("open") => {
+        "open" => {
             let session = parse_body(args.get(1))?;
             call("session.open", json!({ "session": session }))
         }
-        Some(other) => Err(format!("unknown session command: {other}")),
+        other => Err(format!("unknown session command: {other}")),
     }
 }
 

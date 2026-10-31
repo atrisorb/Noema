@@ -274,6 +274,8 @@ pub fn run(styler: &Styler, as_json: bool) -> Result<Value, String> {
     }
 
     // Render interactive styled output
+    println!("\n{}\n", styler.banner(Some("System & Code Diagnostics")));
+
     let mut lines = Vec::new();
     let mut current_cat = "";
 
