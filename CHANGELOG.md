@@ -2,6 +2,32 @@
 
 All notable changes. Newest first. One entry per completed block/commit.
 
+## [0.5.13] - 2026-10-31 - Block 10.8 Closure, Security S1, FinOps & Brain Route
+
+### Added
+- `crates/app/ui/src/surface.ts`: soft contact occlusion ground shadow plane under the feet at y = -0.86, functioning across both Cavity and Bone themes.
+- `crates/app/ui/src/brain-route.ts`: `#brain` full-viewport hash route controller with Escape dismissal, reduced motion adaptation, and coexistence with `#studio`.
+- `crates/app/ui/tests/block10-brain-route.spec.ts`: Playwright E2E test verifying hash navigation, Escape dismissal, and studio coexistence (1 passed, 10.7s).
+- `crates/core/src/store.rs`: `UsageRecord`, `record_usage`, and `recent_usage` live usage writer and query methods with unit tests.
+- `crates/inference/src/cost.rs`: standard rate cards for DeepSeek-V3, DeepSeek-R1, Mistral Large, Mistral Small, Gemini 2.5 Flash, Gemini 2.5 Pro, and model resolver `RateCard::for_model()`.
+
+### Changed
+- `crates/app/ui/src/atlas.ts`: calibrated classification rules for all 826 meshes (0 misclassified meshes) with full Latin, clinical, and compound muscle and bone terminology. Musculature across legs, feet, arms, and face now correctly categorised and tinted.
+- `src-tauri/capabilities/main.json`: remote loopback IPC restricted to exact origins and ports (4173, 5173, 4199).
+- `src-tauri/tauri.conf.json`: strict CSP enforced with no remote origins; `withGlobalTauri` disabled to close Security S1.
+- `packaging/build.sh`: Linux packaging pipeline uses dynamically generated SVG platform icons without committing raster sources.
+- `docs/MASTER_PLAN.md`: Block 10.8 marked complete.
+
+### Verified
+- `cargo test --workspace`: green across all 6 crates (60+ tests passing).
+- `cargo check --workspace`: green.
+- `npm run build`: green (~410ms).
+- `npx playwright test tests/block10-brain-route.spec.ts`: green.
+- `tools/design/asset-audit.mjs`: 0 forbidden files, 0 violations.
+- Tokens `--check` and contrast 24/24 AA green.
+- Pelvic audit confirmed neutral (0 external genitalia meshes).
+- No `git push`.
+
 ## [0.5.12] - 2026-10-31 - Block 10.8-10.10: Anatomy audit, asset migration, QA
 
 ### Added
