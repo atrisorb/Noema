@@ -612,6 +612,7 @@ fn probe() -> RawProbe {
 fn probe() -> RawProbe {
     let mut raw = base_probe();
     raw.hostname = std::fs::read_to_string("/proc/sys/kernel/hostname")
+        .ok()
         .map(|s| s.trim().to_string())
         .filter(|s| !s.is_empty())
         .unwrap_or(raw.hostname);

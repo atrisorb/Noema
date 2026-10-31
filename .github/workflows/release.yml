@@ -6,7 +6,7 @@ on:
     tags: ["v*"]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   package:
@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-14, ubuntu-24.04]
+        os: [windows-latest, macos-15, ubuntu-24.04]
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
@@ -24,6 +24,9 @@ jobs:
           node-version: 26
           cache: npm
           cache-dependency-path: crates/app/ui/package-lock.json
+
+      - name: Generate platform icons
+        run: node tools/design/build-icons.mjs
 
       - name: Tauri Linux dependencies
         if: runner.os == 'Linux'
@@ -76,3 +79,11 @@ jobs:
           name: noema-${{ matrix.os }}
           path: dist/**
           if-no-files-found: error
+
+      - name: Publish to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.*
+            dist/tauri/*.*

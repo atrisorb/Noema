@@ -4,6 +4,15 @@
 
 ## Current state
 
+- **CI / Packaging & Multi-Platform Release Pipeline Hardened (Axon / Cortex - 2026-10-31):**
+  - Resolved GitHub Actions release runner failures:
+    - `macos-14` brownout retirement: upgraded runner to `macos-15`.
+    - Linux target compilation error E0599: fixed `.filter()` method resolution on `std::io::Result` in `crates/core/src/hardware.rs` by inserting `.ok()`.
+    - Windows clean-checkout test failure: added `node tools/design/build-icons.mjs` step before `cargo test --workspace` so Tauri's Windows resource compiler (`tauri-build`) finds `icon.ico`.
+    - Release asset publishing: elevated workflow permissions to `contents: write` and wired `softprops/action-gh-release@v2` on tag triggers to upload generated bundles (`.exe`, `.msi`, `.dmg`, `.AppImage`, `.deb`, `.rpm`, `.zip`, `.tar.gz`) directly to GitHub Releases.
+  - Aligned package version to `0.5.15` in `Cargo.toml` and `src-tauri/tauri.conf.json` so build artifacts (`noema-0.5.15-*`) match git tag `v0.5.15`.
+  - Full workspace check and 64 tests passing green.
+
 - **Exhaustive 2026 Model Catalog & Multi-Provider Architecture (Thalamus - 2026-10-31):**
   - Implemented exhaustive October 2026 frontier model registry across all 10 providers (45+ active and deprecated models mapped) in `crates/inference/src/cost.rs`:
     - **Google Gemini**: `gemini-4-argon` (unified 1M window flagship, $2.00/$10.00, $0.10 implicit 95% cache discount, default thinking 32k), `gemini-3.8-flash` ($0.75/$3.75), `gemini-3.5-flash-lite` ($0.30/$2.50), `gemini-3.1-pro` ($2.00/$12.00), `gemini-3.8-live` ($1.00/$4.00 native audio/video), `gemini-2.5-flash` ($0.075/$0.30), `gemini-2.5-pro` ($1.25/$5.00), `gemini-2.0-flash` ($0.10/$0.40). Deprecated/Legacy mappings: `gemini-1.5-pro` (replaced by `gemini-4-argon`), `gemini-1.5-flash` (replaced by `gemini-2.5-flash`), `gemini-1.0-pro` (sunset).
